@@ -160,7 +160,7 @@ export default function CreateListing() {
                         type="text"
                         value={form.sellerDiscordId}
                         onChange={e => setForm({ ...form, sellerDiscordId: e.target.value })}
-                        placeholder="e.g. kerry#1234"
+                        placeholder="e.g. username#1234"
                         required
                         className={styles.input}
                     />
