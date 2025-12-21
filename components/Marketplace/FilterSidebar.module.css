@@ -1,0 +1,68 @@
+.sidebar {
+    width: 250px;
+    flex-shrink: 0;
+    padding-right: 2rem;
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.heading {
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--muted-foreground);
+    letter-spacing: 0.05em;
+}
+
+.select,
+.input {
+    padding: 0.5rem;
+    border-radius: var(--radius);
+    border: 1px solid var(--input);
+    font-size: 0.9rem;
+    width: 100%;
+}
+
+.row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.separator {
+    color: var(--muted-foreground);
+}
+
+.checkboxGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.checkboxLabel {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+/* Responsive: Sidebar becomes top bar or drawer on mobile? For now static. */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+        padding-right: 0;
+        padding-bottom: 1rem;
+        margin-bottom: 1rem;
+    }
+}

@@ -1,0 +1,83 @@
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  
+  --primary: #0070f3;
+  --primary-foreground: #ffffff;
+  
+  --muted: #f5f5f5;
+  --muted-foreground: #737373;
+  
+  --border: #e5e5e5;
+  --input: #e5e5e5;
+  --ring: #0a0a0a;
+  
+  --radius: 0.5rem;
+  
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Keep it white-themed as requested, maybe slightly dimmer for dark mode support if needed, but request said "sleek, white-themed" explicitly. 
+       I will stick to light theme as primary but provide values just in case user system is dark.
+       Actually, user explicitly said "white-themed", often meaning they want that specific look always.
+       I will force light theme vars for now or just standard dark mode variations.
+    */
+    --background: #ffffff; /* Enforce white theme per request */
+    --foreground: #171717;
+    /* If user wanted dark mode, they'd ask or implied. "White-themed" implies a specific aesthetic. */
+  }
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Utilities */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius);
+  font-weight: 500;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  border: 1px solid transparent;
+}
+
+.btn-primary {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+}
+
+.btn-outline {
+  border-color: var(--border);
+  background: transparent;
+}
+
+.btn:hover {
+  opacity: 0.9;
+}
