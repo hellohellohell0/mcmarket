@@ -44,17 +44,32 @@ export default function SkinViewer({ skinUrl, width = 300, height = 400 }: SkinV
         viewer.fov = 50;
         viewer.zoom = 0.9;
 
-        // Lighting: Default is usually fine, but NameMC is bright.
-        viewer.globalLight.intensity = 0.8;
-        viewer.cameraLight.intensity = 0.6;
+        // Lighting: Much brighter to fix "super low" brightness
+        viewer.globalLight.intensity = 3.0;
+        viewer.cameraLight.intensity = 0.8;
 
         viewer.controls.enableZoom = true;
         viewer.controls.enableRotate = true;
         // viewer.controls.enablePan = false;
 
-        // Animation: Idle for natural standing
-        viewer.animation = new skinview3d.IdleAnimation();
-        viewer.animation.speed = 1;
+        // Animation: None (we want frozen pose)
+        viewer.animation = null;
+
+        // Apply "Frozen Mid-Walk" pose when skin loads
+        viewer.addEventListener("skinLoaded", () => {
+            const player = viewer.playerObject;
+            if (player) {
+                // Legs (Swing)
+                player.skin.leftLeg.rotation.x = 0.5;
+                player.skin.rightLeg.rotation.x = -0.5;
+
+                // Arms (Counter-swing)
+                player.skin.leftArm.rotation.x = -0.5;
+                player.skin.rightArm.rotation.x = 0.5;
+
+                // Slight body rotation/bob if desired, but "frozen mid-walk" implies just limbs.
+            }
+        });
 
         viewerRef.current = viewer;
 
