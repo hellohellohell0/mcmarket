@@ -5,16 +5,13 @@ import { useActionState } from 'react';
 import styles from './page.module.css';
 
 export default function AdminLogin() {
-    // Correct usage of useActionState might depend on Next.js version (14/15?).
-    // Fallback to simple form submission if hook is tricky, but let's try standard approach or just a refined handleSubmit.
-
-    // Using a simpler client-side wrapper for the server action to handle redirect/error
-    // But since adminLogin redirects on success, we just need to handle error return.
+    const [state, formAction, isPending] = useActionState(adminLogin, null);
 
     return (
         <div className={styles.container}>
-            <form action={adminLogin} className={styles.form}>
+            <form action={formAction} className={styles.form}>
                 <h1 className={styles.title}>Admin Access</h1>
+                {state?.error && <div style={{ color: '#ef4444', textAlign: 'center' }}>{state.error}</div>}
                 <input
                     name="username"
                     type="text"
@@ -29,7 +26,9 @@ export default function AdminLogin() {
                     className={styles.input}
                     required
                 />
-                <button type="submit" className={styles.button}>Login</button>
+                <button type="submit" className={styles.button} disabled={isPending}>
+                    {isPending ? 'Logging in...' : 'Login'}
+                </button>
             </form>
         </div>
     );
