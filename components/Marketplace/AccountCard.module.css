@@ -3,24 +3,24 @@
     border-radius: var(--radius);
     overflow: hidden;
     background: var(--background);
-    transition: transform 0.2s, box-shadow 0.2s;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     display: flex;
     flex-direction: column;
     position: relative;
+    text-decoration: none;
+    color: inherit;
 }
 
 .card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--primary);
 }
 
 .imageContainer {
-    /* Square aspect ratio */
-    aspect-ratio: 1 / 1;
-    height: auto;
-    /* Remove fixed height */
+    aspect-ratio: 1;
     width: 100%;
-    background: #f0f0f0;
+    background: var(--muted);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -29,32 +29,93 @@
     border-bottom: 1px solid var(--border);
 }
 
-/* ... existing styles ... */
+.placeholderSkin {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, var(--muted), var(--background));
+    opacity: 0.5;
+}
+
+.capesOverlay {
+    position: absolute;
+    bottom: 0.5rem;
+    right: 0.5rem;
+    display: flex;
+    gap: 0.25rem;
+    max-width: 100%;
+    flex-wrap: wrap-reverse;
+    justify-content: flex-end;
+    pointer-events: none;
+}
+
+.capeIcon {
+    width: 24px;
+    height: auto;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.content {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex: 1;
+}
+
+.username {
+    font-size: 1.125rem;
+    font-weight: 700;
+    margin: 0;
+    line-height: 1.3;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: var(--foreground);
+}
+
+.description {
+    font-size: 0.875rem;
+    color: var(--muted-foreground);
+    margin: 0;
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: 2.625rem;
+    /* Ensure consistent height for 2 lines */
+}
 
 .prices {
     display: flex;
-    /* Put them on the same side (left, usually) with a gap, instead of space-between? */
-    /* "dont put co and bin on opposite sides put them on the same side" */
-    justify-content: flex-start;
-    gap: 1rem;
-    margin-top: 0.5rem;
+    align-items: center;
+    gap: 1.5rem;
+    margin-top: auto;
+    padding-top: 1rem;
     border-top: 1px solid var(--border);
-    padding-top: 0.75rem;
 }
 
 .priceItem {
     display: flex;
     flex-direction: column;
+    gap: 0.125rem;
 }
 
 .label {
-    font-size: 0.7rem;
+    font-size: 0.65rem;
     color: var(--muted-foreground);
     text-transform: uppercase;
-    font-weight: 600;
+    font-weight: 700;
+    letter-spacing: 0.05em;
 }
 
 .value {
+    font-size: 1rem;
     font-weight: 700;
     color: var(--foreground);
+    font-feature-settings: "tnum";
 }
