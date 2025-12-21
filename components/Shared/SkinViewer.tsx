@@ -28,6 +28,16 @@ export default function SkinViewer({ skinUrl, width = 300, height = 400 }: SkinV
         // globalLight.position...
         // camera position...
 
+        // Patch: If skinUrl contains '/helm/', replace with '/skin/' to fix legacy data
+        // This handles the "horrid" look if the user views old listings created with the bug
+        const fullSkinUrl = skinUrl.replace('/helm/', '/skin/').replace('/100.png', '');
+
+        // Ensure skin loads correctly (force 64x64 model or auto)
+        // skinview3d usually auto-detects from image dimensions if loaded via loadSkin
+        viewer.loadSkin(fullSkinUrl, {
+            model: 'auto-detect'
+        });
+
         // NameMC-like settings
         // Camera: Slightly zoomed out, angled
         viewer.camera.position.set(15, 10, 40);
@@ -42,28 +52,9 @@ export default function SkinViewer({ skinUrl, width = 300, height = 400 }: SkinV
         viewer.controls.enableRotate = true;
         // viewer.controls.enablePan = false;
 
-        // Animation: NameMC is static by default on profile, but user asked for "middle of a walking position" before, 
-        // but now says "dont want it moving".
-        // I will set it to a static "Idle" or "Walk" pose frozen?
-        // NameMC main view is just standing (Idle).
-        // Let's use IdleAnimation but speed 0 to stand still naturally? Or just null (T-pose/A-pose defaults).
-        // skinview3d default pose is A-pose which looks awkward.
-        // NameMC uses a standing pose.
-        viewer.animation = null; // No animation object = default pose (A-pose usually).
-        // To get a nice standing pose, we can use IdleAnimation with speed 0? 
-        // Or manually set rotation.
-        // Let's try IdleAnimation with speed 0.
-        // viewer.animation = new skinview3d.IdleAnimation();
-        // viewer.animation.speed = 0; 
-
-        // Actually, NameMC is just straight standing.
-        // Let's leave animation null, but maybe adjust arms if it looks like A-pose.
-        // skinview3d default is straight arms (Steve default).
-
-        // Load skin
-        viewer.loadSkin(skinUrl, {
-            model: 'auto-detect'
-        });
+        // Animation: Idle for natural standing
+        viewer.animation = new skinview3d.IdleAnimation();
+        viewer.animation.speed = 1;
 
         viewerRef.current = viewer;
 

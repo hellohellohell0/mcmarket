@@ -108,8 +108,8 @@ export async function POST(request: Request) {
         }
 
         // Fetch skin URL (mock or external API). User said "Use minecraft api".
-        // Minotar or Crafatar. https://minotar.net/helm/{username}/100.png
-        const skinUrl = `https://minotar.net/helm/${username}/100.png`;
+        // Minotar or Crafatar. https://minotar.net/skin/{username} gets the full skin texture needed for 3D model.
+        const skinUrl = `https://minotar.net/skin/${username}`;
 
         const newListing = await prisma.listing.create({
             data: {
