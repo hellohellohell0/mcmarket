@@ -7,9 +7,10 @@ interface SkinViewerProps {
     skinUrl: string;
     width?: number;
     height?: number;
+    staticModel?: boolean;
 }
 
-export default function SkinViewer({ skinUrl, width = 300, height = 400 }: SkinViewerProps) {
+export default function SkinViewer({ skinUrl, width = 300, height = 400, staticModel = false }: SkinViewerProps) {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const viewerRef = useRef<skinview3d.SkinViewer | null>(null);
 
@@ -23,45 +24,34 @@ export default function SkinViewer({ skinUrl, width = 300, height = 400 }: SkinV
             skin: skinUrl,
         });
 
-        // Angle: Top-right angling down
-        // skinview3d coordinates: 
-        // globalLight.position...
-        // camera position...
-
-        // Patch: If skinUrl contains '/helm/', replace with '/skin/' to fix legacy data
-        // This handles the "horrid" look if the user views old listings created with the bug
-        const fullSkinUrl = skinUrl.replace('/helm/', '/skin/').replace('/100.png', '');
-
-        // Ensure skin loads correctly (force 64x64 model or auto)
-        // skinview3d usually auto-detects from image dimensions if loaded via loadSkin
-        viewer.loadSkin(fullSkinUrl, {
-            model: 'auto-detect'
-        });
-
         // NameMC-like settings
-        // Camera: Slightly zoomed out, angled
         viewer.camera.position.set(15, 10, 40);
         viewer.fov = 50;
         viewer.zoom = 0.9;
 
-        // Lighting: Much brighter to fix "super low" brightness
+        // Lighting
         viewer.globalLight.intensity = 3.0;
         viewer.cameraLight.intensity = 0.8;
 
-        viewer.controls.enableZoom = true;
-        viewer.controls.enableRotate = true;
-        // viewer.controls.enablePan = false;
+        if (!staticModel) {
+            viewer.controls.enableZoom = true;
+            viewer.controls.enableRotate = true;
+        } else {
+            viewer.controls.enableZoom = false;
+            viewer.controls.enableRotate = false;
+        }
 
-        // Animation: None (we want frozen pose)
+        // Animation: None
         viewer.animation = null;
 
-        // Ensure skin loads correctly (force 64x64 model or auto)
-        // skinview3d usually auto-detects from image dimensions if loaded via loadSkin
+        // Patch URL and Load
+        const fullSkinUrl = skinUrl.replace('/helm/', '/skin/').replace('/100.png', '');
+
         viewer.loadSkin(fullSkinUrl, {
             model: 'auto-detect'
         })
             .then(() => {
-                // Apply "Frozen Mid-Walk" pose when skin loads
+                // Apply "Frozen Mid-Walk" pose
                 const player = viewer.playerObject;
                 if (player) {
                     // Legs (Swing)
@@ -79,9 +69,9 @@ export default function SkinViewer({ skinUrl, width = 300, height = 400 }: SkinV
         return () => {
             viewer.dispose();
         };
-    }, [skinUrl, width, height]);
+    }, [skinUrl, width, height, staticModel]);
 
     return (
-        <canvas ref={canvasRef} style={{ width, height, cursor: 'move' }} />
+        <canvas ref={canvasRef} style={{ width, height, cursor: staticModel ? 'default' : 'move' }} />
     );
 }

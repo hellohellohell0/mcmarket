@@ -95,6 +95,15 @@ export default function Dashboard() {
         fetchProfileData();
     };
 
+    const handleDeleteListing = async (id: string) => {
+        if (!confirm('Are you sure you want to delete this listing?')) return;
+
+        await fetch(`/api/listings/${id}`, {
+            method: 'DELETE'
+        });
+        fetchProfileData();
+    };
+
     if (loading) return <div className="container">Loading...</div>;
     if (!user) return <div className="container">Please login.</div>;
 
@@ -160,12 +169,19 @@ export default function Dashboard() {
                             <div className={styles.listingsList}>
                                 {myListings.map((l: any) => (
                                     <div key={l.id} className={styles.listingRow}>
-                                        <img src={l.skinUrl} className={styles.listingSkin} alt="" />
+                                        <img
+                                            src={`https://minotar.net/helm/${l.username}/32.png`}
+                                            className={styles.listingSkin}
+                                            alt={l.username}
+                                        />
                                         <div>
                                             <div className={styles.listingName}>{l.username}</div>
                                             <div className={styles.listingPrice}>BIN: ${l.priceBin}</div>
                                         </div>
-                                        <Link href={`/listings/${l.id}`} className={styles.viewLink}>View</Link>
+                                        <div className={styles.actions}>
+                                            <Link href={`/listings/${l.id}`} className={styles.viewLink}>View</Link>
+                                            <button onClick={() => handleDeleteListing(l.id)} className={styles.deleteBtn}>Delete</button>
+                                        </div>
                                     </div>
                                 ))}
                             </div>

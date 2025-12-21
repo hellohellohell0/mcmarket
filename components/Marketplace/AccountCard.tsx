@@ -1,24 +1,14 @@
 import Link from 'next/link';
-import { useMemo } from 'react';
+import { Listing, Cape } from '@prisma/client';
 import styles from './AccountCard.module.css';
+import SkinViewer from '@/components/Shared/SkinViewer';
 
-interface Cape {
-    id: string;
-    name: string;
-}
-
-interface Listing {
-    id: string;
-    username: string;
-    description: string;
-    priceCurrentOffer: number | null;
-    priceBin: number | null;
-    skinUrl: string | null;
+// Setup relation type manually if needed, or assume Listing includes relations
+interface ListingWithRelations extends Listing {
     capes: Cape[];
 }
 
-export default function AccountCard({ listing }: { listing: Listing }) {
-    // Mock capes images mapping based on name
+export default function AccountCard({ listing }: { listing: ListingWithRelations }) {
     const getCapeImage = (name: string) => {
         return `/assets/capes/${name}.png`;
     };
@@ -27,7 +17,9 @@ export default function AccountCard({ listing }: { listing: Listing }) {
         <Link href={`/listings/${listing.id}`} className={styles.card}>
             <div className={styles.imageContainer}>
                 {listing.skinUrl ? (
-                    <img src={listing.skinUrl} alt={listing.username} className={styles.skin} />
+                    <div style={{ pointerEvents: 'none', display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%', overflow: 'hidden' }}>
+                        <SkinViewer skinUrl={listing.skinUrl} width={180} height={240} staticModel={true} />
+                    </div>
                 ) : (
                     <div className={styles.placeholderSkin} />
                 )}
@@ -35,7 +27,14 @@ export default function AccountCard({ listing }: { listing: Listing }) {
                 {listing.capes.length > 0 && (
                     <div className={styles.capesOverlay}>
                         {listing.capes.map(cape => (
-                            <img key={cape.id} src={getCapeImage(cape.name)} alt={cape.name} className={styles.capeIcon} title={cape.name} />
+                            <img
+                                key={cape.id}
+                                src={getCapeImage(cape.name)}
+                                alt={cape.name}
+                                className={styles.capeIcon}
+                                title={cape.name}
+                                onError={(e) => { (e.target as HTMLImageElement).src = '/assets/capes/placeholder.png' }}
+                            />
                         ))}
                     </div>
                 )}
