@@ -62,7 +62,7 @@ export async function GET(request: Request) {
         });
 
         // In-memory filtering for username length and offer=0 logic refinement if needed
-        const filtered = listings.filter(l => {
+        const filtered = listings.filter((l: any) => {
             if (l.priceCurrentOffer === 0) return false;
             if (minLen && l.username.length < minLen) return false;
             if (maxLen && l.username.length > maxLen) return false;
