@@ -15,7 +15,11 @@
 }
 
 .imageContainer {
-    height: 200px;
+    /* Square aspect ratio */
+    aspect-ratio: 1 / 1;
+    height: auto;
+    /* Remove fixed height */
+    width: 100%;
     background: #f0f0f0;
     display: flex;
     align-items: center;
@@ -25,64 +29,14 @@
     border-bottom: 1px solid var(--border);
 }
 
-.skin {
-    height: 80%;
-    object-fit: contain;
-    image-rendering: pixelated;
-    /* Essential for MC skins */
-}
-
-.placeholderSkin {
-    width: 64px;
-    height: 64px;
-    background: #ddd;
-}
-
-.capesOverlay {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-
-.capeIcon {
-    width: 24px;
-    height: auto;
-    image-rendering: pixelated;
-    background: rgba(0, 0, 0, 0.1);
-    border-radius: 2px;
-}
-
-.content {
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    flex: 1;
-}
-
-.username {
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: var(--foreground);
-}
-
-.description {
-    font-size: 0.875rem;
-    color: var(--muted-foreground);
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    margin-bottom: auto;
-    /* Push prices down */
-}
+/* ... existing styles ... */
 
 .prices {
     display: flex;
-    justify-content: space-between;
+    /* Put them on the same side (left, usually) with a gap, instead of space-between? */
+    /* "dont put co and bin on opposite sides put them on the same side" */
+    justify-content: flex-start;
+    gap: 1rem;
     margin-top: 0.5rem;
     border-top: 1px solid var(--border);
     padding-top: 0.75rem;

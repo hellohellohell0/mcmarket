@@ -61,11 +61,44 @@ export async function GET(request: Request) {
             orderBy
         });
 
-        // In-memory filtering for username length and offer=0 logic refinement if needed
+        // In-memory filtering for username length, offer=0, and PRICE RANGE
         const filtered = listings.filter((l: any) => {
             if (l.priceCurrentOffer === 0) return false;
             if (minLen && l.username.length < minLen) return false;
             if (maxLen && l.username.length > maxLen) return false;
+
+            // Price Range Filter: Check if EITHER price falls within range (or specific type if we implemented type filter logic deeper)
+            // User requirement: "add a filter to adjust the price range of the products and this will also apply to the bin/co chosen in the price type"
+
+            // Determine effective price to check based on what is displayed/available? 
+            // Or check if ANY price matches?
+            // Usually, if I want max $100, I want anything buyable for <$100.
+
+            // Let's gather valid prices for this listing
+            const prices = [];
+            if (l.priceBin !== null) prices.push(l.priceBin);
+            if (l.priceCurrentOffer !== null && l.priceCurrentOffer !== 0) prices.push(l.priceCurrentOffer);
+
+            // If no valid prices, maybe filter out? Or keep?
+            if (prices.length === 0) return false;
+
+            // If min/max price set, at least ONE price must match the criteria? 
+            // OR all available prices must match? 
+            // "apply to the bin/co chosen in the price type" -> this implies interaction with countType.
+
+            const minP = searchParams.get('minPrice') ? parseFloat(searchParams.get('minPrice')!) : null;
+            const maxP = searchParams.get('maxPrice') ? parseFloat(searchParams.get('maxPrice')!) : null;
+
+            if (minP !== null || maxP !== null) {
+                // Check if any price fits
+                const hasMatchingPrice = prices.some(p => {
+                    if (minP !== null && p < minP) return false;
+                    if (maxP !== null && p > maxP) return false;
+                    return true;
+                });
+                if (!hasMatchingPrice) return false;
+            }
+
             return true;
         });
 

@@ -32,8 +32,22 @@
 
 .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    /* Desktop: 3 columns. Use auto-fill with minmax to handle responsiveness but prioritizing ~3 cols on standard screens */
+    /* If specifically want 3 cols at "normal desktop dimensions" (e.g. >1024px), we can force it or stick to auto-fill */
+    grid-template-columns: repeat(3, 1fr);
     gap: 1.5rem;
+}
+
+@media (max-width: 1024px) {
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 640px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 .loading,

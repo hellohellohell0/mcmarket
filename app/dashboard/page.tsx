@@ -131,7 +131,7 @@ export default function Dashboard() {
                         </form>
                     </section>
 
-                    <section className={styles.section}>
+                    <div className={styles.section}>
                         <h2>Contact Information</h2>
                         <p className={styles.hint}>You must add at least one contact method to sell accounts.</p>
                         <div className={styles.contactList}>
@@ -157,7 +157,51 @@ export default function Dashboard() {
                             />
                             <Button type="submit" variant="outline">Add</Button>
                         </form>
-                    </section>
+                    </div>
+
+                    <div className={styles.section}>
+                        <h2>Account Settings</h2>
+
+                        {/* Change Username */}
+                        <form onSubmit={async (e) => {
+                            e.preventDefault();
+                            const newName = (e.currentTarget.elements.namedItem('newUsername') as HTMLInputElement).value;
+                            const res = await fetch('/api/user/settings/username', {
+                                method: 'POST', body: JSON.stringify({ newUsername: newName })
+                            });
+                            const data = await res.json();
+                            if (data.error) alert(data.error);
+                            else { alert('Username updated'); refreshUser(); }
+                        }} className={styles.form} style={{ marginBottom: '2rem' }}>
+                            <div className={styles.field}>
+                                <label>Change Username</label>
+                                <input name="newUsername" placeholder="New Username" className={styles.input} required />
+                            </div>
+                            <Button type="submit" variant="outline">Update Username</Button>
+                        </form>
+
+                        {/* Change Password */}
+                        <form onSubmit={async (e) => {
+                            e.preventDefault();
+                            const current = (e.currentTarget.elements.namedItem('currentPassword') as HTMLInputElement).value;
+                            const newPass = (e.currentTarget.elements.namedItem('newPassword') as HTMLInputElement).value;
+                            const res = await fetch('/api/user/settings/password', {
+                                method: 'POST', body: JSON.stringify({ currentPassword: current, newPassword: newPass })
+                            });
+                            const data = await res.json();
+                            if (data.error) alert(data.error);
+                            else { alert('Password updated'); (e.target as HTMLFormElement).reset(); }
+                        }} className={styles.form}>
+                            <div className={styles.field}>
+                                <label>Change Password</label>
+                                <input type="password" name="currentPassword" placeholder="Current Password" className={styles.input} required />
+                            </div>
+                            <div className={styles.field}>
+                                <input type="password" name="newPassword" placeholder="New Password" className={styles.input} style={{ marginTop: '0.5rem' }} required />
+                            </div>
+                            <Button type="submit" variant="outline">Update Password</Button>
+                        </form>
+                    </div>
                 </div>
 
                 <div className={styles.column}>

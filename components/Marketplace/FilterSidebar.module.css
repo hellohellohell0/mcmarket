@@ -55,14 +55,55 @@
     cursor: pointer;
 }
 
-/* Responsive: Sidebar becomes top bar or drawer on mobile? For now static. */
+/* Responsive */
 @media (max-width: 768px) {
     .sidebar {
         width: 100%;
         border-right: none;
-        border-bottom: 1px solid var(--border);
+        border-bottom: none;
         padding-right: 0;
-        padding-bottom: 1rem;
         margin-bottom: 1rem;
+    }
+
+    .mobileToggle {
+        display: block;
+        width: 100%;
+        padding: 0.75rem;
+        background: var(--background);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        margin-bottom: 1rem;
+        text-align: left;
+        font-weight: 600;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .filtersContent {
+        display: none;
+        border: 1px solid var(--border);
+        padding: 1rem;
+        border-radius: var(--radius);
+        background: var(--background);
+    }
+
+    .filtersContent.open {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+    }
+}
+
+@media (min-width: 769px) {
+    .mobileToggle {
+        display: none;
+    }
+
+    .filtersContent {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
     }
 }
