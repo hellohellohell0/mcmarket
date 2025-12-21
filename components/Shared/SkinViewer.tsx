@@ -35,9 +35,14 @@ export default function SkinViewer({ skinUrl, width = 300, height = 400 }: SkinV
         viewer.controls.enableRotate = true;
         // viewer.controls.enablePan = false;
 
-        // Animation: Walking
-        viewer.animation = new skinview3d.WalkingAnimation();
-        // viewer.animation.speed = 0.5;
+        // Disable animation
+        viewer.animation = null;
+
+        // Ensure skin loads correctly (force 64x64 model or auto)
+        // skinview3d usually auto-detects from image dimensions if loaded via loadSkin
+        viewer.loadSkin(skinUrl, {
+            model: 'auto-detect' // Attempt auto-detection
+        });
 
         viewerRef.current = viewer;
 
