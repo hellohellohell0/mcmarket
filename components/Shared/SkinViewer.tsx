@@ -55,21 +55,24 @@ export default function SkinViewer({ skinUrl, width = 300, height = 400 }: SkinV
         // Animation: None (we want frozen pose)
         viewer.animation = null;
 
-        // Apply "Frozen Mid-Walk" pose when skin loads
-        viewer.addEventListener("skinLoaded", () => {
-            const player = viewer.playerObject;
-            if (player) {
-                // Legs (Swing)
-                player.skin.leftLeg.rotation.x = 0.5;
-                player.skin.rightLeg.rotation.x = -0.5;
+        // Ensure skin loads correctly (force 64x64 model or auto)
+        // skinview3d usually auto-detects from image dimensions if loaded via loadSkin
+        viewer.loadSkin(fullSkinUrl, {
+            model: 'auto-detect'
+        })
+            .then(() => {
+                // Apply "Frozen Mid-Walk" pose when skin loads
+                const player = viewer.playerObject;
+                if (player) {
+                    // Legs (Swing)
+                    player.skin.leftLeg.rotation.x = 0.5;
+                    player.skin.rightLeg.rotation.x = -0.5;
 
-                // Arms (Counter-swing)
-                player.skin.leftArm.rotation.x = -0.5;
-                player.skin.rightArm.rotation.x = 0.5;
-
-                // Slight body rotation/bob if desired, but "frozen mid-walk" implies just limbs.
-            }
-        });
+                    // Arms (Counter-swing)
+                    player.skin.leftArm.rotation.x = -0.5;
+                    player.skin.rightArm.rotation.x = 0.5;
+                }
+            });
 
         viewerRef.current = viewer;
 
