@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import Navbar from "@/components/Shared/Navbar";
-import { AuthProvider } from "@/lib/AuthContext";
+
 
 export const metadata: Metadata = {
   title: "MCMarket",
@@ -17,10 +17,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <AuthProvider>
-          <Navbar />
-          <main>{children}</main>
-        </AuthProvider>
+        <Navbar />
+        <main>{children}</main>
       </body>
     </html>
   );
