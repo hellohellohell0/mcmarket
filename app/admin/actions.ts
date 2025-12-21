@@ -8,7 +8,7 @@ import { ListingStatus } from '@prisma/client';
 const ADMIN_USER = 'ADMIN';
 const ADMIN_PASS = '4w1j?NB4&"T5>hOAI#K&a>3Sd;R#qtt@xx<<[';
 
-export async function adminLogin(formData: FormData) {
+export async function adminLogin(prevState: any, formData: FormData) {
     const username = formData.get('username') as string;
     const password = formData.get('password') as string;
 
