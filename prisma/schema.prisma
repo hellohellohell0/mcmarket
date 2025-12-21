@@ -24,8 +24,8 @@ model Listing {
   // Account Details
   username          String
   description       String
-  accountTypes      String        // Stored as comma-separated string or JSON. Simple string for now: "OG,High Tier"
-  nameChanges       Int           // 0-15 (15 means 15+)
+  accountTypes      String        @default("OG") // Stored as comma-separated string or JSON. Simple string for now: "OG,High Tier"
+  nameChanges       Int           @default(0) // 0-15 (15 means 15+)
   
   // Pricing
   priceCurrentOffer Float?
@@ -36,9 +36,9 @@ model Listing {
   capes             Cape[]
   
   // Seller Info (Guest)
-  sellerName        String
-  sellerDiscordId   String        // For admin notifications
-  publicContact     String        // Displayed to buyers (Discord, Telegram, etc.)
+  sellerName        String        @default("Legacy User")
+  sellerDiscordId   String        @default("N/A") // For admin notifications
+  publicContact     String        @default("Contact Admin") // Displayed to buyers (Discord, Telegram, etc.)
   
   // System
   status            ListingStatus @default(PENDING)
