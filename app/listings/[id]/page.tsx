@@ -106,24 +106,30 @@ export default function ListingPage() {
                                 {listing.nameChanges === 0 ? 'Prename (0)' : listing.nameChanges >= 15 ? '15+' : listing.nameChanges}
                             </span>
                         </div>
+                        <div className={styles.metaItem}>
+                            <span className={styles.metaLabel}>Account Type</span>
+                            <span className={styles.metaValue}>{listing.accountTypes}</span>
+                        </div>
                     </div>
 
                     <p className={styles.description}>{listing.description}</p>
 
-                    <div className={styles.priceBox}>
-                        <div className={styles.priceRow}>
-                            <span className={styles.priceLabel}>Current Offer</span>
-                            <span className={styles.priceValue}>
-                                {listing.priceCurrentOffer !== null ? `$${listing.priceCurrentOffer.toLocaleString()}` : 'N/A'}
-                            </span>
+                    <div className={styles.priceContainer}>
+                        <div className={styles.pricesGrid}>
+                            <div className={styles.priceCard}>
+                                <span className={styles.priceLabel}>Current Offer</span>
+                                <span className={styles.priceValue}>
+                                    {listing.priceCurrentOffer !== null ? `$${listing.priceCurrentOffer.toLocaleString()}` : 'N/A'}
+                                </span>
+                            </div>
+                            <div className={styles.priceCard}>
+                                <span className={styles.priceLabel}>Buy It Now</span>
+                                <span className={styles.priceValue}>
+                                    {listing.priceBin !== null ? `$${listing.priceBin.toLocaleString()}` : 'N/A'}
+                                </span>
+                            </div>
                         </div>
-                        <div className={styles.priceRow}>
-                            <span className={styles.priceLabel}>BIN</span>
-                            <span className={styles.priceValue}>
-                                {listing.priceBin !== null ? `$${listing.priceBin.toLocaleString()}` : 'N/A'}
-                            </span>
-                        </div>
-                        <button onClick={handleBuyClick} className="btn btn-primary" style={{ width: '100%', padding: '1rem', fontSize: '1.1rem' }}>
+                        <button onClick={handleBuyClick} className={styles.buyButton}>
                             Buy / Offer
                         </button>
                     </div>
@@ -131,8 +137,14 @@ export default function ListingPage() {
                     <div className={styles.sellerSection}>
                         <h3>Seller Information</h3>
                         <div className={styles.contactList}>
-                            <p><strong>Seller:</strong> {listing.sellerName}</p>
-                            <p><strong>Contact:</strong> {listing.publicContact}</p>
+                            <div className={styles.contactItem}>
+                                <span className={styles.contactType}>Seller</span>
+                                <span>{listing.sellerName}</span>
+                            </div>
+                            <div className={styles.contactItem}>
+                                <span className={styles.contactType}>Contact</span>
+                                <span>{listing.publicContact}</span>
+                            </div>
                         </div>
                     </div>
                 </div>
