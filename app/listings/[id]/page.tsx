@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import Button from '@/components/Shared/Button'; // Maybe for "Buy" button or similar interaction later
+import SkinViewer from '@/components/Shared/SkinViewer';
 import styles from './page.module.css';
 
 interface Cape {
@@ -53,12 +54,8 @@ export default function ListingPage() {
     if (error || !listing) return <div className="container" style={{ padding: '2rem' }}>Error: {error || 'Not found'}</div>;
 
     const getCapeImage = (name: string) => {
-        const map: Record<string, string> = {
-            'Common': 'https://static.wikia.nocookie.net/minecraft_gamepedia/images/9/91/MineCon_2011_Cape.png',
-            'Pan': 'https://static.wikia.nocookie.net/minecraft_gamepedia/images/8/85/MineCon_2016_Cape.png',
-            'Purple Heart': 'https://static.wikia.nocookie.net/minecraft_gamepedia/images/a/a9/Mojang_Cape.png'
-        };
-        return map[name] || 'https://assets.mojang.com/skin/cape/null.png';
+        // Filenames must match capes. User should upload them to public/assets/capes/
+        return `/assets/capes/${name}.png`;
     };
 
     return (
@@ -67,7 +64,7 @@ export default function ListingPage() {
                 <div className={styles.imageColumn}>
                     <div className={styles.skinContainer}>
                         {listing.skinUrl ? (
-                            <img src={listing.skinUrl} alt={listing.username} className={styles.skin} />
+                            <SkinViewer skinUrl={listing.skinUrl} width={300} height={400} />
                         ) : (
                             <div className={styles.placeholderSkin} />
                         )}
@@ -75,7 +72,14 @@ export default function ListingPage() {
                     {listing.capes.length > 0 && (
                         <div className={styles.capesRow}>
                             {listing.capes.map(cape => (
-                                <img key={cape.id} src={getCapeImage(cape.name)} alt={cape.name} className={styles.capeIcon} title={cape.name} />
+                                <img
+                                    key={cape.id}
+                                    src={getCapeImage(cape.name)}
+                                    alt={cape.name}
+                                    className={styles.capeIcon}
+                                    title={cape.name}
+                                    onError={(e) => { (e.target as HTMLImageElement).src = '/assets/capes/placeholder.png' }} // Fallback
+                                />
                             ))}
                         </div>
                     )}

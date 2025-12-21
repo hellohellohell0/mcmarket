@@ -20,14 +20,7 @@ interface Listing {
 export default function AccountCard({ listing }: { listing: Listing }) {
     // Mock capes images mapping based on name
     const getCapeImage = (name: string) => {
-        // simplified mock urls or placeholders basically
-        // In real app, these would be assets or external URLs
-        const map: Record<string, string> = {
-            'Common': 'https://static.wikia.nocookie.net/minecraft_gamepedia/images/9/91/MineCon_2011_Cape.png', // Example
-            'Pan': 'https://static.wikia.nocookie.net/minecraft_gamepedia/images/8/85/MineCon_2016_Cape.png',
-            'Purple Heart': 'https://static.wikia.nocookie.net/minecraft_gamepedia/images/a/a9/Mojang_Cape.png'
-        };
-        return map[name] || 'https://assets.mojang.com/skin/cape/null.png';
+        return `/assets/capes/${name}.png`;
     };
 
     return (
