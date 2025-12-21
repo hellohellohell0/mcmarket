@@ -1,0 +1,23 @@
+.container {
+    min-height: 100vh;
+    background: #09090b;
+    color: #fff;
+    padding: 2rem;
+}
+
+.header {
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #27272a;
+    padding-bottom: 1rem;
+}
+
+.title {
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+/* DashboardContent.module.css partials (moved here for simplicity if possible, but actually I need separate files. I will assume this is page.module.css and make DashboardContent.module.css separately to be safe) */
+.main {
+    max-width: 1200px;
+    margin: 0 auto;
+}

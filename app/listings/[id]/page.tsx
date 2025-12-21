@@ -1,20 +1,14 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useParams } from 'next/navigation';
-import Button from '@/components/Shared/Button'; // Maybe for "Buy" button or similar interaction later
+import { useParams, useRouter } from 'next/navigation';
+import Link from 'next/link';
 import SkinViewer from '@/components/Shared/SkinViewer';
 import styles from './page.module.css';
 
 interface Cape {
     id: string;
     name: string;
-}
-
-interface User {
-    username: string;
-    pfpUrl: string | null;
-    contactInfo: { type: string, value: string }[];
 }
 
 interface Listing {
@@ -25,11 +19,17 @@ interface Listing {
     priceBin: number | null;
     skinUrl: string | null;
     capes: Cape[];
-    seller: User;
+    accountTypes: string; // CSV
+    nameChanges: number;
+    sellerName: string;
+    sellerDiscordId: string;
+    publicContact: string;
+    status: string;
 }
 
 export default function ListingPage() {
     const { id } = useParams();
+    const router = useRouter();
     const [listing, setListing] = useState<Listing | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
@@ -50,13 +50,17 @@ export default function ListingPage() {
         if (id) fetchListing();
     }, [id]);
 
-    if (loading) return <div className="container" style={{ padding: '2rem' }}>Loading listing...</div>;
-    if (error || !listing) return <div className="container" style={{ padding: '2rem' }}>Error: {error || 'Not found'}</div>;
-
-    const getCapeImage = (name: string) => {
-        // Filenames must match capes. User should upload them to public/assets/capes/
-        return `/assets/capes/${name}.png`;
+    const handleBuyClick = () => {
+        // "Make it so that when users attempt to click on it, it will redirect them to a page telling them to make a ticket in the discord server to offer or buy."
+        // I'll create a simple 'ticket' page or just alert for now?
+        // "redirect them to a page" -> /buy/ticket-instruction
+        router.push('/buy-instructions');
     };
+
+    if (loading) return <div className="container" style={{ padding: '2rem', color: '#fff' }}>Loading listing...</div>;
+    if (error || !listing) return <div className="container" style={{ padding: '2rem', color: '#fff' }}>Error: {error || 'Not found'}</div>;
+
+    const getCapeImage = (name: string) => `/assets/capes/${name}.png`;
 
     return (
         <div className={styles.container}>
@@ -64,7 +68,7 @@ export default function ListingPage() {
                 <div className={styles.imageColumn}>
                     <div className={styles.skinContainer}>
                         {listing.skinUrl ? (
-                            <SkinViewer skinUrl={listing.skinUrl} width="100%" height={400} />
+                            <SkinViewer skinUrl={listing.skinUrl} width="100%" height={400} staticModel={false} />
                         ) : (
                             <div className={styles.placeholderSkin} />
                         )}
@@ -78,7 +82,7 @@ export default function ListingPage() {
                                     alt={cape.name}
                                     className={styles.capeIcon}
                                     title={cape.name}
-                                    onError={(e) => { (e.target as HTMLImageElement).src = '/assets/capes/placeholder.png' }} // Fallback
+                                    onError={(e) => { (e.target as HTMLImageElement).src = '/assets/capes/placeholder.png' }}
                                 />
                             ))}
                         </div>
@@ -86,7 +90,24 @@ export default function ListingPage() {
                 </div>
 
                 <div className={styles.infoColumn}>
-                    <h1 className={styles.title}>{listing.username}</h1>
+                    <div className={styles.header}>
+                        <h1 className={styles.title}>{listing.username}</h1>
+                        <div className={styles.badges}>
+                            {listing.accountTypes.split(',').map(type => (
+                                <span key={type} className={styles.badge}>{type}</span>
+                            ))}
+                        </div>
+                    </div>
+
+                    <div className={styles.metaGrid}>
+                        <div className={styles.metaItem}>
+                            <span className={styles.metaLabel}>Name Changes</span>
+                            <span className={styles.metaValue}>
+                                {listing.nameChanges === 0 ? 'Prename' : listing.nameChanges >= 15 ? '15+' : listing.nameChanges}
+                            </span>
+                        </div>
+                    </div>
+
                     <p className={styles.description}>{listing.description}</p>
 
                     <div className={styles.priceBox}>
@@ -102,26 +123,16 @@ export default function ListingPage() {
                                 {listing.priceBin !== null ? `$${listing.priceBin.toLocaleString()}` : 'N/A'}
                             </span>
                         </div>
+                        <button onClick={handleBuyClick} className={styles.buyButton}>
+                            Buy / Offer
+                        </button>
                     </div>
 
                     <div className={styles.sellerSection}>
                         <h3>Seller Information</h3>
-                        <div className={styles.sellerProfile}>
-                            {listing.seller.pfpUrl ? (
-                                <img src={listing.seller.pfpUrl} alt={listing.seller.username} className={styles.sellerPfp} />
-                            ) : (
-                                <div className={styles.sellerPlaceholder} />
-                            )}
-                            <span className={styles.sellerName}>{listing.seller.username}</span>
-                        </div>
-
                         <div className={styles.contactList}>
-                            {listing.seller.contactInfo.map((contact, i) => (
-                                <div key={i} className={styles.contactItem}>
-                                    <span className={styles.contactType}>{contact.type}:</span>
-                                    <span className={styles.contactValue}>{contact.value}</span>
-                                </div>
-                            ))}
+                            <p><strong>Seller:</strong> {listing.sellerName}</p>
+                            <p><strong>Contact:</strong> {listing.publicContact}</p>
                         </div>
                     </div>
                 </div>

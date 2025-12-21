@@ -1,41 +1,31 @@
 import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
-import { jwtVerify } from 'jose';
-import { cookies } from 'next/headers';
 
-const JWT_SECRET = new TextEncoder().encode(process.env.JWT_SECRET || 'default-secret-key-change-it');
-
-// GET /api/listings - Fetch all listings with filters
+// GET /api/listings
 export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
 
     // Filters
     const minLen = searchParams.get('minLen') ? parseInt(searchParams.get('minLen')!) : undefined;
     const maxLen = searchParams.get('maxLen') ? parseInt(searchParams.get('maxLen')!) : undefined;
-    const capes = searchParams.getAll('capes'); // e.g. ?capes=Common&capes=Pan
-    const sort = searchParams.get('sort'); // price_asc, price_desc, date_new, date_old
-    const countType = searchParams.get('countType'); // offers, bins, both (default)
+    const capes = searchParams.getAll('capes');
+    const sort = searchParams.get('sort');
+    const accountTypes = searchParams.getAll('accountType'); // High Tier, OG, etc
+    const minNameChanges = searchParams.get('minNameChanges') ? parseInt(searchParams.get('minNameChanges')!) : undefined;
+    const maxNameChanges = searchParams.get('maxNameChanges') ? parseInt(searchParams.get('maxNameChanges')!) : undefined;
+
+    // Status filter - Default to APPROVED for public API, but allow override if needed (handled by separate admin actions usually, but ok here if strict)
+    // For safety, this public endpoint should ONLY return APPROVED listings.
+    const status = 'APPROVED';
 
     try {
         const where: any = {
-            // Basic filtering to exclude accounts with no offer if requested or implicit? 
-            // User said: "Make sure accounts with current offer of 0 do not get counted to the filter indexing."
-            // I interpret this as: if priceCurrentOffer is 0, don't show it? Or just dont count it? 
-            // Usually marketplace hides "sold" or "invalid" ones. I'll assume 0 means "no offer available" or something.
-            // Let's filter out priceCurrentOffer === 0 if that's what user means.
+            status,
             OR: [
-                { priceCurrentOffer: { not: 0 } },
-                { priceCurrentOffer: null } // allow null? User said "current offer of 0", implying 0 is a specific value to ignore.
+                { priceCurrentOffer: { not: null } }, // Ensure at least one price exists? Or just rely on status.
+                { priceBin: { not: null } }
             ]
         };
-
-        if (minLen || maxLen) {
-            where.username = {};
-            if (minLen) where.username.gte = undefined; // Prisma doesn't support length filtering on string directly in 'where' easily for sqlite without raw query or regex. 
-            // Wait, SQLite/Prisma limitation. I might have to filter in memory if dataset is small, or use raw query.
-            // For now, I'll skip length filter in DB query and do in memory if easy, or ignore for MVP DB step.
-            // Actually, I can filtered in memory since MVP scale is small.
-        }
 
         if (capes.length > 0) {
             where.capes = {
@@ -45,60 +35,61 @@ export async function GET(request: Request) {
             };
         }
 
+        // Account Types filter (Comma separated string in DB)
+        // If user selects multiple, we want listings that match ANY of them? Or ALL? Usually ANY.
+        // Since DB stores "OG,High Tier", using `contains` for each might be needed.
+        if (accountTypes.length > 0) {
+            where.OR = accountTypes.map(type => ({
+                accountTypes: { contains: type }
+            }));
+        }
+
+        if (maxNameChanges !== undefined) {
+            // "If it's at the end, it will be 15 name changes or more."
+            // Logic: if user selects 15, they want <= 15? Or exactly? 
+            // Usually slider is "Max Name Changes".
+            // If slider is at 15 (max), it means "Anything up to 15+" aka disable filter?
+            // "where the user can select the maximum number of namechanges" -> l.nameChanges <= selected.
+            if (maxNameChanges < 15) {
+                where.nameChanges = { lte: maxNameChanges };
+            }
+            // If 15, don't filter (allow all).
+        }
+
         let orderBy: any = { createdAt: 'desc' };
-        if (sort === 'price_asc') orderBy = { priceBin: 'asc' }; // Sort by BIN usually? or C/O? I'll use BIN for price sort generally or generic "price"
+        if (sort === 'price_asc') orderBy = { priceBin: 'asc' }; // Prefer BIN for sorting
         if (sort === 'price_desc') orderBy = { priceBin: 'desc' };
         if (sort === 'date_old') orderBy = { createdAt: 'asc' };
 
         const listings = await prisma.listing.findMany({
             where,
-            include: {
-                capes: true,
-                seller: {
-                    select: { username: true }
-                }
-            },
+            include: { capes: true },
             orderBy
         });
 
-        // In-memory filtering for username length, offer=0, and PRICE RANGE
+        // In-memory filtering for partial matches or complex logic
         const filtered = listings.filter((l: any) => {
-            if (l.priceCurrentOffer === 0) return false;
             if (minLen && l.username.length < minLen) return false;
             if (maxLen && l.username.length > maxLen) return false;
 
-            // Price Range Filter: Check if EITHER price falls within range (or specific type if we implemented type filter logic deeper)
-            // User requirement: "add a filter to adjust the price range of the products and this will also apply to the bin/co chosen in the price type"
-
-            // Determine effective price to check based on what is displayed/available? 
-            // Or check if ANY price matches?
-            // Usually, if I want max $100, I want anything buyable for <$100.
-
-            // Let's gather valid prices for this listing
-            const prices = [];
-            if (l.priceBin !== null) prices.push(l.priceBin);
-            if (l.priceCurrentOffer !== null && l.priceCurrentOffer !== 0) prices.push(l.priceCurrentOffer);
-
-            // If no valid prices, maybe filter out? Or keep?
-            if (prices.length === 0) return false;
-
-            // If min/max price set, at least ONE price must match the criteria? 
-            // OR all available prices must match? 
-            // "apply to the bin/co chosen in the price type" -> this implies interaction with countType.
-
+            // Price Range Logic
             const minP = searchParams.get('minPrice') ? parseFloat(searchParams.get('minPrice')!) : null;
             const maxP = searchParams.get('maxPrice') ? parseFloat(searchParams.get('maxPrice')!) : null;
 
             if (minP !== null || maxP !== null) {
-                // Check if any price fits
-                const hasMatchingPrice = prices.some(p => {
+                const prices = [];
+                if (l.priceBin) prices.push(l.priceBin);
+                if (l.priceCurrentOffer) prices.push(l.priceCurrentOffer);
+
+                if (prices.length === 0) return false; // Should not happen given query
+
+                const hasMatch = prices.some(p => {
                     if (minP !== null && p < minP) return false;
                     if (maxP !== null && p > maxP) return false;
                     return true;
                 });
-                if (!hasMatchingPrice) return false;
+                if (!hasMatch) return false;
             }
-
             return true;
         });
 
@@ -109,51 +100,42 @@ export async function GET(request: Request) {
     }
 }
 
-// POST /api/listings - Create listing
+// POST /api/listings - Create listing (Guest)
 export async function POST(request: Request) {
-    const cookieStore = await cookies();
-    const token = cookieStore.get('token');
-
-    if (!token) {
-        return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
-
     try {
-        const { payload } = await jwtVerify(token.value, JWT_SECRET);
-        const userId = payload.userId as string;
+        const body = await request.json();
+        const {
+            username, description,
+            priceCurrentOffer, priceBin,
+            capes, // array of strings
+            accountTypes, // array of strings
+            nameChanges, // number
+            sellerName, sellerDiscordId, publicContact
+        } = body;
 
-        const { username, description, priceCurrentOffer, priceBin, capes } = await request.json(); // capes is array of strings
-
-        // Check contact info requirement
-        const user = await prisma.user.findUnique({
-            where: { id: userId },
-            include: { contactInfo: true, listings: true }
-        });
-
-        if (!user) return NextResponse.json({ error: 'User not found' }, { status: 404 });
-
-        if (user.contactInfo.length === 0) {
-            return NextResponse.json({ error: 'You must add contact info to your profile before listing.' }, { status: 403 });
+        // Validation
+        if (!username || !sellerName || !sellerDiscordId || !publicContact) {
+            return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
         }
 
-        if (user.listings.length >= 5) {
-            return NextResponse.json({ error: 'Listing limit reached (max 5).' }, { status: 403 });
-        }
-
-        // Fetch skin URL (mock or external API). User said "Use minecraft api".
-        // Minotar or Crafatar. https://minotar.net/skin/{username} gets the full skin texture needed for 3D model.
+        // Fetch skin URL
         const skinUrl = `https://minotar.net/skin/${username}`;
 
         const newListing = await prisma.listing.create({
             data: {
-                sellerId: userId,
                 username,
-                description,
-                priceCurrentOffer: parseFloat(priceCurrentOffer),
-                priceBin: parseFloat(priceBin),
+                description: description || '',
+                priceCurrentOffer: priceCurrentOffer ? parseFloat(priceCurrentOffer) : null,
+                priceBin: priceBin ? parseFloat(priceBin) : null,
                 skinUrl,
+                accountTypes: accountTypes.join(','), // Store as CSV
+                nameChanges: parseInt(nameChanges),
+                sellerName,
+                sellerDiscordId,
+                publicContact,
+                status: 'PENDING',
                 capes: {
-                    create: capes.map((c: string) => ({ name: c }))
+                    create: (capes || []).map((c: string) => ({ name: c }))
                 }
             }
         });

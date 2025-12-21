@@ -5,7 +5,7 @@ import Navbar from "@/components/Shared/Navbar";
 import { AuthProvider } from "@/lib/AuthContext";
 
 export const metadata: Metadata = {
-  title: "MC Marketplace",
+  title: "MCMarket",
   description: "Buy and sell premium Minecraft accounts",
 };
 

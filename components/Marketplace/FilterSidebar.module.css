@@ -8,6 +8,29 @@
     gap: 2rem;
 }
 
+.sliderContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.sliderLabel {
+    font-size: 0.9rem;
+    color: var(--foreground);
+}
+
+.range {
+    width: 100%;
+    cursor: pointer;
+}
+
+.rangeLabels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    color: var(--muted-foreground);
+}
+
 .section {
     display: flex;
     flex-direction: column;

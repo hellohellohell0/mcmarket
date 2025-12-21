@@ -13,15 +13,24 @@ export default function FilterSidebar({ onFilterChange }: FilterProps) {
     const [minPrice, setMinPrice] = useState<number | ''>('');
     const [maxPrice, setMaxPrice] = useState<number | ''>('');
     const [capes, setCapes] = useState<string[]>([]);
+    const [accountTypes, setAccountTypes] = useState<string[]>([]);
+    const [maxNameChanges, setMaxNameChanges] = useState<number>(15);
     const [sort, setSort] = useState('date_new');
     const [countType, setCountType] = useState('both');
     const [isOpen, setIsOpen] = useState(false); // Mobile toggle
 
     const availableCapes = ['Common', 'Pan', 'Purple Heart'];
+    const accountTypeOptions = ['High Tier', 'OG', 'Semi-OG', 'Low Tier', 'Stats'];
 
     const handleCapeToggle = (cape: string) => {
         setCapes(prev =>
             prev.includes(cape) ? prev.filter(c => c !== cape) : [...prev, cape]
+        );
+    };
+
+    const handleAccountTypeToggle = (type: string) => {
+        setAccountTypes(prev =>
+            prev.includes(type) ? prev.filter(t => t !== type) : [...prev, type]
         );
     };
 
@@ -32,10 +41,12 @@ export default function FilterSidebar({ onFilterChange }: FilterProps) {
             minPrice,
             maxPrice,
             capes,
+            accountTypes,
+            maxNameChanges, // 15 means 15+ (all)
             sort,
             countType
         });
-    }, [minLen, maxLen, minPrice, maxPrice, capes, sort, countType, onFilterChange]);
+    }, [minLen, maxLen, minPrice, maxPrice, capes, accountTypes, maxNameChanges, sort, countType, onFilterChange]);
 
     return (
         <aside className={styles.sidebar}>
@@ -77,6 +88,52 @@ export default function FilterSidebar({ onFilterChange }: FilterProps) {
                 </div>
 
                 <div className={styles.section}>
+                    <h3 className={styles.heading}>Price Type</h3>
+                    <select value={countType} onChange={e => setCountType(e.target.value)} className={styles.select}>
+                        <option value="both">Both</option>
+                        <option value="offers">Current Offers</option>
+                        <option value="bins">BINs Only</option>
+                    </select>
+                </div>
+
+                <div className={styles.section}>
+                    <h3 className={styles.heading}>Account Type</h3>
+                    <div className={styles.checkboxGroup}>
+                        {accountTypeOptions.map(type => (
+                            <label key={type} className={styles.checkboxLabel}>
+                                <input
+                                    type="checkbox"
+                                    checked={accountTypes.includes(type)}
+                                    onChange={() => handleAccountTypeToggle(type)}
+                                />
+                                <span>{type}</span>
+                            </label>
+                        ))}
+                    </div>
+                </div>
+
+                <div className={styles.section}>
+                    <h3 className={styles.heading}>Name Changes</h3>
+                    <div className={styles.sliderContainer}>
+                        <label className={styles.sliderLabel}>
+                            Max: {maxNameChanges === 0 ? 'Prename' : maxNameChanges >= 15 ? '15+' : maxNameChanges}
+                        </label>
+                        <input
+                            type="range"
+                            min="0"
+                            max="15"
+                            value={maxNameChanges}
+                            onChange={e => setMaxNameChanges(parseInt(e.target.value))}
+                            className={styles.range}
+                        />
+                        <div className={styles.rangeLabels}>
+                            <span>0</span>
+                            <span>15+</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div className={styles.section}>
                     <h3 className={styles.heading}>Username Length</h3>
                     <div className={styles.row}>
                         <input
@@ -111,15 +168,6 @@ export default function FilterSidebar({ onFilterChange }: FilterProps) {
                             </label>
                         ))}
                     </div>
-                </div>
-
-                <div className={styles.section}>
-                    <h3 className={styles.heading}>Price Type</h3>
-                    <select value={countType} onChange={e => setCountType(e.target.value)} className={styles.select}>
-                        <option value="both">Both</option>
-                        <option value="offers">Current Offers</option>
-                        <option value="bins">BINs Only</option>
-                    </select>
                 </div>
             </div>
         </aside>

@@ -16,11 +16,17 @@ export default function Home() {
       const params = new URLSearchParams();
       if (filters.minLen) params.set('minLen', filters.minLen.toString());
       if (filters.maxLen) params.set('maxLen', filters.maxLen.toString());
+      if (filters.minPrice) params.set('minPrice', filters.minPrice.toString());
+      if (filters.maxPrice) params.set('maxPrice', filters.maxPrice.toString());
+      if (filters.maxNameChanges !== undefined) params.set('maxNameChanges', filters.maxNameChanges.toString());
       if (filters.sort) params.set('sort', filters.sort);
       if (filters.countType) params.set('countType', filters.countType);
 
       if (filters.capes && filters.capes.length > 0) {
         filters.capes.forEach((c: string) => params.append('capes', c));
+      }
+      if (filters.accountTypes && filters.accountTypes.length > 0) {
+        filters.accountTypes.forEach((t: string) => params.append('accountType', t));
       }
 
       const res = await fetch(`/api/listings?${params.toString()}`);
