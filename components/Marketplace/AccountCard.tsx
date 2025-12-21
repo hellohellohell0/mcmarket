@@ -18,7 +18,7 @@ export default function AccountCard({ listing }: { listing: ListingWithRelations
             <div className={styles.imageContainer}>
                 {listing.skinUrl ? (
                     <div style={{ pointerEvents: 'none', display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%', overflow: 'hidden' }}>
-                        <SkinViewer skinUrl={listing.skinUrl} width={180} height={240} staticModel={true} />
+                        <SkinViewer skinUrl={listing.skinUrl} width="100%" height="100%" staticModel={true} />
                     </div>
                 ) : (
                     <div className={styles.placeholderSkin} />

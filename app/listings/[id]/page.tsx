@@ -64,7 +64,7 @@ export default function ListingPage() {
                 <div className={styles.imageColumn}>
                     <div className={styles.skinContainer}>
                         {listing.skinUrl ? (
-                            <SkinViewer skinUrl={listing.skinUrl} width={300} height={400} />
+                            <SkinViewer skinUrl={listing.skinUrl} width="100%" height={400} />
                         ) : (
                             <div className={styles.placeholderSkin} />
                         )}
