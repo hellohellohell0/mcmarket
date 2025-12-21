@@ -103,7 +103,7 @@ export default function ListingPage() {
                         <div className={styles.metaItem}>
                             <span className={styles.metaLabel}>Name Changes</span>
                             <span className={styles.metaValue}>
-                                {listing.nameChanges === 0 ? 'Prename' : listing.nameChanges >= 15 ? '15+' : listing.nameChanges}
+                                {listing.nameChanges === 0 ? 'Prename (0)' : listing.nameChanges >= 15 ? '15+' : listing.nameChanges}
                             </span>
                         </div>
                     </div>
@@ -123,7 +123,7 @@ export default function ListingPage() {
                                 {listing.priceBin !== null ? `$${listing.priceBin.toLocaleString()}` : 'N/A'}
                             </span>
                         </div>
-                        <button onClick={handleBuyClick} className={styles.buyButton}>
+                        <button onClick={handleBuyClick} className="btn btn-primary" style={{ width: '100%', padding: '1rem', fontSize: '1.1rem' }}>
                             Buy / Offer
                         </button>
                     </div>
