@@ -68,7 +68,7 @@ export default function ListingPage() {
                 <div className={styles.imageColumn}>
                     <div className={styles.skinContainer}>
                         {listing.skinUrl ? (
-                            <SkinViewer skinUrl={listing.skinUrl} width="100%" height={400} staticModel={false} />
+                            <SkinViewer skinUrl={listing.skinUrl} width="100%" height={500} staticModel={false} />
                         ) : (
                             <div className={styles.placeholderSkin} />
                         )}
@@ -92,12 +92,8 @@ export default function ListingPage() {
                 <div className={styles.infoColumn}>
                     <div className={styles.header}>
                         <h1 className={styles.title}>{listing.username}</h1>
-                        <div className={styles.badges}>
-                            {listing.accountTypes.split(',').map(type => (
-                                <span key={type} className={styles.badge}>{type}</span>
-                            ))}
-                        </div>
                     </div>
+
 
                     <div className={styles.metaGrid}>
                         <div className={styles.metaItem}>
@@ -107,7 +103,7 @@ export default function ListingPage() {
                             </span>
                         </div>
                         <div className={styles.metaItem}>
-                            <span className={styles.metaLabel}>Account Type</span>
+                            <span className={styles.metaLabel}>Account Type(s)</span>
                             <span className={styles.metaValue}>{listing.accountTypes}</span>
                         </div>
                     </div>
