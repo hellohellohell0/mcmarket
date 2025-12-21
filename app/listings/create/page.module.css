@@ -2,21 +2,28 @@
     max-width: 800px;
     margin: 2rem auto;
     padding: 0 1rem;
-    color: #fff;
+    color: var(--foreground);
 }
 
 .title {
     font-size: 2rem;
-    font-weight: 700;
+    font-weight: 800;
     margin-bottom: 2rem;
     text-align: center;
+    background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -0.02em;
 }
 
 .form {
-    background: #18181b;
-    padding: 2rem;
-    border-radius: 1rem;
-    border: 1px solid #27272a;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 2.5rem;
+    border-radius: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
@@ -25,42 +32,52 @@
 .section {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.75rem;
 }
 
 .input,
 .textarea,
 .select {
-    background: #27272a;
-    border: 1px solid #3f3f46;
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid var(--border);
     padding: 0.75rem;
-    border-radius: 0.5rem;
-    color: #fff;
+    border-radius: var(--radius);
+    color: var(--foreground);
     font-family: inherit;
     font-size: 1rem;
+    transition: all 0.2s;
+}
+
+.input:focus,
+.textarea:focus,
+.select:focus {
+    background: #fff;
+    border-color: var(--primary);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
 }
 
 .textarea {
-    min-height: 100px;
+    min-height: 120px;
     resize: vertical;
 }
 
 .row {
     display: flex;
-    gap: 1rem;
+    gap: 1.5rem;
 }
 
 .half {
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.75rem;
 }
 
 .checkboxGroup {
     display: flex;
     flex-wrap: wrap;
-    gap: 1rem;
+    gap: 0.75rem;
     padding: 0.5rem 0;
 }
 
@@ -69,55 +86,64 @@
     align-items: center;
     gap: 0.5rem;
     cursor: pointer;
-    background: #27272a;
-    padding: 0.5rem 1rem;
-    border-radius: 0.5rem;
-    transition: background 0.2s;
+    background: rgba(255, 255, 255, 0.5);
+    padding: 0.6rem 1rem;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    transition: all 0.2s;
+    font-size: 0.95rem;
 }
 
 .checkboxLabel:hover {
-    background: #3f3f46;
+    background: #fff;
+    border-color: var(--primary);
 }
 
 .range {
     width: 100%;
     margin-top: 0.5rem;
+    accent-color: var(--primary);
 }
 
 .rangeLabels {
     display: flex;
     justify-content: space-between;
     font-size: 0.8rem;
-    color: #a1a1aa;
+    color: var(--muted-foreground);
+    font-weight: 500;
 }
 
 .hint {
-    font-size: 0.8rem;
-    color: #a1a1aa;
+    font-size: 0.85rem;
+    color: var(--muted-foreground);
     margin-top: -0.25rem;
 }
 
 .submitBtn {
-    background: #fff;
-    color: #000;
+    background: var(--primary);
+    color: #fff;
     padding: 1rem;
     border: none;
-    border-radius: 0.5rem;
+    border-radius: var(--radius);
     font-weight: 700;
     font-size: 1.1rem;
     cursor: pointer;
     margin-top: 1rem;
-    transition: opacity 0.2s;
+    transition: all 0.2s;
+    box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.3);
 }
 
 .submitBtn:hover {
-    opacity: 0.9;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.4);
 }
 
 .error {
-    background: #ef4444;
-    color: #fff;
-    padding: 0.75rem;
-    border-radius: 0.5rem;
+    background: #fee2e2;
+    color: #ef4444;
+    padding: 1rem;
+    border-radius: var(--radius);
     text-align: center;
+    border: 1px solid #fecaca;
+    font-weight: 500;
 }

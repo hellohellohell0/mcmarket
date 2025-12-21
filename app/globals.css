@@ -1,33 +1,25 @@
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-  
-  --primary: #0070f3;
-  --primary-foreground: #ffffff;
-  
-  --muted: #f5f5f5;
-  --muted-foreground: #737373;
-  
-  --border: #e5e5e5;
-  --input: #e5e5e5;
-  --ring: #0a0a0a;
-  
-  --radius: 0.5rem;
-  
-  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-}
+  --background: #fdfdfd;
+  --foreground: #1a1a1a;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    /* Keep it white-themed as requested, maybe slightly dimmer for dark mode support if needed, but request said "sleek, white-themed" explicitly. 
-       I will stick to light theme as primary but provide values just in case user system is dark.
-       Actually, user explicitly said "white-themed", often meaning they want that specific look always.
-       I will force light theme vars for now or just standard dark mode variations.
-    */
-    --background: #ffffff; /* Enforce white theme per request */
-    --foreground: #171717;
-    /* If user wanted dark mode, they'd ask or implied. "White-themed" implies a specific aesthetic. */
-  }
+  --primary: #2563eb;
+  /* A nice vibrant blue */
+  --primary-foreground: #ffffff;
+
+  --muted: #f3f4f6;
+  --muted-foreground: #6b7280;
+
+  --border: #e5e7eb;
+  --input: #e5e7eb;
+  --ring: #94a3b8;
+
+  --radius: 0.75rem;
+
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: 1px solid rgba(255, 255, 255, 0.5);
+  --glass-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
 * {
@@ -37,9 +29,10 @@
 }
 
 body {
-  background-color: var(--background);
+  background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
   color: var(--foreground);
   font-family: var(--font-sans);
+  min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -53,31 +46,42 @@ a {
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 1rem;
+  padding: 0 1.5rem;
 }
 
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.5rem 1rem;
+  padding: 0.6rem 1.2rem;
   border-radius: var(--radius);
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
-  transition: opacity 0.2s;
+  transition: all 0.2s ease;
   border: 1px solid transparent;
+  font-size: 0.95rem;
 }
 
 .btn-primary {
   background-color: var(--primary);
   color: var(--primary-foreground);
+  box-shadow: 0 4px 14px 0 rgba(37, 99, 235, 0.39);
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.23);
+  opacity: 0.95;
 }
 
 .btn-outline {
   border-color: var(--border);
-  background: transparent;
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(4px);
+  color: var(--foreground);
 }
 
-.btn:hover {
-  opacity: 0.9;
+.btn-outline:hover {
+  background: rgba(255, 255, 255, 0.8);
+  border-color: var(--muted-foreground);
 }
