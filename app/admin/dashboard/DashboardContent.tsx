@@ -18,7 +18,13 @@ interface DashboardContentProps {
 }
 
 const ACCOUNT_TYPES_OPTIONS = ['High Tier', 'OG', 'Semi-OG', 'Low Tier', 'Stats'];
-const CAPES_OPTIONS = ['Pan', 'Common', 'Purple Heart'];
+const CAPES_OPTIONS = [
+    '15th Anniversary', 'Cherry Blossom', 'Common', 'Copper', "Follower's", "Founder's",
+    'Home', 'MCC 15Tth Year', 'Menace', 'Migrator', 'MineCon 2011', 'MineCon 2012',
+    'MineCon 2013', 'MineCon 2015', 'MineCon 2016', 'Minecraft Experience',
+    'Mojang Office', 'Pan', 'Purple Heart', 'Realms Mapmaker', 'Translator',
+    'Vanilla', 'Yearn', 'Zombie Horse'
+];
 
 interface FormFieldsProps {
     form: any;

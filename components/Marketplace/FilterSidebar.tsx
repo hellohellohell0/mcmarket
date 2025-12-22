@@ -19,7 +19,13 @@ export default function FilterSidebar({ onFilterChange }: FilterProps) {
     const [countType, setCountType] = useState('both');
     const [isOpen, setIsOpen] = useState(false); // Mobile toggle
 
-    const availableCapes = ['Common', 'Pan', 'Purple Heart'];
+    const availableCapes = [
+        '15th Anniversary', 'Cherry Blossom', 'Common', 'Copper', "Follower's", "Founder's",
+        'Home', 'MCC 15Tth Year', 'Menace', 'Migrator', 'MineCon 2011', 'MineCon 2012',
+        'MineCon 2013', 'MineCon 2015', 'MineCon 2016', 'Minecraft Experience',
+        'Mojang Office', 'Pan', 'Purple Heart', 'Realms Mapmaker', 'Translator',
+        'Vanilla', 'Yearn', 'Zombie Horse'
+    ];
     const accountTypeOptions = ['High Tier', 'OG', 'Semi-OG', 'Low Tier', 'Stats'];
 
     const handleCapeToggle = (cape: string) => {
