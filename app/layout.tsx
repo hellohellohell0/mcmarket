@@ -6,7 +6,7 @@ import Navbar from "@/components/Shared/Navbar";
 
 export const metadata: Metadata = {
   title: "MCMarket",
-  description: "Buy and sell premium Minecraft accounts",
+  description: "A website to simplify selling and buying Minecraft accounts.",
 };
 
 export default function RootLayout({
