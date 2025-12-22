@@ -39,13 +39,38 @@
     gap: 1rem;
 }
 
+.headingWrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+    padding: 0.25rem 0;
+    transition: opacity 0.2s;
+}
+
+.headingWrapper:hover {
+    opacity: 0.7;
+}
+
 .heading {
     font-size: 0.8rem;
     font-weight: 700;
     text-transform: uppercase;
     color: var(--muted-foreground);
     letter-spacing: 0.05em;
-    margin-bottom: 0.25rem;
+    margin: 0;
+}
+
+.chevron {
+    color: var(--muted-foreground);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    align-items: center;
+}
+
+.chevron.collapsed {
+    transform: rotate(-90deg);
 }
 
 .select,

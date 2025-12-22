@@ -52,13 +52,19 @@
 }
 
 .capeIcon {
-    width: 20px;
+    width: 32px;
     height: auto;
-    border-radius: 2px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    background: rgba(255, 255, 255, 0.9);
-    border: 0.5px solid rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(0, 0, 0, 0.1);
     image-rendering: pixelated;
+    transition: transform 0.2s;
+}
+
+.capeIcon:hover {
+    transform: scale(1.1);
+    z-index: 10;
 }
 
 .content {
