@@ -24,7 +24,6 @@ interface Listing {
     sellerDiscordId: string;
     publicContact: string;
     status: string;
-    listingPresence: string;
     currentOwnerName: string;
     isVerifiedOwner: boolean;
     oguProfileUrl: string | null;
@@ -54,7 +53,7 @@ export default function ListingPage() {
     }, [id]);
 
     const handleBuyClick = () => {
-        router.push('/buy-instructions');
+        router.push(`/listings/${id}/buy`);
     };
 
     if (loading) return <div className="container" style={{ padding: '2rem', color: '#fff' }}>Loading listing...</div>;
@@ -87,7 +86,6 @@ export default function ListingPage() {
 
                 <div className={styles.infoColumn}>
                     <div className={styles.header}>
-                        <div className={styles.presence}>{listing.listingPresence}</div>
                         <h1 className={styles.title}>{listing.username}</h1>
                     </div>
 

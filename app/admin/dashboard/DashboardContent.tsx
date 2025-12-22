@@ -7,7 +7,6 @@ import styles from './DashboardContent.module.css';
 
 interface ListingWithCapes extends Listing {
     capes: Cape[];
-    listingPresence: string;
     currentOwnerName: string;
     isVerifiedOwner: boolean;
     oguProfileUrl: string | null;
@@ -60,10 +59,6 @@ function FormFields({ form, setForm, editingId, handleUpdate, handleCreate, onCa
                 <div className={styles.formGroup}>
                     <label>Username</label>
                     <input value={form.username} onChange={e => setForm({ ...form, username: e.target.value })} />
-                </div>
-                <div className={styles.formGroup}>
-                    <label>Presence (e.g. Owned by me)</label>
-                    <input value={form.listingPresence} onChange={e => setForm({ ...form, listingPresence: e.target.value })} />
                 </div>
                 <div className={styles.formGroup}>
                     <label>Current Owner</label>
@@ -149,7 +144,6 @@ export default function DashboardContent({ initialListings }: DashboardContentPr
         sellerName: 'Kerr',
         sellerDiscordId: 'N/A',
         publicContact: 'Discord: @kerr',
-        listingPresence: 'Owned by me',
         currentOwnerName: 'Verified Owner',
         isVerifiedOwner: false,
         oguProfileUrl: '',
@@ -171,7 +165,6 @@ export default function DashboardContent({ initialListings }: DashboardContentPr
             sellerName: 'Kerr',
             sellerDiscordId: 'N/A',
             publicContact: 'Discord: @kerr',
-            listingPresence: 'Owned by me',
             currentOwnerName: 'Verified Owner',
             isVerifiedOwner: false,
             oguProfileUrl: '',
@@ -265,7 +258,6 @@ export default function DashboardContent({ initialListings }: DashboardContentPr
                     <div key={listing.id} className={styles.card}>
                         <div className={styles.cardHeader}>
                             <h3>{listing.username}</h3>
-                            <span className={styles.statusBadge}>{listing.listingPresence}</span>
                         </div>
 
                         <div className={styles.details}>

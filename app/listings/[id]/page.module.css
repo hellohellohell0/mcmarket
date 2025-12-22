@@ -120,14 +120,6 @@
     color: var(--foreground);
 }
 
-.presence {
-    font-size: 0.9rem;
-    font-weight: 700;
-    color: var(--primary);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin-bottom: -0.5rem;
-}
 
 .ownerSection {
     background: rgba(255, 255, 255, 0.5);
