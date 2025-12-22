@@ -328,6 +328,12 @@
     color: var(--primary);
 }
 
+.contactIcon {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+}
+
 .discordTooltip {
     position: absolute;
     bottom: 125%;
