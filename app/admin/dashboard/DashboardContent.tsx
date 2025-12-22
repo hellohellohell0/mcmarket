@@ -10,6 +10,8 @@ interface ListingWithCapes extends Listing {
     currentOwnerName: string;
     isVerifiedOwner: boolean;
     oguProfileUrl: string | null;
+    contactTelegram: string | null;
+    contactDiscord: string | null;
 }
 
 interface DashboardContentProps {
@@ -74,6 +76,14 @@ function FormFields({ form, setForm, editingId, handleUpdate, handleCreate, onCa
                         <option value="no">No</option>
                         <option value="yes">Yes</option>
                     </select>
+                </div>
+                <div className={styles.formGroup}>
+                    <label>Telegram (Username)</label>
+                    <input value={form.contactTelegram || ''} onChange={e => setForm({ ...form, contactTelegram: e.target.value })} placeholder="@username" />
+                </div>
+                <div className={styles.formGroup}>
+                    <label>Discord (Username)</label>
+                    <input value={form.contactDiscord || ''} onChange={e => setForm({ ...form, contactDiscord: e.target.value })} placeholder="username" />
                 </div>
                 <div className={styles.formGroup}>
                     <label>C/O</label>
@@ -147,6 +157,8 @@ export default function DashboardContent({ initialListings }: DashboardContentPr
         currentOwnerName: 'Verified Owner',
         isVerifiedOwner: false,
         oguProfileUrl: '',
+        contactTelegram: '',
+        contactDiscord: '',
         capes: [] as string[]
     });
 
@@ -168,6 +180,8 @@ export default function DashboardContent({ initialListings }: DashboardContentPr
             currentOwnerName: 'Verified Owner',
             isVerifiedOwner: false,
             oguProfileUrl: '',
+            contactTelegram: '',
+            contactDiscord: '',
             capes: []
         });
     };
@@ -262,6 +276,7 @@ export default function DashboardContent({ initialListings }: DashboardContentPr
 
                         <div className={styles.details}>
                             <p><strong>Owner:</strong> {listing.currentOwnerName} {listing.isVerifiedOwner ? '(Verified)' : ''}</p>
+                            <p><strong>Contact:</strong> T: {listing.contactTelegram || 'N/A'} | D: {listing.contactDiscord || 'N/A'}</p>
                             <p><strong>C/O:</strong> ${listing.priceCurrentOffer?.toLocaleString() || 'N/A'} | <strong>BIN:</strong> ${listing.priceBin?.toLocaleString() || 'N/A'}</p>
                             <p><strong>Type:</strong> {listing.accountTypes}</p>
                             <p className={styles.desc}>{listing.description}</p>

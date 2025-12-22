@@ -11,6 +11,7 @@ export default function Navbar() {
                     MCMarket
                 </Link>
                 <div className={styles.links}>
+                    <Link href="/about">About</Link>
                     <Link href="/">Browse</Link>
                     <Link href="/admin/login">Admin</Link>
                 </div>
