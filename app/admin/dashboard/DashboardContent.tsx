@@ -92,10 +92,6 @@ function FormFields({ form, setForm, editingId, handleUpdate, handleCreate, onCa
                     <label>Name Changes</label>
                     <input type="number" value={form.nameChanges} onChange={e => setForm({ ...form, nameChanges: Number(e.target.value) })} />
                 </div>
-                <div className={styles.formGroup}>
-                    <label>Skin URL (Optional)</label>
-                    <input value={form.skinUrl || ''} onChange={e => setForm({ ...form, skinUrl: e.target.value })} placeholder="e.g. textures.minecraft.net/..." />
-                </div>
             </div>
 
             <div className={styles.formGroup}>
@@ -157,7 +153,6 @@ export default function DashboardContent({ initialListings }: DashboardContentPr
         currentOwnerName: 'Verified Owner',
         isVerifiedOwner: false,
         oguProfileUrl: '',
-        skinUrl: '',
         capes: [] as string[]
     });
 
@@ -180,7 +175,6 @@ export default function DashboardContent({ initialListings }: DashboardContentPr
             currentOwnerName: 'Verified Owner',
             isVerifiedOwner: false,
             oguProfileUrl: '',
-            skinUrl: '',
             capes: []
         });
     };

@@ -32,7 +32,6 @@ model Listing {
   priceBin          Float?
   
   // Visuals
-  skinUrl           String?
   capes             Cape[]
   
   // Seller Info (Guest)

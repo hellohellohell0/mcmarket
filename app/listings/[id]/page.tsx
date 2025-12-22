@@ -17,7 +17,6 @@ interface Listing {
     description: string;
     priceCurrentOffer: number | null;
     priceBin: number | null;
-    skinUrl: string | null;
     capes: Cape[];
     accountTypes: string; // CSV
     nameChanges: number;
@@ -68,11 +67,7 @@ export default function ListingPage() {
             <div className={styles.topSection}>
                 <div className={styles.imageColumn}>
                     <div className={styles.skinContainer}>
-                        {listing.skinUrl ? (
-                            <SkinViewer skinUrl={listing.skinUrl} width="100%" height={500} staticModel={false} />
-                        ) : (
-                            <div className={styles.placeholderSkin} />
-                        )}
+                        <SkinViewer skinUrl={`https://minotar.net/skin/${listing.username}`} width="100%" height={500} staticModel={false} />
                     </div>
                     {listing.capes.length > 0 && (
                         <div className={styles.capesRow}>

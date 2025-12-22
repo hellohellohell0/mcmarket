@@ -16,13 +16,9 @@ export default function AccountCard({ listing }: { listing: ListingWithRelations
     return (
         <Link href={`/listings/${listing.id}`} className={styles.card}>
             <div className={styles.imageContainer}>
-                {listing.skinUrl ? (
-                    <div style={{ pointerEvents: 'none', display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%', overflow: 'hidden' }}>
-                        <SkinViewer skinUrl={listing.skinUrl} width="100%" height="100%" staticModel={true} />
-                    </div>
-                ) : (
-                    <div className={styles.placeholderSkin} />
-                )}
+                <div style={{ pointerEvents: 'none', display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%', overflow: 'hidden' }}>
+                    <SkinViewer skinUrl={`https://minotar.net/skin/${listing.username}`} width="100%" height="100%" staticModel={true} />
+                </div>
 
                 {listing.capes.length > 0 && (
                     <div className={styles.capesOverlay}>
