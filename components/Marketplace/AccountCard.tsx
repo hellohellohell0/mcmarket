@@ -40,19 +40,25 @@ export default function AccountCard({ listing }: { listing: ListingWithRelations
                 <h3 className={styles.username}>{listing.username}</h3>
                 <p className={styles.description}>{listing.description}</p>
 
-                <div className={styles.prices}>
-                    {listing.priceCurrentOffer !== null && (
-                        <div className={styles.priceItem}>
-                            <span className={styles.label}>C/O</span>
-                            <span className={styles.value}>${listing.priceCurrentOffer.toLocaleString()}</span>
-                        </div>
-                    )}
-                    {listing.priceBin !== null && (
-                        <div className={styles.priceItem}>
-                            <span className={styles.label}>BIN</span>
-                            <span className={styles.value}>${listing.priceBin.toLocaleString()}</span>
-                        </div>
-                    )}
+                <div className={styles.meta}>
+                    <div className={styles.prices}>
+                        {listing.priceCurrentOffer !== null && (
+                            <div className={styles.priceItem}>
+                                <span className={styles.label}>C/O</span>
+                                <span className={styles.value}>${listing.priceCurrentOffer.toLocaleString()}</span>
+                            </div>
+                        )}
+                        {listing.priceBin !== null && (
+                            <div className={styles.priceItem}>
+                                <span className={styles.label}>BIN</span>
+                                <span className={styles.value}>${listing.priceBin.toLocaleString()}</span>
+                            </div>
+                        )}
+                    </div>
+                    <div className={styles.owner}>
+                        <span className={styles.label}>Owned By</span>
+                        <span className={styles.ownerName}>{listing.currentOwnerName}</span>
+                    </div>
                 </div>
             </div>
         </Link>
