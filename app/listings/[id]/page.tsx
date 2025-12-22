@@ -25,6 +25,10 @@ interface Listing {
     sellerDiscordId: string;
     publicContact: string;
     status: string;
+    listingPresence: string;
+    currentOwnerName: string;
+    isVerifiedOwner: boolean;
+    oguProfileUrl: string | null;
 }
 
 export default function ListingPage() {
@@ -51,9 +55,6 @@ export default function ListingPage() {
     }, [id]);
 
     const handleBuyClick = () => {
-        // "Make it so that when users attempt to click on it, it will redirect them to a page telling them to make a ticket in the discord server to offer or buy."
-        // I'll create a simple 'ticket' page or just alert for now?
-        // "redirect them to a page" -> /buy/ticket-instruction
         router.push('/buy-instructions');
     };
 
@@ -91,9 +92,9 @@ export default function ListingPage() {
 
                 <div className={styles.infoColumn}>
                     <div className={styles.header}>
+                        <div className={styles.presence}>{listing.listingPresence}</div>
                         <h1 className={styles.title}>{listing.username}</h1>
                     </div>
-
 
                     <div className={styles.metaGrid}>
                         <div className={styles.metaItem}>
@@ -109,6 +110,25 @@ export default function ListingPage() {
                     </div>
 
                     <p className={styles.description}>{listing.description}</p>
+
+                    <div className={styles.ownerSection}>
+                        <div className={styles.ownerInfo}>
+                            <span className={styles.metaLabel}>Current Owner:</span>
+                            <span className={styles.ownerName}>{listing.currentOwnerName}</span>
+                            {listing.isVerifiedOwner && (
+                                <div className={styles.verifiedBadge} title="This owner has verified ownership of this account">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                                        <polyline points="20 6 9 17 4 12"></polyline>
+                                    </svg>
+                                </div>
+                            )}
+                        </div>
+                        {listing.isVerifiedOwner && listing.oguProfileUrl && (
+                            <a href={listing.oguProfileUrl} target="_blank" rel="noopener noreferrer" className={styles.oguButton}>
+                                OGU Profile
+                            </a>
+                        )}
+                    </div>
 
                     <div className={styles.priceContainer}>
                         <div className={styles.pricesGrid}>

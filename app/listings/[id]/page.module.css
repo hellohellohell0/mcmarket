@@ -120,6 +120,81 @@
     color: var(--foreground);
 }
 
+.presence {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--primary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: -0.5rem;
+}
+
+.ownerSection {
+    background: rgba(255, 255, 255, 0.5);
+    padding: 1rem 1.5rem;
+    border-radius: var(--radius);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ownerInfo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.ownerName {
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.verifiedBadge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #10b981;
+    cursor: pointer;
+    position: relative;
+}
+
+.verifiedBadge:hover::after {
+    content: "This owner has verified ownership of this account";
+    position: absolute;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #18181b;
+    color: #fff;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.5rem;
+    font-size: 0.75rem;
+    white-space: nowrap;
+    z-index: 10;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    pointer-events: none;
+}
+
+.oguButton {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: #18181b;
+    color: #fff;
+    padding: 0.4rem 0.8rem;
+    border-radius: 0.5rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s;
+}
+
+.oguButton:hover {
+    background: #27272a;
+    transform: translateY(-1px);
+}
+
 /* Pricing Section */
 .priceContainer {
     display: flex;

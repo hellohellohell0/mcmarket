@@ -49,25 +49,55 @@ export async function getListings(status?: ListingStatus) {
     });
 }
 
-export async function updateListingStatus(id: string, status: ListingStatus) {
+export async function createListing(data: any) {
     const isAdmin = await checkAdminSession();
     if (!isAdmin) throw new Error('Unauthorized');
 
-    await prisma.listing.update({
-        where: { id },
-        data: { status }
+    const { capes, ...listingData } = data;
+
+    return prisma.listing.create({
+        data: {
+            ...listingData,
+            status: 'APPROVED',
+            capes: {
+                create: capes.map((name: string) => ({ name }))
+            }
+        }
     });
 }
 
-export async function updateListingPrice(id: string, currentOffer: number | null, bin: number | null) {
+export async function deleteListing(id: string) {
     const isAdmin = await checkAdminSession();
     if (!isAdmin) throw new Error('Unauthorized');
 
-    await prisma.listing.update({
-        where: { id },
-        data: {
-            priceCurrentOffer: currentOffer,
-            priceBin: bin
-        }
+    await prisma.listing.delete({
+        where: { id }
     });
+}
+
+export async function updateListing(id: string, data: any) {
+    const isAdmin = await checkAdminSession();
+    if (!isAdmin) throw new Error('Unauthorized');
+
+    const { capes, ...listingData } = data;
+
+    // For simplicity with capes, we delete existing and recreate or just ignore for now if not provided
+    // Let's implement full update for capes too
+    if (capes) {
+        await prisma.cape.deleteMany({ where: { listingId: id } });
+        await prisma.listing.update({
+            where: { id },
+            data: {
+                ...listingData,
+                capes: {
+                    create: capes.map((name: string) => ({ name }))
+                }
+            }
+        });
+    } else {
+        await prisma.listing.update({
+            where: { id },
+            data: listingData
+        });
+    }
 }

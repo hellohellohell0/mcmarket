@@ -40,8 +40,14 @@ model Listing {
   sellerDiscordId   String        @default("N/A") // For admin notifications
   publicContact     String        @default("Contact Admin") // Displayed to buyers (Discord, Telegram, etc.)
   
+  // Presence & Ownership
+  listingPresence   String        @default("Owned by me") // "Proxied by kerry" or "Owned by me"
+  currentOwnerName  String        @default("Verified Owner")
+  isVerifiedOwner   Boolean       @default(false)
+  oguProfileUrl     String?
+
   // System
-  status            ListingStatus @default(PENDING)
+  status            ListingStatus @default(APPROVED)
   createdAt         DateTime      @default(now())
 }
 

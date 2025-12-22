@@ -164,6 +164,105 @@
     color: #fff;
 }
 
+.createSection {
+    margin-bottom: 2rem;
+}
+
+.addBtn {
+    background: #10b981;
+    color: #000;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.createForm {
+    background: #18181b;
+    border: 1px solid #27272a;
+    padding: 2rem;
+    border-radius: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.formGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.formGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.formGroup label {
+    font-size: 0.875rem;
+    color: #a1a1aa;
+}
+
+.formGroup input,
+.formGroup textarea,
+.formGroup select {
+    background: #09090b;
+    border: 1px solid #27272a;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    color: #fff;
+    width: 100%;
+}
+
+.formGroup textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.formActions {
+    display: flex;
+    gap: 1rem;
+}
+
+.formActions button {
+    flex: 1;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+}
+
+.submitBtn {
+    background: #10b981;
+    color: #000;
+}
+
+.deleteBtn {
+    background: #ef4444;
+    color: #fff;
+}
+
+.checkboxGroup {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 0.5rem;
+}
+
+.checkboxLabel {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+}
+
+.checkboxLabel input {
+    width: auto;
+}
+
 .actions {
     display: flex;
     gap: 0.5rem;
