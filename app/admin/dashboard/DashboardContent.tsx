@@ -14,7 +14,105 @@ interface DashboardContentProps {
 }
 
 const ACCOUNT_TYPES_OPTIONS = ['High Tier', 'OG', 'Semi-OG', 'Low Tier', 'Stats'];
-const CAPES_OPTIONS = ['minecon2011', 'minecon2012', 'minecon2013', 'minecon2015', 'minecon2016', 'cobalt', 'scrolls', 'translator'];
+
+interface FormFieldsProps {
+    form: any;
+    setForm: (form: any) => void;
+    editingId: string | null;
+    handleUpdate: (id: string) => void;
+    handleCreate: () => void;
+    onCancel: () => void;
+}
+
+function FormFields({ form, setForm, editingId, handleUpdate, handleCreate, onCancel }: FormFieldsProps) {
+    const toggleType = (type: string) => {
+        setForm({
+            ...form,
+            accountTypes: form.accountTypes.includes(type)
+                ? form.accountTypes.filter((t: string) => t !== type)
+                : [...form.accountTypes, type]
+        });
+    };
+
+    return (
+        <div className={styles.createForm}>
+            <div className={styles.formGrid}>
+                <div className={styles.formGroup}>
+                    <label>Username</label>
+                    <input value={form.username} onChange={e => setForm({ ...form, username: e.target.value })} />
+                </div>
+                <div className={styles.formGroup}>
+                    <label>Presence (e.g. Owned by me)</label>
+                    <input value={form.listingPresence} onChange={e => setForm({ ...form, listingPresence: e.target.value })} />
+                </div>
+                <div className={styles.formGroup}>
+                    <label>Current Owner</label>
+                    <input value={form.currentOwnerName} onChange={e => setForm({ ...form, currentOwnerName: e.target.value })} />
+                </div>
+                <div className={styles.formGroup}>
+                    <label>OGU Link</label>
+                    <input value={form.oguProfileUrl || ''} onChange={e => setForm({ ...form, oguProfileUrl: e.target.value })} />
+                </div>
+                <div className={styles.formGroup}>
+                    <label>Verified Owner?</label>
+                    <select value={form.isVerifiedOwner ? 'yes' : 'no'} onChange={e => setForm({ ...form, isVerifiedOwner: e.target.value === 'yes' })}>
+                        <option value="no">No</option>
+                        <option value="yes">Yes</option>
+                    </select>
+                </div>
+                <div className={styles.formGroup}>
+                    <label>C/O</label>
+                    <input type="number" value={form.priceCurrentOffer} onChange={e => setForm({ ...form, priceCurrentOffer: e.target.value })} />
+                </div>
+                <div className={styles.formGroup}>
+                    <label>BIN</label>
+                    <input type="number" value={form.priceBin} onChange={e => setForm({ ...form, priceBin: e.target.value })} />
+                </div>
+                <div className={styles.formGroup}>
+                    <label>Name Changes</label>
+                    <input type="number" value={form.nameChanges} onChange={e => setForm({ ...form, nameChanges: Number(e.target.value) })} />
+                </div>
+                <div className={styles.formGroup}>
+                    <label>Skin URL (Optional)</label>
+                    <input value={form.skinUrl || ''} onChange={e => setForm({ ...form, skinUrl: e.target.value })} placeholder="e.g. textures.minecraft.net/..." />
+                </div>
+            </div>
+
+            <div className={styles.formGroup}>
+                <label>Description</label>
+                <textarea value={form.description} onChange={e => setForm({ ...form, description: e.target.value })} />
+            </div>
+
+            <div className={styles.formGroup}>
+                <label>Account Types</label>
+                <div className={styles.checkboxGroup}>
+                    {ACCOUNT_TYPES_OPTIONS.map(t => (
+                        <label key={t} className={styles.checkboxLabel}>
+                            <input type="checkbox" checked={form.accountTypes.includes(t)} onChange={() => toggleType(t)} />
+                            {t}
+                        </label>
+                    ))}
+                </div>
+            </div>
+
+            <div className={styles.formGroup}>
+                <label>Capes (comma separated)</label>
+                <textarea
+                    value={form.capes.join(', ')}
+                    onChange={e => setForm({ ...form, capes: e.target.value.split(',').map((s: string) => s.trim()).filter(Boolean) })}
+                    placeholder="e.g. minecon2011, cobalt"
+                />
+            </div>
+
+            <div className={styles.formActions}>
+                <button className={styles.submitBtn} onClick={() => editingId ? handleUpdate(editingId) : handleCreate()}>
+                    {editingId ? 'Save Changes' : 'Create Listing'}
+                </button>
+                <button className={styles.cancelBtn} onClick={onCancel}>Cancel</button>
+            </div>
+        </div>
+    );
+}
 
 export default function DashboardContent({ initialListings }: DashboardContentProps) {
     const [listings, setListings] = useState<ListingWithCapes[]>(initialListings);
@@ -108,105 +206,11 @@ export default function DashboardContent({ initialListings }: DashboardContentPr
         setIsCreating(false);
     };
 
-    const toggleType = (type: string) => {
-        setForm((prev: any) => ({
-            ...prev,
-            accountTypes: prev.accountTypes.includes(type)
-                ? prev.accountTypes.filter((t: string) => t !== type)
-                : [...prev.accountTypes, type]
-        }));
+    const onCancel = () => {
+        setIsCreating(false);
+        setEditingId(null);
+        resetForm();
     };
-
-    const toggleCape = (cape: string) => {
-        setForm((prev: any) => ({
-            ...prev,
-            capes: prev.capes.includes(cape)
-                ? prev.capes.filter((c: string) => c !== cape)
-                : [...prev.capes, cape]
-        }));
-    };
-
-    const FormFields = () => (
-        <div className={styles.createForm}>
-            <div className={styles.formGrid}>
-                <div className={styles.formGroup}>
-                    <label>Username</label>
-                    <input value={form.username} onChange={e => setForm({ ...form, username: e.target.value })} />
-                </div>
-                <div className={styles.formGroup}>
-                    <label>Presence (e.g. Owned by me)</label>
-                    <input value={form.listingPresence} onChange={e => setForm({ ...form, listingPresence: e.target.value })} />
-                </div>
-                <div className={styles.formGroup}>
-                    <label>Current Owner</label>
-                    <input value={form.currentOwnerName} onChange={e => setForm({ ...form, currentOwnerName: e.target.value })} />
-                </div>
-                <div className={styles.formGroup}>
-                    <label>OGU Link</label>
-                    <input value={form.oguProfileUrl || ''} onChange={e => setForm({ ...form, oguProfileUrl: e.target.value })} />
-                </div>
-                <div className={styles.formGroup}>
-                    <label>Verified Owner?</label>
-                    <select value={form.isVerifiedOwner ? 'yes' : 'no'} onChange={e => setForm({ ...form, isVerifiedOwner: e.target.value === 'yes' })}>
-                        <option value="no">No</option>
-                        <option value="yes">Yes</option>
-                    </select>
-                </div>
-                <div className={styles.formGroup}>
-                    <label>C/O</label>
-                    <input type="number" value={form.priceCurrentOffer} onChange={e => setForm({ ...form, priceCurrentOffer: e.target.value })} />
-                </div>
-                <div className={styles.formGroup}>
-                    <label>BIN</label>
-                    <input type="number" value={form.priceBin} onChange={e => setForm({ ...form, priceBin: e.target.value })} />
-                </div>
-                <div className={styles.formGroup}>
-                    <label>Name Changes</label>
-                    <input type="number" value={form.nameChanges} onChange={e => setForm({ ...form, nameChanges: Number(e.target.value) })} />
-                </div>
-                <div className={styles.formGroup}>
-                    <label>Skin URL (Optional)</label>
-                    <input value={form.skinUrl || ''} onChange={e => setForm({ ...form, skinUrl: e.target.value })} placeholder="e.g. textures.minecraft.net/..." />
-                </div>
-            </div>
-
-            <div className={styles.formGroup}>
-                <label>Description</label>
-                <textarea value={form.description} onChange={e => setForm({ ...form, description: e.target.value })} />
-            </div>
-
-            <div className={styles.formGroup}>
-                <label>Account Types</label>
-                <div className={styles.checkboxGroup}>
-                    {ACCOUNT_TYPES_OPTIONS.map(t => (
-                        <label key={t} className={styles.checkboxLabel}>
-                            <input type="checkbox" checked={form.accountTypes.includes(t)} onChange={() => toggleType(t)} />
-                            {t}
-                        </label>
-                    ))}
-                </div>
-            </div>
-
-            <div className={styles.formGroup}>
-                <label>Capes</label>
-                <div className={styles.checkboxGroup}>
-                    {CAPES_OPTIONS.map(c => (
-                        <label key={c} className={styles.checkboxLabel}>
-                            <input type="checkbox" checked={form.capes.includes(c)} onChange={() => toggleCape(c)} />
-                            {c}
-                        </label>
-                    ))}
-                </div>
-            </div>
-
-            <div className={styles.formActions}>
-                <button className={styles.submitBtn} onClick={() => editingId ? handleUpdate(editingId) : handleCreate()}>
-                    {editingId ? 'Save Changes' : 'Create Listing'}
-                </button>
-                <button className={styles.cancelBtn} onClick={() => { setIsCreating(false); setEditingId(null); resetForm(); }}>Cancel</button>
-            </div>
-        </div>
-    );
 
     return (
         <div>
@@ -228,7 +232,16 @@ export default function DashboardContent({ initialListings }: DashboardContentPr
                 <button onClick={() => adminLogout()} className={styles.logoutBtn}>Logout</button>
             </div>
 
-            {(isCreating || editingId) && <FormFields />}
+            {(isCreating || editingId) && (
+                <FormFields
+                    form={form}
+                    setForm={setForm}
+                    editingId={editingId}
+                    handleUpdate={handleUpdate}
+                    handleCreate={handleCreate}
+                    onCancel={onCancel}
+                />
+            )}
 
             <div className={styles.grid}>
                 {filteredListings.map(listing => (
