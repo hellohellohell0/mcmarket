@@ -3,7 +3,7 @@
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import prisma from '@/lib/prisma';
-// ListingStatus enum removed from schema, using String instead.
+import { ListingStatus } from '@prisma/client';
 
 const ADMIN_USER = 'ADMIN';
 const ADMIN_PASS = '4w1j?NB4&"T5>hOAI#K&a>3Sd;R#qtt@xx<<[';
@@ -38,7 +38,7 @@ export async function checkAdminSession() {
 }
 
 // Listing Management Actions
-export async function getListings(status?: string) {
+export async function getListings(status?: ListingStatus) {
     const isAdmin = await checkAdminSession();
     if (!isAdmin) throw new Error('Unauthorized');
 

@@ -6,11 +6,17 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
 // User model removed. Admin is handled via hardcoded credentials.
+
+enum ListingStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
 
 model Listing {
   id                String        @id @default(uuid())
@@ -41,7 +47,7 @@ model Listing {
   oguProfileUrl     String?
 
   // System
-  status            String        @default("APPROVED")
+  status            ListingStatus @default(APPROVED)
   createdAt         DateTime      @default(now())
 }
 
