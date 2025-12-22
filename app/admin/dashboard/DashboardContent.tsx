@@ -7,6 +7,10 @@ import styles from './DashboardContent.module.css';
 
 interface ListingWithCapes extends Listing {
     capes: Cape[];
+    listingPresence: string;
+    currentOwnerName: string;
+    isVerifiedOwner: boolean;
+    oguProfileUrl: string | null;
 }
 
 interface DashboardContentProps {
@@ -14,6 +18,7 @@ interface DashboardContentProps {
 }
 
 const ACCOUNT_TYPES_OPTIONS = ['High Tier', 'OG', 'Semi-OG', 'Low Tier', 'Stats'];
+const CAPES_OPTIONS = ['Pan', 'Common', 'Purple Heart'];
 
 interface FormFieldsProps {
     form: any;
@@ -31,6 +36,15 @@ function FormFields({ form, setForm, editingId, handleUpdate, handleCreate, onCa
             accountTypes: form.accountTypes.includes(type)
                 ? form.accountTypes.filter((t: string) => t !== type)
                 : [...form.accountTypes, type]
+        });
+    };
+
+    const toggleCape = (cape: string) => {
+        setForm({
+            ...form,
+            capes: form.capes.includes(cape)
+                ? form.capes.filter((c: string) => c !== cape)
+                : [...form.capes, cape]
         });
     };
 
@@ -96,12 +110,15 @@ function FormFields({ form, setForm, editingId, handleUpdate, handleCreate, onCa
             </div>
 
             <div className={styles.formGroup}>
-                <label>Capes (comma separated)</label>
-                <textarea
-                    value={form.capes.join(', ')}
-                    onChange={e => setForm({ ...form, capes: e.target.value.split(',').map((s: string) => s.trim()).filter(Boolean) })}
-                    placeholder="e.g. minecon2011, cobalt"
-                />
+                <label>Capes</label>
+                <div className={styles.checkboxGroup}>
+                    {CAPES_OPTIONS.map(c => (
+                        <label key={c} className={styles.checkboxLabel}>
+                            <input type="checkbox" checked={form.capes.includes(c)} onChange={() => toggleCape(c)} />
+                            {c}
+                        </label>
+                    ))}
+                </div>
             </div>
 
             <div className={styles.formActions}>

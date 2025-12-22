@@ -1,14 +1,14 @@
 .container {
     min-height: 100vh;
-    background: #09090b;
-    color: #fff;
-    padding: 2rem;
+    background: #f8fafc;
+    color: #1e293b;
+    padding: 2.5rem;
 }
 
 .header {
-    margin-bottom: 2rem;
-    border-bottom: 1px solid #27272a;
-    padding-bottom: 1rem;
+    margin-bottom: 3rem;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 1.5rem;
 }
 
 .title {
