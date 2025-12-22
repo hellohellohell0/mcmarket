@@ -162,13 +162,13 @@ export default function ListingPage() {
                                     )}
                                     {listing.contactDiscord && (
                                         <div className={styles.contactButton}>
-                                            <img src="/assets/icons/contact/discord.png" alt="Discord" className={styles.contactIcon} />
+                                            <img src="/assets/icons/contact/discord.svg" alt="Discord" className={styles.contactIcon} />
                                             <div className={styles.discordTooltip}>{listing.contactDiscord}</div>
                                         </div>
                                     )}
                                     {listing.contactTelegram && (
                                         <a href={`https://t.me/${listing.contactTelegram.replace('@', '')}`} target="_blank" rel="noopener noreferrer" className={styles.contactButton} title="Telegram">
-                                            <img src="/assets/icons/contact/telegram.png" alt="Telegram" className={styles.contactIcon} />
+                                            <img src="/assets/icons/contact/telegram.svg" alt="Telegram" className={styles.contactIcon} />
                                         </a>
                                     )}
                                 </div>
