@@ -62,6 +62,7 @@ export default function ListingPage() {
     if (loading) return <div className="container" style={{ padding: '4rem', color: 'rgba(255,255,255,0.5)', fontWeight: 600 }}>Loading immersive experience...</div>;
     if (error || !listing) return <div className="container" style={{ padding: '4rem', color: '#ff3e9d' }}>Error: {error || 'Not found'}</div>;
 
+    const l = listing;
     const getCapeImage = (name: string) => `/assets/capes/${name}.png`;
 
     return (
@@ -69,11 +70,11 @@ export default function ListingPage() {
             <div className={styles.topSection}>
                 <div className={styles.imageColumn}>
                     <div className={styles.skinContainer}>
-                        <SkinViewer skinUrl={`https://minotar.net/skin/${listing.username}`} width="100%" height={500} staticModel={false} />
+                        <SkinViewer skinUrl={`https://minotar.net/skin/${l.username}`} width="100%" height={500} staticModel={false} />
                     </div>
-                    {listing.capes.length > 0 && (
+                    {l.capes.length > 0 && (
                         <div className={styles.capesRow}>
-                            {listing.capes.map(cape => (
+                            {l.capes.map(cape => (
                                 <img
                                     key={cape.id}
                                     src={getCapeImage(cape.name)}
@@ -89,29 +90,29 @@ export default function ListingPage() {
 
                 <div className={styles.infoColumn}>
                     <div className={styles.header}>
-                        <h1 className={styles.title}>{listing.username}</h1>
+                        <h1 className={styles.title}>{l.username}</h1>
                     </div>
 
                     <div className={styles.description}>
-                        {listing.description}
+                        {l.description}
                     </div>
 
                     <div className={styles.metaGrid}>
                         <div className={styles.metaItem}>
                             <span className={styles.metaLabel}>Name Changes</span>
                             <span className={styles.metaValue}>
-                                {listing.nameChanges === 0 ? '0 (Prename)' : listing.nameChanges >= 15 ? '15+' : listing.nameChanges}
+                                {l.nameChanges === 0 ? '0 (Prename)' : l.nameChanges >= 15 ? '15+' : l.nameChanges}
                             </span>
                         </div>
                         <div className={styles.metaItem}>
                             <span className={styles.metaLabel}>Owner Status</span>
-                            <span className={`${styles.metaValue} ${listing.isVerifiedOwner ? styles.verified : ''}`}>
-                                {listing.isVerifiedOwner ? 'Verified' : 'Unverified'}
+                            <span className={`${styles.metaValue} ${l.isVerifiedOwner ? styles.verified : ''}`}>
+                                {l.isVerifiedOwner ? 'Verified' : 'Unverified'}
                             </span>
                         </div>
                         <div className={styles.metaItem}>
                             <span className={styles.metaLabel}>Type</span>
-                            <span className={styles.metaValue}>{listing.accountTypes}</span>
+                            <span className={styles.metaValue}>{l.accountTypes}</span>
                         </div>
                     </div>
 
@@ -120,13 +121,13 @@ export default function ListingPage() {
                             <div className={styles.priceCard}>
                                 <span className={styles.priceLabel}>Current Offer</span>
                                 <span className={styles.priceValue}>
-                                    {listing.priceCurrentOffer !== null ? `$${listing.priceCurrentOffer.toLocaleString()}` : '—'}
+                                    {l.priceCurrentOffer !== null ? `$${l.priceCurrentOffer.toLocaleString()}` : '—'}
                                 </span>
                             </div>
                             <div className={styles.priceCard}>
                                 <span className={styles.priceLabel}>Buy It Now</span>
                                 <span className={styles.priceValue}>
-                                    {listing.priceBin !== null ? `$${listing.priceBin.toLocaleString()}` : '—'}
+                                    {l.priceBin !== null ? `$${l.priceBin.toLocaleString()}` : '—'}
                                 </span>
                             </div>
                         </div>
@@ -137,22 +138,22 @@ export default function ListingPage() {
 
                     <div className={styles.ownerSection}>
                         <div className={styles.ownerInfo}>
-                            <span className={styles.ownerName}>{listing.sellerName}</span>
+                            <span className={styles.ownerName}>{l.sellerName}</span>
                         </div>
                         <div className={styles.contactButtons}>
-                            {listing.oguProfileUrl && (
-                                <a href={listing.oguProfileUrl} target="_blank" rel="noopener noreferrer" className={styles.contactButton}>
+                            {l.oguProfileUrl && (
+                                <a href={l.oguProfileUrl} target="_blank" rel="noopener noreferrer" className={styles.contactButton}>
                                     <img src="/assets/icons/contact/ogu.png" alt="OGU" className={styles.contactIcon} />
                                 </a>
                             )}
-                            {listing.contactDiscord && (
-                                <div className={styles.contactButton} onClick={() => navigator.clipboard.writeText(listing.contactDiscord!)}>
+                            {l.contactDiscord && (
+                                <div className={styles.contactButton} onClick={() => navigator.clipboard.writeText(l.contactDiscord!)}>
                                     <img src="/assets/icons/contact/discord.svg" alt="Discord" className={styles.contactIcon} />
-                                    <div className={styles.discordTooltip}>{listing.contactDiscord}</div>
+                                    <div className={styles.discordTooltip}>{l.contactDiscord}</div>
                                 </div>
                             )}
-                            {listing.contactTelegram && (
-                                <a href={`https://t.me/${listing.contactTelegram.replace('@', '')}`} target="_blank" rel="noopener noreferrer" className={styles.contactButton}>
+                            {l.contactTelegram && (
+                                <a href={`https://t.me/${l.contactTelegram.replace('@', '')}`} target="_blank" rel="noopener noreferrer" className={styles.contactButton}>
                                     <img src="/assets/icons/contact/telegram.svg" alt="Telegram" className={styles.contactIcon} />
                                 </a>
                             )}
