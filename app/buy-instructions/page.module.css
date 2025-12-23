@@ -30,17 +30,20 @@
 }
 
 .infoBox {
-    background: rgba(0, 0, 0, 0.02);
-    border-radius: 16px;
-    padding: 1rem;
-    border: 1px solid rgba(0, 0, 0, 0.03);
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border-radius: var(--radius);
+    padding: 1.25rem;
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--shadow-sm);
 }
 
 .smallText {
-    font-size: 0.85rem;
-    color: rgba(0, 0, 0, 0.4);
+    font-size: 0.9rem;
+    color: rgba(0, 0, 0, 0.5);
     font-weight: 500;
-    line-height: 1.4;
+    line-height: 1.5;
 }
 
 .actions {

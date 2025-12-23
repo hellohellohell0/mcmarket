@@ -14,7 +14,7 @@ export default function BuyInstructions() {
                 </p>
                 <div className={styles.infoBox}>
                     <p className={styles.smallText}>
-                        Our verified transaction middleman will facilitate the trade to ensure maximum safety for both parties.
+                        A verified middleman will assist with the transaction to ensure a secure exchange for both parties.
                     </p>
                 </div>
                 <div className={styles.actions}>
