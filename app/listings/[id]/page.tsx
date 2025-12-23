@@ -126,7 +126,7 @@ export default function ListingPage() {
                             </div>
                         </div>
                         <button className={styles.buyButton} onClick={handleBuyClick}>
-                            Make an Inquiry
+                            PURCHASE/BID
                         </button>
                     </div>
 
