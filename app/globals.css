@@ -2,24 +2,30 @@
   --background: #ffffff;
   --foreground: #000000;
 
-  /* Vibrant highlights for glass interaction */
-  --primary: #4f46e5;
-  --primary-glow: rgba(79, 70, 229, 0.15);
-  --accent: #ec4899;
-  --accent-glow: rgba(236, 72, 153, 0.15);
+  /* Accent colors */
+  --primary: #000000;
+  --primary-glow: rgba(0, 0, 0, 0.05);
+  --accent: #4f46e5;
+  --accent-glow: rgba(79, 70, 229, 0.1);
 
-  --glass-bg: rgba(255, 255, 255, 0.6);
-  --glass-bg-hover: rgba(255, 255, 255, 0.8);
-  --glass-border: rgba(255, 255, 255, 0.8);
-  --glass-border-bright: #ffffff;
-  --glass-blur: 40px;
+  /* Apple-style Liquid Glass */
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-bg-hover: rgba(255, 255, 255, 0.9);
+  --glass-border: rgba(0, 0, 0, 0.06);
+  --glass-border-bright: rgba(0, 0, 0, 0.1);
+  --glass-blur: 50px;
 
-  /* Specular edges */
-  --glass-edge-top: rgba(255, 255, 255, 0.9);
-  --glass-edge-bottom: rgba(0, 0, 0, 0.05);
+  /* Specular edges for depth */
+  --glass-edge-top: #ffffff;
+  --glass-edge-bottom: rgba(0, 0, 0, 0.03);
 
   --radius: 1.5rem;
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  /* Shadows */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.08);
 }
 
 * {
@@ -57,8 +63,8 @@ a {
   -webkit-backdrop-filter: blur(var(--glass-blur));
   border: 1px solid var(--glass-border);
   box-shadow:
-    0 8px 32px 0 rgba(0, 0, 0, 0.3),
-    inset 0 1px 0 0 var(--glass-edge-top),
+    var(--shadow-md),
+    inset 0 1px 1px 0 var(--glass-edge-top),
     inset 0 -1px 0 0 var(--glass-edge-bottom);
 }
 

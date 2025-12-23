@@ -12,16 +12,16 @@
     overflow: hidden;
     transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
     box-shadow:
-        0 10px 40px -10px rgba(0, 0, 0, 0.05),
-        inset 0 1px 0 0 white;
+        var(--shadow-md),
+        inset 0 1px 1px 0 var(--glass-edge-top);
 }
 
 .card:hover {
     transform: translateY(-8px);
     box-shadow:
-        0 30px 60px -12px rgba(0, 0, 0, 0.1),
-        inset 0 1px 0 0 white;
-    border-color: #ffffff;
+        var(--shadow-lg),
+        inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.5);
+    border-color: var(--glass-border-bright);
     background: var(--glass-bg-hover);
 }
 

@@ -8,10 +8,9 @@
     position: relative;
     overflow: hidden;
     box-shadow:
-        0 12px 40px -12px rgba(0, 0, 0, 0.5),
-        inset 0 1px 1px 0 rgba(255, 255, 255, 0.15),
-        inset 0 -1px 0 0 rgba(0, 0, 0, 0.2);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        var(--shadow-md),
+        inset 0 1px 1px 0 var(--glass-edge-top);
+    transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 .hoverable:hover {
@@ -19,8 +18,8 @@
     border-color: var(--glass-border-bright);
     transform: translateY(-4px);
     box-shadow:
-        0 20px 60px -15px rgba(0, 0, 0, 0.6),
-        inset 0 1px 2px 0 rgba(255, 255, 255, 0.3);
+        var(--shadow-lg),
+        inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.5);
 }
 
 /* Light bending edge effect */

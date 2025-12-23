@@ -3,20 +3,20 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 0.75rem 1.5rem;
-    border-radius: 999px;
-    /* Pill shape for liquid feel */
-    font-weight: 600;
+    padding: 0.85rem 1.75rem;
+    border-radius: 12px;
+    font-weight: 700;
     cursor: pointer;
-    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+    border: 1px solid var(--glass-border);
     overflow: hidden;
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    color: white;
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    color: #000000;
     font-size: 0.95rem;
-    letter-spacing: 0.02em;
+    letter-spacing: -0.01em;
+    box-shadow: var(--shadow-sm);
 }
 
 .label {
@@ -32,9 +32,9 @@
     height: 100%;
     background: linear-gradient(120deg,
             transparent,
-            rgba(255, 255, 255, 0.2),
+            rgba(255, 255, 255, 0.4),
             transparent);
-    transition: 0.6s;
+    transition: 0.8s;
     z-index: 1;
 }
 
@@ -43,9 +43,10 @@
 }
 
 .btn:hover {
-    transform: translateY(-2px) scale(1.02);
-    border-color: rgba(255, 255, 255, 0.3);
-    box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.4);
+    transform: translateY(-2px);
+    border-color: var(--glass-border-bright);
+    box-shadow: var(--shadow-md);
+    background: var(--glass-bg-hover);
 }
 
 .btn:active {
@@ -53,32 +54,33 @@
 }
 
 .primary {
-    background: linear-gradient(135deg, var(--primary), #7000ff);
-    border-color: rgba(255, 255, 255, 0.2);
-    box-shadow: 0 4px 15px var(--primary-glow);
+    background: #000000;
+    color: #ffffff;
+    border: none;
 }
 
 .primary:hover {
-    box-shadow: 0 8px 25px var(--primary-glow);
-    background: linear-gradient(135deg, #7000ff, var(--primary));
+    background: #1a1a1a;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
 }
 
 .secondary {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.2);
+    background: rgba(0, 0, 0, 0.03);
+    border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .secondary:hover {
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(0, 0, 0, 0.05);
 }
 
 .ghost {
     background: transparent;
     border-color: transparent;
+    box-shadow: none;
 }
 
 .ghost:hover {
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(0, 0, 0, 0.03);
 }
 
 .full {
