@@ -65,107 +65,99 @@ export default function ListingPage() {
     const getCapeImage = (name: string) => `/assets/capes/${name}.png`;
 
     return (
-        <div className={`container ${styles.pageContainer}`}>
-            <div className={styles.layout}>
+        <div className={`container ${styles.container}`}>
+            <div className={styles.topSection}>
                 <div className={styles.imageColumn}>
-                    <div className={styles.skinCard}>
-                        <div className={styles.skinWrapper}>
-                            <SkinViewer skinUrl={`https://minotar.net/skin/${listing.username}`} width="100%" height={600} staticModel={false} />
-                        </div>
-                        {listing.capes.length > 0 && (
-                            <div className={styles.capesOverlay}>
-                                {listing.capes.map(cape => (
-                                    <img
-                                        key={cape.id}
-                                        src={getCapeImage(cape.name)}
-                                        alt={cape.name}
-                                        className={styles.capeIcon}
-                                        title={cape.name}
-                                        onError={(e) => { (e.target as HTMLImageElement).src = '/assets/capes/placeholder.png' }}
-                                    />
-                                ))}
-                            </div>
-                        )}
+                    <div className={styles.skinContainer}>
+                        <SkinViewer skinUrl={`https://minotar.net/skin/${listing.username}`} width="100%" height={500} staticModel={false} />
                     </div>
+                    {listing.capes.length > 0 && (
+                        <div className={styles.capesRow}>
+                            {listing.capes.map(cape => (
+                                <img
+                                    key={cape.id}
+                                    src={getCapeImage(cape.name)}
+                                    alt={cape.name}
+                                    className={styles.capeIcon}
+                                    title={cape.name}
+                                    onError={(e) => { (e.target as HTMLImageElement).src = '/assets/capes/placeholder.png' }}
+                                />
+                            ))}
+                        </div>
+                    )}
                 </div>
 
                 <div className={styles.infoColumn}>
                     <div className={styles.header}>
                         <h1 className={styles.title}>{listing.username}</h1>
-                        <div className={styles.typeBadges}>
-                            {listing.accountTypes.split(',').map(t => (
-                                <span key={t} className={styles.badge}>#{t.trim()}</span>
-                            ))}
+                    </div>
+
+                    <div className={styles.description}>
+                        {listing.description}
+                    </div>
+
+                    <div className={styles.metaGrid}>
+                        <div className={styles.metaItem}>
+                            <span className={styles.metaLabel}>Name Changes</span>
+                            <span className={styles.metaValue}>
+                                {listing.nameChanges === 0 ? '0 (Prename)' : listing.nameChanges >= 15 ? '15+' : listing.nameChanges}
+                            </span>
+                        </div>
+                        <div className={styles.metaItem}>
+                            <span className={styles.metaLabel}>Owner Status</span>
+                            <span className={`${styles.metaValue} ${listing.isVerifiedOwner ? styles.verified : ''}`}>
+                                {listing.isVerifiedOwner ? 'Verified' : 'Unverified'}
+                            </span>
+                        </div>
+                        <div className={styles.metaItem}>
+                            <span className={styles.metaLabel}>Type</span>
+                            <span className={styles.metaValue}>{listing.accountTypes}</span>
                         </div>
                     </div>
 
-                    <GlassCard className={styles.descriptionCard}>
-                        <h3 className={styles.sectionTitle}>Overview</h3>
-                        <p className={styles.description}>{listing.description}</p>
-
-                        <div className={styles.statsGrid}>
-                            <div className={styles.statItem}>
-                                <span className={styles.statLabel}>Name Changes</span>
-                                <span className={styles.statValue}>
-                                    {listing.nameChanges === 0 ? '0 (Prename)' : listing.nameChanges >= 15 ? '15+' : listing.nameChanges}
-                                </span>
-                            </div>
-                            <div className={styles.statItem}>
-                                <span className={styles.statLabel}>Owner Status</span>
-                                <span className={`${styles.statValue} ${listing.isVerifiedOwner ? styles.verified : ''}`}>
-                                    {listing.isVerifiedOwner ? 'Verified' : 'Unverified'}
-                                </span>
-                            </div>
-                        </div>
-                    </GlassCard>
-
-                    <div className={styles.actionSection}>
-                        <div className={styles.pricingRow}>
-                            <GlassCard className={styles.priceCard}>
+                    <div className={styles.priceContainer}>
+                        <div className={styles.pricesGrid}>
+                            <div className={styles.priceCard}>
                                 <span className={styles.priceLabel}>Current Offer</span>
                                 <span className={styles.priceValue}>
                                     {listing.priceCurrentOffer !== null ? `$${listing.priceCurrentOffer.toLocaleString()}` : '—'}
                                 </span>
-                            </GlassCard>
-                            <GlassCard className={styles.priceCard}>
+                            </div>
+                            <div className={styles.priceCard}>
                                 <span className={styles.priceLabel}>Buy It Now</span>
                                 <span className={styles.priceValue}>
                                     {listing.priceBin !== null ? `$${listing.priceBin.toLocaleString()}` : '—'}
                                 </span>
-                            </GlassCard>
+                            </div>
                         </div>
-                        <GlassButton fullWidth onClick={handleBuyClick}>
-                            Purchase or Make Offer
-                        </GlassButton>
+                        <button className={styles.buyButton} onClick={handleBuyClick}>
+                            Make an Inquiry
+                        </button>
                     </div>
 
-                    <GlassCard className={styles.sellerCard}>
-                        <h3 className={styles.sectionTitle}>Seller Inquiry</h3>
-                        <div className={styles.sellerRow}>
-                            <div className={styles.sellerInfo}>
-                                <span className={styles.sellerName}>{listing.sellerName}</span>
-                                <span className={styles.sellerRole}>Authorized Seller</span>
-                            </div>
-                            <div className={styles.contactIcons}>
-                                {listing.oguProfileUrl && (
-                                    <a href={listing.oguProfileUrl} target="_blank" rel="noopener noreferrer" className={styles.contactLink}>
-                                        <img src="/assets/icons/contact/ogu.png" alt="OGU" />
-                                    </a>
-                                )}
-                                {listing.contactDiscord && (
-                                    <div className={styles.contactLink} onClick={() => navigator.clipboard.writeText(listing.contactDiscord!)}>
-                                        <img src="/assets/icons/contact/discord.svg" alt="Discord" />
-                                        <span className={styles.tooltip}>{listing.contactDiscord}</span>
-                                    </div>
-                                )}
-                                {listing.contactTelegram && (
-                                    <a href={`https://t.me/${listing.contactTelegram.replace('@', '')}`} target="_blank" rel="noopener noreferrer" className={styles.contactLink}>
-                                        <img src="/assets/icons/contact/telegram.svg" alt="Telegram" />
-                                    </a>
-                                )}
-                            </div>
+                    <div className={styles.ownerSection}>
+                        <div className={styles.ownerInfo}>
+                            <span className={styles.ownerName}>{listing.sellerName}</span>
                         </div>
-                    </GlassCard>
+                        <div className={styles.contactButtons}>
+                            {listing.oguProfileUrl && (
+                                <a href={listing.oguProfileUrl} target="_blank" rel="noopener noreferrer" className={styles.contactButton}>
+                                    <img src="/assets/icons/contact/ogu.png" alt="OGU" className={styles.contactIcon} />
+                                </a>
+                            )}
+                            {listing.contactDiscord && (
+                                <div className={styles.contactButton} onClick={() => navigator.clipboard.writeText(listing.contactDiscord!)}>
+                                    <img src="/assets/icons/contact/discord.svg" alt="Discord" className={styles.contactIcon} />
+                                    <div className={styles.discordTooltip}>{listing.contactDiscord}</div>
+                                </div>
+                            )}
+                            {listing.contactTelegram && (
+                                <a href={`https://t.me/${listing.contactTelegram.replace('@', '')}`} target="_blank" rel="noopener noreferrer" className={styles.contactButton}>
+                                    <img src="/assets/icons/contact/telegram.svg" alt="Telegram" className={styles.contactIcon} />
+                                </a>
+                            )}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

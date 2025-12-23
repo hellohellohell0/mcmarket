@@ -1,116 +1,96 @@
 .card {
     display: flex;
     flex-direction: column;
+    position: relative;
+    text-decoration: none;
+    color: inherit;
     background: var(--glass-bg);
     backdrop-filter: blur(var(--glass-blur));
     -webkit-backdrop-filter: blur(var(--glass-blur));
     border: 1px solid var(--glass-border);
     border-radius: var(--radius);
     overflow: hidden;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     box-shadow:
         0 8px 32px 0 rgba(0, 0, 0, 0.3),
         inset 0 1px 0 0 var(--glass-edge-top);
 }
 
 .card:hover {
-    background: var(--glass-bg-hover);
-    border-color: var(--glass-border-bright);
-    transform: translateY(-4px);
+    transform: translateY(-5px);
     box-shadow:
         0 20px 40px rgba(0, 0, 0, 0.4),
         inset 0 1px 0 0 var(--glass-edge-top);
+    border-color: var(--glass-border-bright);
+    background: var(--glass-bg-hover);
 }
 
 .imageContainer {
-    position: relative;
-    width: 100%;
     aspect-ratio: 1;
+    width: 100%;
     background: rgba(0, 0, 0, 0.3);
-    border-bottom: 1px solid var(--glass-border);
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
     overflow: hidden;
-}
-
-.skinWrapper {
-    width: 100%;
-    height: 100%;
-    transform: scale(0.9);
-    transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-    image-rendering: pixelated;
-}
-
-.card:hover .skinWrapper {
-    transform: scale(1) translateY(-10px);
+    border-bottom: 1px solid var(--glass-border);
 }
 
 .capesOverlay {
     position: absolute;
-    top: 12px;
-    left: 12px;
+    bottom: 0.5rem;
+    left: 0.5rem;
     display: flex;
-    gap: 8px;
+    gap: 1.5px;
+    max-width: 100%;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    pointer-events: none;
     z-index: 10;
 }
 
 .capeIcon {
-    width: 28px;
-    height: 42px;
-    object-fit: contain;
-    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
-    transition: transform 0.2s;
+    width: 32px;
+    height: auto;
+    border-radius: 4px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(0, 0, 0, 0.1);
     image-rendering: pixelated;
-}
-
-.capeIcon:hover {
-    transform: translateY(-4px) scale(1.1);
+    transition: transform 0.2s;
 }
 
 .content {
-    padding: 1.25rem;
+    padding: 1rem;
     display: flex;
     flex-direction: column;
+    gap: 0.5rem;
     flex: 1;
-    gap: 0.75rem;
-}
-
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
 }
 
 .username {
-    font-size: 1.25rem;
+    font-size: 1.125rem;
     font-weight: 800;
+    margin: 0;
+    line-height: 1.3;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     color: #ffffff;
-    letter-spacing: -0.02em;
-}
-
-.badge {
-    font-size: 0.65rem;
-    font-weight: 800;
-    background: rgba(255, 255, 255, 0.05);
-    padding: 3px 10px;
-    border-radius: 999px;
-    text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.4);
-    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .description {
-    font-size: 0.85rem;
+    font-size: 0.875rem;
     color: rgba(255, 255, 255, 0.4);
+    margin: 0;
     line-height: 1.5;
-    margin-bottom: 0.5rem;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
+    min-height: 2.625rem;
 }
 
 .meta {
@@ -118,23 +98,40 @@
     justify-content: space-between;
     align-items: flex-end;
     margin-top: auto;
+    padding-top: 1rem;
+    border-top: 1px solid var(--glass-border);
 }
 
 .prices {
     display: flex;
-    gap: 1rem;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.owner {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.125rem;
+}
+
+.ownerName {
+    font-size: 0.9rem;
+    font-weight: 800;
+    color: #ffffff;
 }
 
 .priceItem {
     display: flex;
     flex-direction: column;
+    gap: 0.125rem;
 }
 
 .label {
     font-size: 0.65rem;
-    font-weight: 700;
-    color: rgba(255, 255, 255, 0.25);
+    color: rgba(255, 255, 255, 0.3);
     text-transform: uppercase;
+    font-weight: 700;
     letter-spacing: 0.05em;
 }
 
@@ -143,10 +140,4 @@
     font-weight: 800;
     color: #ffffff;
     font-feature-settings: "tnum";
-}
-
-.ownerName {
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: rgba(255, 255, 255, 0.3);
 }

@@ -15,7 +15,7 @@ export default function AccountCard({ listing }: { listing: ListingWithRelations
     return (
         <Link href={`/listings/${listing.id}`} className={styles.card}>
             <div className={styles.imageContainer}>
-                <div className={styles.skinWrapper}>
+                <div style={{ pointerEvents: 'none', display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%', overflow: 'hidden' }}>
                     <SkinViewer skinUrl={`https://minotar.net/skin/${listing.username}`} width="100%" height="100%" staticModel={true} />
                 </div>
 
@@ -36,11 +36,7 @@ export default function AccountCard({ listing }: { listing: ListingWithRelations
             </div>
 
             <div className={styles.content}>
-                <div className={styles.header}>
-                    <h3 className={styles.username}>{listing.username}</h3>
-                    <div className={styles.badge}>{listing.accountTypes}</div>
-                </div>
-
+                <h3 className={styles.username}>{listing.username}</h3>
                 <p className={styles.description}>{listing.description}</p>
 
                 <div className={styles.meta}>
@@ -59,7 +55,8 @@ export default function AccountCard({ listing }: { listing: ListingWithRelations
                         )}
                     </div>
                     <div className={styles.owner}>
-                        <span className={styles.ownerName}>@{listing.currentOwnerName}</span>
+                        <span className={styles.label}>Owned By</span>
+                        <span className={styles.ownerName}>{listing.currentOwnerName}</span>
                     </div>
                 </div>
             </div>
