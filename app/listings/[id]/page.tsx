@@ -133,7 +133,7 @@ export default function ListingPage() {
                     <div className={styles.ownerSection}>
                         <div className={styles.ownerInfo}>
                             <span className={styles.label}>Owned by:</span>
-                            <span className={styles.ownerName}>{l.sellerName}</span>
+                            <span className={styles.ownerName}>{l.currentOwnerName}</span>
                             {l.isVerifiedOwner && (
                                 <div className={styles.verifiedBadge}>
                                     <svg viewBox="0 0 24 24" fill="currentColor">
