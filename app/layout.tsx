@@ -4,10 +4,10 @@ import Navbar from "@/components/Shared/Navbar";
 import GlassBackground from "@/components/Shared/GlassBackground";
 
 export const metadata: Metadata = {
-  title: "MCMarket",
+  title: "Glass Market",
   description: "A website to simplify selling and buying Minecraft accounts.",
   openGraph: {
-    title: "MCMarket",
+    title: "Glass Market",
     description: "A website to simplify selling and buying Minecraft accounts.",
     type: "website",
   },

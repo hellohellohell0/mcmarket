@@ -8,7 +8,7 @@ export default function Navbar() {
         <nav className={styles.nav}>
             <div className={`container ${styles.container}`}>
                 <Link href="/" className={styles.logo}>
-                    MCMarket
+                    Glass Market
                 </Link>
                 <div className={styles.links}>
                     <Link href="/about">About</Link>

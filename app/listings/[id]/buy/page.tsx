@@ -72,7 +72,7 @@ export default function BuyPage() {
                         <div className={styles.optionText}>
                             <h3>Option 1</h3>
                             <p>Contact the seller directly</p>
-                            <div className={styles.middlemanWarning}>Make sure to use a middleman</div>
+                            <div className={styles.middlemanWarning}>(Make sure to use a middleman!)</div>
                         </div>
                         <div className={styles.contactButtons}>
                             {listing.oguProfileUrl && (

@@ -7,7 +7,7 @@ export default function AboutPage() {
     return (
         <div className={`container ${styles.pageContainer}`}>
             <GlassCard className={styles.card}>
-                <h1 className={styles.title}>About MCMarket</h1>
+                <h1 className={styles.title}>About Glass Market</h1>
                 <p className={styles.bodyText}>
                     MCMarket is an account marketplace made by Reprise for the purpose of browsing and finding accounts easily. It includes a simple interface and functionality, as well as a detailed filtering system to tailor results to your liking.
                 </p>
