@@ -1,3 +1,5 @@
+'use client';
+
 import styles from './page.module.css';
 import GlassCard from '@/components/Shared/GlassCard';
 import GlassButton from '@/components/Shared/GlassButton';
