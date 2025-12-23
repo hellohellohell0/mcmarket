@@ -94,7 +94,7 @@ export default function SkinViewer({ skinUrl, width = 300, height = 400, staticM
 
     return (
         <div ref={wrapperRef} style={{ width, height, position: 'relative' }}>
-            <canvas ref={canvasRef} style={{ width: '100%', height: '100%', display: 'block' }} />
+            <canvas ref={canvasRef} style={{ width: '100%', height: '100%', display: 'block', imageRendering: 'pixelated' }} />
         </div>
     );
 }

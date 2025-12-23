@@ -68,7 +68,7 @@ export default function ListingPage() {
         <div className={`container ${styles.pageContainer}`}>
             <div className={styles.layout}>
                 <div className={styles.imageColumn}>
-                    <GlassCard className={styles.skinCard}>
+                    <div className={styles.skinCard}>
                         <div className={styles.skinWrapper}>
                             <SkinViewer skinUrl={`https://minotar.net/skin/${listing.username}`} width="100%" height={600} staticModel={false} />
                         </div>
@@ -86,7 +86,7 @@ export default function ListingPage() {
                                 ))}
                             </div>
                         )}
-                    </GlassCard>
+                    </div>
                 </div>
 
                 <div className={styles.infoColumn}>
