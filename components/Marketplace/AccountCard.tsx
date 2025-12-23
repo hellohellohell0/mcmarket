@@ -36,7 +36,12 @@ export default function AccountCard({ listing }: { listing: ListingWithRelations
             </div>
 
             <div className={styles.content}>
-                <h3 className={styles.username}>{listing.username}</h3>
+                <div className={styles.titleRow}>
+                    <h3 className={styles.username}>{listing.username}</h3>
+                    <span className={styles.nameChangesSubtle}>
+                        {listing.nameChanges === 0 ? 'Prename' : `${listing.nameChanges >= 15 ? '15+' : listing.nameChanges} changes`}
+                    </span>
+                </div>
                 <p className={styles.description}>{listing.description}</p>
 
                 <div className={styles.meta}>
