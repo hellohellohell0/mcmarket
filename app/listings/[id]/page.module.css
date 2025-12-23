@@ -1,371 +1,299 @@
-.container {
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 2rem 1.5rem;
+.pageContainer {
+    padding-top: 4rem;
+    padding-bottom: 8rem;
 }
 
-.topSection {
+.layout {
     display: grid;
-    grid-template-columns: 1.2fr 1.3fr;
-    gap: 3rem;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 4rem;
     align-items: start;
 }
 
 .imageColumn {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1.5rem;
+    position: sticky;
+    top: 120px;
 }
 
-.skinContainer {
-    width: 100%;
-    height: 500px;
-    background: rgba(255, 255, 255, 0.5);
-    border-radius: var(--radius);
-    border: 1px solid var(--border);
+.skinCard {
+    padding: 0;
+    aspect-ratio: 4/5;
+    background: rgba(0, 0, 0, 0.4);
     display: flex;
     justify-content: center;
     align-items: center;
     overflow: hidden;
-    box-shadow: var(--glass-shadow);
 }
 
-.skin {
-    height: 85%;
-    image-rendering: pixelated;
-    filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.2));
+.skinWrapper {
+    width: 100%;
+    height: 100%;
+    transform: scale(0.95);
+    transition: 0.5s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
-.placeholderSkin {
-    width: 128px;
-    height: 128px;
-    background: var(--muted);
-    border-radius: 50%;
+.skinCard:hover .skinWrapper {
+    transform: scale(1.05) translateY(-20px);
 }
 
-.capesRow {
+.capesOverlay {
+    position: absolute;
+    bottom: 2rem;
+    left: 2rem;
     display: flex;
     gap: 1rem;
-    justify-content: center;
-    flex-wrap: wrap;
 }
 
 .capeIcon {
-    width: 80px;
-    height: auto;
-    image-rendering: pixelated;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 6px;
-    background: #fff;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    width: 48px;
+    height: 72px;
+    object-fit: contain;
+    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.5));
+    transition: 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .capeIcon:hover {
-    transform: scale(1.1);
+    transform: translateY(-8px) scale(1.1);
 }
 
 .infoColumn {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 3rem;
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }
 
 .title {
-    font-size: 3rem;
+    font-size: 4.5rem;
     font-weight: 800;
-    letter-spacing: -0.03em;
-    line-height: 1.1;
-    color: var(--foreground);
+    letter-spacing: -0.05em;
+    line-height: 1;
+    background: linear-gradient(135deg, #ffffff 0%, rgba(255, 255, 255, 0.3) 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
-.description {
-    font-size: 1.1rem;
-    color: var(--muted-foreground);
-    line-height: 1.7;
-    background: rgba(255, 255, 255, 0.5);
-    padding: 1.5rem;
-    border-radius: var(--radius);
-    border: 1px solid rgba(255, 255, 255, 0.5);
-}
-
-/* Missing Meta Classes */
-.metaGrid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: 1.5rem;
-    padding-bottom: 1.5rem;
-    border-bottom: 1px solid var(--border);
-}
-
-.metaItem {
+.typeBadges {
     display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-}
-
-.metaLabel {
-    font-size: 0.8rem;
-    text-transform: uppercase;
-    color: var(--muted-foreground);
-    font-weight: 700;
-    letter-spacing: 0.05em;
-}
-
-.metaValue {
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: var(--foreground);
-}
-
-
-.ownerSection {
-    background: rgba(255, 255, 255, 0.5);
-    padding: 1rem 1.5rem;
-    border-radius: var(--radius);
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.ownerInfo {
-    display: flex;
-    align-items: center;
     gap: 0.75rem;
 }
 
-.ownerName {
-    font-weight: 600;
-    font-size: 1rem;
+.badge {
+    padding: 4px 12px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 800;
+    color: rgba(255, 255, 255, 0.6);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
 }
 
-.verifiedBadge {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #10b981;
-    cursor: pointer;
-    position: relative;
+.sectionTitle {
+    font-size: 0.9rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.3);
+    letter-spacing: 0.1rem;
+    margin-bottom: 1.5rem;
 }
 
-.verifiedBadge:hover::after {
-    content: "This owner has verified ownership of this account";
-    position: absolute;
-    bottom: 125%;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #18181b;
-    color: #fff;
-    padding: 0.5rem 0.75rem;
-    border-radius: 0.5rem;
-    font-size: 0.75rem;
-    white-space: nowrap;
-    z-index: 10;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    pointer-events: none;
+.descriptionCard {
+    background: rgba(255, 255, 255, 0.03);
 }
 
-.oguButton {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    background: #18181b;
-    color: #fff;
-    padding: 0.4rem 0.8rem;
-    border-radius: 0.5rem;
-    font-size: 0.85rem;
-    font-weight: 600;
-    text-decoration: none;
-    transition: all 0.2s;
+.description {
+    font-size: 1.15rem;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 2rem;
 }
 
-.oguButton:hover {
-    background: #27272a;
-    transform: translateY(-1px);
-}
-
-/* Pricing Section */
-.priceContainer {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    padding: 2rem;
-    background: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.6);
-    border-radius: 1.5rem;
-    margin-top: 1rem;
-    box-shadow: 0 8px 32px 0 rgba(14, 165, 233, 0.05);
-}
-
-.pricesGrid {
+.statsGrid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-top: 2rem;
+}
+
+.statItem {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.statLabel {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.3);
+}
+
+.statValue {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #ffffff;
+}
+
+.verified {
+    color: #4ade80;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.actionSection {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.pricingRow {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
 }
 
 .priceCard {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+    padding: 1.5rem;
 }
 
 .priceLabel {
-    font-size: 0.9rem;
-    text-transform: uppercase;
-    color: var(--muted-foreground);
+    font-size: 0.75rem;
     font-weight: 700;
-    letter-spacing: 0.05em;
+    color: rgba(255, 255, 255, 0.3);
+    text-transform: uppercase;
 }
 
 .priceValue {
     font-size: 2.5rem;
-    font-weight: 800;
-    color: var(--primary);
-    font-feature-settings: "tnum";
-    line-height: 1;
+    font-weight: 900;
+    background: linear-gradient(135deg, #ffffff 0%, #a855f7 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
-.buyButton {
-    background: var(--primary);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    color: #fff;
-    width: 100%;
-    padding: 1.25rem;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: var(--radius);
-    font-weight: 700;
-    font-size: 1.25rem;
-    cursor: pointer;
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow:
-        0 4px 6px -1px rgba(37, 99, 235, 0.25),
-        0 2px 4px -1px rgba(37, 99, 235, 0.1),
-        inset 0 1px 0 rgba(255, 255, 255, 0.4);
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-    text-transform: uppercase;
-    letter-spacing: 0.025em;
+.sellerCard {
+    background: rgba(255, 255, 255, 0.02);
 }
 
-.buyButton:hover {
-    background: #1d4ed8;
-    transform: translateY(-2px);
-    box-shadow:
-        0 20px 25px -5px rgba(37, 99, 235, 0.3),
-        0 10px 10px -5px rgba(37, 99, 235, 0.1),
-        inset 0 1px 0 rgba(255, 255, 255, 0.5);
-}
-
-.sellerSection {
-    margin-top: 1rem;
-    border-top: 1px solid var(--border);
-    padding-top: 2rem;
-}
-
-.sellerSection h3 {
-    font-size: 1.1rem;
-    margin-bottom: 1.5rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--muted-foreground);
-}
-
-.contactList {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-}
-
-.contactItem {
+.sellerRow {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem;
-    background: rgba(255, 255, 255, 0.6);
-    border-radius: var(--radius);
-    border: 1px solid var(--border);
 }
 
-.contactType {
-    font-weight: 600;
-    color: var(--muted-foreground);
-    font-size: 0.9rem;
+.sellerInfo {
+    display: flex;
+    flex-direction: column;
 }
 
-.contactButtons {
+.sellerName {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.sellerRole {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.contactIcons {
     display: flex;
     gap: 1rem;
-    flex-wrap: wrap;
 }
 
-.contactButton {
+.contactLink {
+    width: 44px;
+    height: 44px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 32px;
-    height: 32px;
-    color: var(--foreground);
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.3s;
     cursor: pointer;
     position: relative;
     text-decoration: none;
 }
 
-.contactButton:hover {
+.contactLink img {
+    width: 20px;
+    height: 20px;
+    opacity: 0.7;
+    transition: 0.3s;
+}
+
+.contactLink:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-4px);
+}
+
+.contactLink:hover img {
+    opacity: 1;
     transform: scale(1.1);
-    color: var(--primary);
 }
 
-.contactIcon {
-    width: 24px;
-    height: 24px;
-    object-fit: contain;
-}
-
-.discordTooltip {
+.tooltip {
     position: absolute;
-    bottom: 125%;
+    bottom: 130%;
     left: 50%;
     transform: translateX(-50%);
-    background: #18181b;
-    color: #fff;
-    padding: 0.5rem 0.75rem;
-    border-radius: 0.5rem;
+    padding: 8px 12px;
+    background: #ffffff;
+    color: #000000;
+    border-radius: 8px;
     font-size: 0.85rem;
-    font-weight: 600;
+    font-weight: 700;
     white-space: nowrap;
     opacity: 0;
     visibility: hidden;
-    transition: all 0.2s;
-    z-index: 100;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
     pointer-events: none;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
-.contactButton:hover .discordTooltip {
+.contactLink:hover .tooltip {
     opacity: 1;
     visibility: visible;
-    bottom: 135%;
 }
 
-@media (max-width: 768px) {
-    .topSection {
+@media (max-width: 1024px) {
+    .layout {
         grid-template-columns: 1fr;
-        gap: 2rem;
+        gap: 3rem;
     }
 
-    .pricesGrid {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
+    .imageColumn {
+        position: static;
     }
 
     .title {
+        font-size: 3rem;
+    }
+}
+
+@media (max-width: 640px) {
+    .pricingRow {
+        grid-template-columns: 1fr;
+    }
+
+    .priceValue {
         font-size: 2rem;
     }
 }

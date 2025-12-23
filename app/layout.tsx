@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
 import "./globals.css";
 import Navbar from "@/components/Shared/Navbar";
-
+import GlassBackground from "@/components/Shared/GlassBackground";
 
 export const metadata: Metadata = {
   title: "MCMarket",
@@ -22,6 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <GlassBackground />
         <Navbar />
         <main>{children}</main>
       </body>

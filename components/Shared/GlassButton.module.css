@@ -3,19 +3,20 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 0.6rem 1.2rem;
-    border-radius: var(--radius);
+    padding: 0.75rem 1.5rem;
+    border-radius: 999px;
+    /* Pill shape for liquid feel */
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    font-size: 0.95rem;
-    height: 2.8rem;
     overflow: hidden;
     background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     color: white;
+    font-size: 0.95rem;
+    letter-spacing: 0.02em;
 }
 
 .label {
@@ -42,24 +43,33 @@
 }
 
 .btn:hover {
-    transform: translateY(-1px);
+    transform: translateY(-2px) scale(1.02);
     border-color: rgba(255, 255, 255, 0.3);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.4);
+}
+
+.btn:active {
+    transform: translateY(0) scale(0.98);
 }
 
 .primary {
     background: linear-gradient(135deg, var(--primary), #7000ff);
     border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 15px var(--primary-glow);
 }
 
-.outline {
-    background: rgba(255, 255, 255, 0.03);
-    border-color: rgba(255, 255, 255, 0.1);
+.primary:hover {
+    box-shadow: 0 8px 25px var(--primary-glow);
+    background: linear-gradient(135deg, #7000ff, var(--primary));
 }
 
-.outline:hover {
-    background: rgba(255, 255, 255, 0.08);
-    border-color: rgba(255, 255, 255, 0.3);
+.secondary {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.secondary:hover {
+    background: rgba(255, 255, 255, 0.15);
 }
 
 .ghost {
@@ -78,4 +88,5 @@
 .btn:disabled {
     opacity: 0.5;
     cursor: not-allowed;
+    transform: none !important;
 }

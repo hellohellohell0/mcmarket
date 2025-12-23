@@ -1,44 +1,48 @@
 .pageContainer {
     display: flex;
-    padding-top: 2rem;
-    padding-bottom: 2rem;
-    gap: 2rem;
+    padding-top: 3rem;
+    padding-bottom: 5rem;
+    gap: 3rem;
 }
 
 .gridContainer {
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 2rem;
 }
 
 .header {
     display: flex;
     justify-content: space-between;
-    align-items: baseline;
-    border-bottom: 1px solid var(--border);
-    padding-bottom: 1rem;
+    align-items: center;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .header h2 {
-    font-size: 1.5rem;
-    font-weight: 700;
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    background: linear-gradient(135deg, #ffffff 0%, rgba(255, 255, 255, 0.4) 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .count {
-    color: var(--muted-foreground);
-    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.95rem;
+    font-weight: 600;
 }
 
 .grid {
     display: grid;
-    /* Desktop: 3 columns. Use auto-fill with minmax to handle responsiveness but prioritizing ~3 cols on standard screens */
-    /* If specifically want 3 cols at "normal desktop dimensions" (e.g. >1024px), we can force it or stick to auto-fill */
     grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
+    gap: 2rem;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1200px) {
     .grid {
         grid-template-columns: repeat(2, 1fr);
     }
@@ -52,15 +56,20 @@
 
 .loading,
 .empty {
-    padding: 4rem;
+    padding: 6rem;
     text-align: center;
-    color: var(--muted-foreground);
-    background: var(--muted);
+    color: rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
     border-radius: var(--radius);
+    font-size: 1.1rem;
+    font-weight: 500;
 }
 
 @media (max-width: 768px) {
     .pageContainer {
         flex-direction: column;
+        padding-top: 1.5rem;
     }
 }

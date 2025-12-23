@@ -11,7 +11,8 @@ export default function Button({ children, variant = 'primary', fullWidth, class
             className={`${styles.btn} ${styles[variant]} ${fullWidth ? styles.full : ''} ${className || ''}`}
             {...props}
         >
-            {children}
+            <span className={styles.label}>{children}</span>
+            <span className={styles.shine} />
         </button>
     );
 }
