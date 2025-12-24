@@ -2,6 +2,7 @@
 
 import styles from './page.module.css';
 import GlassCard from '@/components/Shared/GlassCard';
+import GlassButton from '@/components/Shared/GlassButton';
 
 export default function AboutPage() {
     return (
@@ -14,6 +15,11 @@ export default function AboutPage() {
                 <p className={styles.bodyText}>
                     To list an account, create a ticket in the discord server and provide all the account details as well as your OGU so I can confirm your identity (if you're a known seller). Sellers can provide detailed descriptions with OGO and stats, and contact information to ensure customers can reach them directly.
                 </p>
+                <div className={styles.actions}>
+                    <GlassButton fullWidth onClick={() => window.open('https://discord.gg/P2WbBEDEFy', '_blank')}>
+                        Join Discord Server
+                    </GlassButton>
+                </div>
             </GlassCard>
         </div>
     );
