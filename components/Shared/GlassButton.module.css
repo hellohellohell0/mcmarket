@@ -92,3 +92,20 @@
     cursor: not-allowed;
     transform: none !important;
 }
+
+.discordButton {
+    background: #5865F2 !important;
+    color: #ffffff !important;
+    border: none !important;
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+.discordButton:hover {
+    background: #4752C4 !important;
+    box-shadow: 0 8px 20px rgba(88, 101, 242, 0.3) !important;
+}
+
+.discordButton .shine {
+    display: none;
+}

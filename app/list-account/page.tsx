@@ -54,7 +54,7 @@ export default function ListAccountPage() {
                 </div>
 
                 <div className={styles.actions}>
-                    <GlassButton fullWidth onClick={() => window.open('https://discord.gg/P2WbBEDEFy', '_blank')}>
+                    <GlassButton className="discordButton" onClick={() => window.open('https://discord.gg/P2WbBEDEFy', '_blank')}>
                         Join Discord Server
                     </GlassButton>
                 </div>
