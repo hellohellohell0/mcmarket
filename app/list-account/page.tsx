@@ -42,11 +42,11 @@ export default function ListAccountPage() {
                                 <ul className={styles.infoList}>
                                     <li><strong>Contact (OGU, Discord, Telegram)</strong> - this is what users will be given when they want to purchase your account. I will also be confirming your identity if you are a high-reputable seller.</li>
                                     <li><strong>Username of the account</strong></li>
-                                    <li><strong>Type of account (High Tier, OG, Semi-OG, Low Tier, Stats)</strong></li>
+                                    <li><strong>Type of account</strong> (High Tier, OG, Semi-OG, Low Tier, Stats)</li>
                                     <li><strong>Number of name changes</strong></li>
                                     <li><strong>Current BIN and CO</strong></li>
                                     <li><strong>Account's capes</strong></li>
-                                    <li><strong>Description of the account (OGO, stats, bans, cosmetics)</strong></li>
+                                    <li><strong>Description of the account</strong> (OGO, stats, bans, cosmetics)</li>
                                 </ul>
                             </div>
                         </div>
