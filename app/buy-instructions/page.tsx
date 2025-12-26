@@ -18,7 +18,7 @@ export default function BuyInstructions() {
                     </p>
                 </div>
                 <div className={styles.actions}>
-                    <GlassButton fullWidth onClick={() => window.open('https://discord.gg/example', '_blank')}>
+                    <GlassButton fullWidth onClick={() => window.open('https://discord.gg/Hg8qTytv5K', '_blank')}>
                         Open Support Ticket
                     </GlassButton>
                 </div>

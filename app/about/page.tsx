@@ -16,7 +16,7 @@ export default function AboutPage() {
                     To list an account, create a ticket in the discord server and provide all the account details as well as your OGU so I can confirm your identity (if you're a known seller). Sellers can provide detailed descriptions with OGO and stats, and contact information to ensure customers can reach them directly.
                 </p>
                 <div className={styles.actions}>
-                    <GlassButton className="discordButton" onClick={() => window.open('https://discord.gg/P2WbBEDEFy', '_blank')}>
+                    <GlassButton className="discordButton" onClick={() => window.open('https://discord.gg/Hg8qTytv5K', '_blank')}>
                         Join Discord Server
                     </GlassButton>
                 </div>

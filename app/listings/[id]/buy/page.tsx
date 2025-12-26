@@ -99,7 +99,7 @@ export default function BuyPage() {
                             <h3>Option 2</h3>
                             <p>Make a ticket in the discord server and we will connect you to the seller.</p>
                         </div>
-                        <a href="https://discord.gg/P2WbBEDEFy" target="_blank" rel="noopener noreferrer" className={`${styles.button} ${styles.discordButton}`}>
+                        <a href="https://discord.gg/Hg8qTytv5K" target="_blank" rel="noopener noreferrer" className={`${styles.button} ${styles.discordButton}`}>
                             Join Discord
                         </a>
                     </div>

@@ -365,12 +365,12 @@ export default function ListAccountPage() {
                                     className={styles.input}
                                     value={formData.ticketNumber}
                                     onChange={(e) => setFormData({ ...formData, ticketNumber: e.target.value })}
-                                    placeholder="e.g., #12345"
+                                    placeholder="e.g., 1233"
                                 />
                                 {errors.ticketNumber && <span className={styles.error}>{errors.ticketNumber}</span>}
                             </div>
                             <div className={styles.ticketImagePlaceholder}>
-                                <span>Ticket Image Wrapper</span>
+                                <img src="/public/assets/images/ticketimage.png" alt="Ticket Image" className={styles.ticketImage} />
                             </div>
                         </div>
                     </div>
