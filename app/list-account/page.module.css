@@ -309,29 +309,40 @@
 }
 
 .ticketImagePlaceholder {
-    width: 200px;
-    height: 120px;
-    background: rgba(0, 0, 0, 0.03);
-    border: 2px dashed rgba(0, 0, 0, 0.1);
-    border-radius: 1rem;
+    width: 140px;
+    height: 140px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 4px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    color: rgba(0, 0, 0, 0.4);
-    font-size: 0.8rem;
-    text-align: center;
-    padding: 1rem;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
     flex-shrink: 0;
+    position: relative;
+}
+
+.ticketImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.ticketImagePlaceholder:hover .ticketImage {
+    transform: scale(1.05);
 }
 
 @media (max-width: 768px) {
     .ticketInputGroup {
         flex-direction: column;
+        align-items: center;
+        text-align: center;
     }
 
     .ticketImagePlaceholder {
-        width: 100%;
-        height: 150px;
+        width: 140px;
+        height: 140px;
     }
 }
