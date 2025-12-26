@@ -46,12 +46,14 @@ export default function AccountCard({ listing }: { listing: ListingWithRelations
 
                 <div className={styles.meta}>
                     <div className={styles.prices}>
-                        {listing.priceCurrentOffer !== null && (
-                            <div className={styles.priceItem}>
-                                <span className={styles.label}>C/O</span>
-                                <span className={styles.value}>${listing.priceCurrentOffer.toLocaleString()}</span>
-                            </div>
-                        )}
+                        <div className={styles.priceItem}>
+                            <span className={styles.label}>C/O</span>
+                            <span className={styles.value}>
+                                {listing.priceCurrentOffer && listing.priceCurrentOffer > 0
+                                    ? `$${listing.priceCurrentOffer.toLocaleString()}`
+                                    : '-'}
+                            </span>
+                        </div>
                         {listing.priceBin !== null && (
                             <div className={styles.priceItem}>
                                 <span className={styles.label}>BIN</span>

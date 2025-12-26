@@ -26,7 +26,8 @@ export default function ListAccountPage() {
         oguProfileUrl: '',
         contactDiscord: '',
         contactTelegram: '',
-        ticketNumber: ''
+        ticketNumber: '',
+        currentOwnerName: '', // Added field
     });
 
     const [errors, setErrors] = useState<Record<string, string>>({});
@@ -126,7 +127,8 @@ export default function ListAccountPage() {
                     oguProfileUrl: '',
                     contactDiscord: '',
                     contactTelegram: '',
-                    ticketNumber: ''
+                    ticketNumber: '',
+                    currentOwnerName: ''
                 });
                 setErrors({});
             } else {
@@ -180,6 +182,20 @@ export default function ListAccountPage() {
                         {errors.username && <span className={styles.error}>{errors.username}</span>}
                     </div>
 
+                    <div className={styles.formSection}>
+                        <label className={styles.label}>
+                            Current Owner (You) <span className={styles.required}>*</span>
+                        </label>
+                        <input
+                            type="text"
+                            className={styles.input}
+                            value={formData.currentOwnerName}
+                            onChange={(e) => setFormData({ ...formData, currentOwnerName: e.target.value })}
+                            placeholder="Reprising"
+                        />
+                        {/* Optional: Add error handling if validation is strictly required later */}
+                    </div>
+
                     {/* Account Types */}
                     <div className={styles.formSection}>
                         <label className={styles.label}>
@@ -201,19 +217,24 @@ export default function ListAccountPage() {
                     </div>
 
                     {/* Name Changes */}
-                    <div className={styles.formSection}>
-                        <label className={styles.label}>
-                            Number of Name Changes <span className={styles.required}>*</span>
+                    <div className={styles.sliderContainer}>
+                        <label className={styles.sliderLabel}>
+                            Number of Name Changes: {formData.nameChanges === '' ? 'Select' :
+                                parseInt(formData.nameChanges) === 0 ? 'Prename' :
+                                    parseInt(formData.nameChanges) >= 15 ? '15+' : formData.nameChanges} <span className={styles.required}>*</span>
                         </label>
                         <input
-                            type="number"
+                            type="range"
                             min="0"
                             max="15"
-                            className={styles.input}
-                            value={formData.nameChanges}
+                            className={styles.range}
+                            value={formData.nameChanges === '' ? 0 : formData.nameChanges}
                             onChange={(e) => setFormData({ ...formData, nameChanges: e.target.value })}
-                            placeholder="0-15"
                         />
+                        <div className={styles.rangeLabels}>
+                            <span>Prename (0)</span>
+                            <span>15+</span>
+                        </div>
                         {errors.nameChanges && <span className={styles.error}>{errors.nameChanges}</span>}
                     </div>
 
@@ -241,23 +262,23 @@ export default function ListAccountPage() {
                             <input
                                 type="number"
                                 min="0"
-                                step="0.01"
+                                step="1"
                                 className={styles.input}
                                 value={formData.priceBin}
                                 onChange={(e) => setFormData({ ...formData, priceBin: e.target.value })}
-                                placeholder="$0.00"
+                                placeholder="$0"
                             />
                             {errors.priceBin && <span className={styles.error}>{errors.priceBin}</span>}
                         </div>
 
                         <div className={styles.formSection}>
                             <label className={styles.label}>
-                                Current Offer <span className={styles.required}>*</span>
+                                C/O (Current Offer) <span className={styles.required}>*</span>
                             </label>
                             <input
                                 type="number"
                                 min="0"
-                                step="0.01"
+                                step="1"
                                 className={styles.input}
                                 value={formData.priceCurrentOffer}
                                 onChange={(e) => setFormData({ ...formData, priceCurrentOffer: e.target.value })}
@@ -299,7 +320,7 @@ export default function ListAccountPage() {
                                     className={styles.input}
                                     value={formData.oguProfileUrl}
                                     onChange={(e) => setFormData({ ...formData, oguProfileUrl: e.target.value })}
-                                    placeholder="https://ogusers.com/..."
+                                    placeholder="https://oguser.com/..."
                                 />
                             </div>
 
@@ -321,7 +342,7 @@ export default function ListAccountPage() {
                                     className={styles.input}
                                     value={formData.contactTelegram}
                                     onChange={(e) => setFormData({ ...formData, contactTelegram: e.target.value })}
-                                    placeholder="@username"
+                                    placeholder="username"
                                 />
                             </div>
                         </div>
@@ -337,14 +358,21 @@ export default function ListAccountPage() {
                         <p className={styles.ticketInfo}>
                             Join the <a href="https://discord.gg/Hg8qTytv5K" target="_blank" rel="noopener noreferrer" className={styles.link}>Discord</a>, create a ticket, and put the ticket number here.
                         </p>
-                        <input
-                            type="text"
-                            className={styles.input}
-                            value={formData.ticketNumber}
-                            onChange={(e) => setFormData({ ...formData, ticketNumber: e.target.value })}
-                            placeholder="e.g., #12345"
-                        />
-                        {errors.ticketNumber && <span className={styles.error}>{errors.ticketNumber}</span>}
+                        <div className={styles.ticketInputGroup}>
+                            <div className={styles.ticketInputWrapper}>
+                                <input
+                                    type="text"
+                                    className={styles.input}
+                                    value={formData.ticketNumber}
+                                    onChange={(e) => setFormData({ ...formData, ticketNumber: e.target.value })}
+                                    placeholder="e.g., #12345"
+                                />
+                                {errors.ticketNumber && <span className={styles.error}>{errors.ticketNumber}</span>}
+                            </div>
+                            <div className={styles.ticketImagePlaceholder}>
+                                <span>Ticket Image Wrapper</span>
+                            </div>
+                        </div>
                     </div>
 
                     {/* Submit */}
