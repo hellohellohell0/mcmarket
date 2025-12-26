@@ -370,7 +370,7 @@ export default function ListAccountPage() {
                                 {errors.ticketNumber && <span className={styles.error}>{errors.ticketNumber}</span>}
                             </div>
                             <div className={styles.ticketImagePlaceholder}>
-                                <img src="/public/assets/images/ticketimage.png" alt="Ticket Image" className={styles.ticketImage} />
+                                <img src="/assets/images/ticketimage.png" alt="Ticket Image" className={styles.ticketImage} />
                             </div>
                         </div>
                     </div>
