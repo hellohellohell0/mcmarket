@@ -101,3 +101,23 @@ export async function updateListing(id: string, data: any) {
         });
     }
 }
+
+export async function approveListing(id: string) {
+    const isAdmin = await checkAdminSession();
+    if (!isAdmin) throw new Error('Unauthorized');
+
+    await prisma.listing.update({
+        where: { id },
+        data: { status: 'APPROVED' }
+    });
+}
+
+export async function rejectListing(id: string) {
+    const isAdmin = await checkAdminSession();
+    if (!isAdmin) throw new Error('Unauthorized');
+
+    await prisma.listing.update({
+        where: { id },
+        data: { status: 'REJECTED' }
+    });
+}

@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Listing, Cape } from '@prisma/client';
-import { createListing, updateListing, deleteListing, adminLogout } from '../actions';
+import { createListing, updateListing, deleteListing, adminLogout, approveListing, rejectListing } from '../actions';
 import styles from './DashboardContent.module.css';
 
 interface ListingWithCapes extends Listing {
@@ -12,6 +12,7 @@ interface ListingWithCapes extends Listing {
     oguProfileUrl: string | null;
     contactTelegram: string | null;
     contactDiscord: string | null;
+    ticketNumber: string | null;
 }
 
 interface DashboardContentProps {
@@ -26,6 +27,8 @@ const CAPES_OPTIONS = [
     'Mojang Office', 'Pan', 'Purple Heart', 'Realms Mapmaker', 'Translator',
     'Vanilla', 'Yearn', 'Zombie Horse'
 ];
+
+type TabType = 'requests' | 'public' | 'rejected';
 
 interface FormFieldsProps {
     form: any;
@@ -141,6 +144,7 @@ function FormFields({ form, setForm, editingId, handleUpdate, handleCreate, onCa
 export default function DashboardContent({ initialListings }: DashboardContentProps) {
     const [listings, setListings] = useState<ListingWithCapes[]>(initialListings);
     const [search, setSearch] = useState('');
+    const [activeTab, setActiveTab] = useState<TabType>('requests');
     const [isCreating, setIsCreating] = useState(false);
     const [editingId, setEditingId] = useState<string | null>(null);
 
@@ -162,9 +166,14 @@ export default function DashboardContent({ initialListings }: DashboardContentPr
         capes: [] as string[]
     });
 
-    const filteredListings = listings.filter(l =>
-        l.username.toLowerCase().includes(search.toLowerCase())
-    );
+    const filteredListings = listings.filter(l => {
+        const matchesSearch = l.username.toLowerCase().includes(search.toLowerCase());
+        const matchesTab =
+            (activeTab === 'requests' && l.status === 'PENDING') ||
+            (activeTab === 'public' && l.status === 'APPROVED') ||
+            (activeTab === 'rejected' && l.status === 'REJECTED');
+        return matchesSearch && matchesTab;
+    });
 
     const resetForm = () => {
         setForm({
@@ -218,6 +227,16 @@ export default function DashboardContent({ initialListings }: DashboardContentPr
         setListings(prev => prev.filter(l => l.id !== id));
     };
 
+    const handleApprove = async (id: string) => {
+        await approveListing(id);
+        setListings(prev => prev.map(l => l.id === id ? { ...l, status: 'APPROVED' as any } : l));
+    };
+
+    const handleReject = async (id: string) => {
+        await rejectListing(id);
+        setListings(prev => prev.map(l => l.id === id ? { ...l, status: 'REJECTED' as any } : l));
+    };
+
     const startEdit = (listing: ListingWithCapes) => {
         setForm({
             ...listing,
@@ -234,6 +253,14 @@ export default function DashboardContent({ initialListings }: DashboardContentPr
         setIsCreating(false);
         setEditingId(null);
         resetForm();
+    };
+
+    const getTabCount = (tab: TabType) => {
+        return listings.filter(l =>
+            (tab === 'requests' && l.status === 'PENDING') ||
+            (tab === 'public' && l.status === 'APPROVED') ||
+            (tab === 'rejected' && l.status === 'REJECTED')
+        ).length;
     };
 
     return (
@@ -256,6 +283,28 @@ export default function DashboardContent({ initialListings }: DashboardContentPr
                 <button onClick={() => adminLogout()} className={styles.logoutBtn}>Logout</button>
             </div>
 
+            {/* Tabs */}
+            <div className={styles.tabs}>
+                <button
+                    className={`${styles.tab} ${activeTab === 'requests' ? styles.activeTab : ''}`}
+                    onClick={() => setActiveTab('requests')}
+                >
+                    Requests <span className={styles.tabCount}>{getTabCount('requests')}</span>
+                </button>
+                <button
+                    className={`${styles.tab} ${activeTab === 'public' ? styles.activeTab : ''}`}
+                    onClick={() => setActiveTab('public')}
+                >
+                    Public <span className={styles.tabCount}>{getTabCount('public')}</span>
+                </button>
+                <button
+                    className={`${styles.tab} ${activeTab === 'rejected' ? styles.activeTab : ''}`}
+                    onClick={() => setActiveTab('rejected')}
+                >
+                    Rejected <span className={styles.tabCount}>{getTabCount('rejected')}</span>
+                </button>
+            </div>
+
             {(isCreating || editingId) && (
                 <FormFields
                     form={form}
@@ -272,6 +321,9 @@ export default function DashboardContent({ initialListings }: DashboardContentPr
                     <div key={listing.id} className={styles.card}>
                         <div className={styles.cardHeader}>
                             <h3>{listing.username}</h3>
+                            <span className={`${styles.statusBadge} ${styles[listing.status.toLowerCase()]}`}>
+                                {listing.status}
+                            </span>
                         </div>
 
                         <div className={styles.details}>
@@ -279,10 +331,19 @@ export default function DashboardContent({ initialListings }: DashboardContentPr
                             <p><strong>Contact:</strong> T: {listing.contactTelegram || 'N/A'} | D: {listing.contactDiscord || 'N/A'}</p>
                             <p><strong>C/O:</strong> ${listing.priceCurrentOffer?.toLocaleString() || 'N/A'} | <strong>BIN:</strong> ${listing.priceBin?.toLocaleString() || 'N/A'}</p>
                             <p><strong>Type:</strong> {listing.accountTypes}</p>
+                            {listing.ticketNumber && (
+                                <p><strong>Ticket:</strong> {listing.ticketNumber}</p>
+                            )}
                             <p className={styles.desc}>{listing.description}</p>
                         </div>
 
                         <div className={styles.actions}>
+                            {listing.status === 'PENDING' && (
+                                <>
+                                    <button onClick={() => handleApprove(listing.id)} className={styles.approveBtn}>Approve</button>
+                                    <button onClick={() => handleReject(listing.id)} className={styles.rejectBtn}>Reject</button>
+                                </>
+                            )}
                             <button onClick={() => startEdit(listing)} className={styles.editBtn}>Edit</button>
                             <button onClick={() => handleDelete(listing.id)} className={styles.deleteBtn}>Delete</button>
                         </div>

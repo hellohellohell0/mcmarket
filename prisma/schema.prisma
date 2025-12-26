@@ -48,6 +48,7 @@ model Listing {
 
   // System
   status            ListingStatus @default(APPROVED)
+  ticketNumber      String?
   createdAt         DateTime      @default(now())
 }
 

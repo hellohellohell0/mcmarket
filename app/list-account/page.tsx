@@ -1,63 +1,365 @@
 'use client';
 
+import { useState } from 'react';
 import styles from './page.module.css';
 import GlassCard from '@/components/Shared/GlassCard';
 import GlassButton from '@/components/Shared/GlassButton';
 
+const ACCOUNT_TYPES = ['High Tier', 'OG', 'Semi-OG', 'Low Tier', 'Stats'];
+const CAPES = [
+    '15th Anniversary', 'Cherry Blossom', 'Common', 'Copper', "Follower's", "Founder's",
+    'Home', 'MCC 15Tth Year', 'Menace', 'Migrator', 'MineCon 2011', 'MineCon 2012',
+    'MineCon 2013', 'MineCon 2015', 'MineCon 2016', 'Minecraft Experience',
+    'Mojang Office', 'Pan', 'Purple Heart', 'Realms Mapmaker', 'Translator',
+    'Vanilla', 'Yearn', 'Zombie Horse'
+];
+
 export default function ListAccountPage() {
+    const [formData, setFormData] = useState({
+        username: '',
+        accountTypes: [] as string[],
+        nameChanges: '',
+        description: '',
+        priceBin: '',
+        priceCurrentOffer: '',
+        capes: [] as string[],
+        oguProfileUrl: '',
+        contactDiscord: '',
+        contactTelegram: '',
+        ticketNumber: ''
+    });
+
+    const [errors, setErrors] = useState<Record<string, string>>({});
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [showSuccess, setShowSuccess] = useState(false);
+    const [successUsername, setSuccessUsername] = useState('');
+
+    const toggleAccountType = (type: string) => {
+        setFormData(prev => ({
+            ...prev,
+            accountTypes: prev.accountTypes.includes(type)
+                ? prev.accountTypes.filter(t => t !== type)
+                : [...prev.accountTypes, type]
+        }));
+    };
+
+    const toggleCape = (cape: string) => {
+        setFormData(prev => ({
+            ...prev,
+            capes: prev.capes.includes(cape)
+                ? prev.capes.filter(c => c !== cape)
+                : [...prev.capes, cape]
+        }));
+    };
+
+    const validateForm = () => {
+        const newErrors: Record<string, string> = {};
+
+        if (!formData.username.trim()) {
+            newErrors.username = 'Username is required';
+        }
+
+        if (formData.accountTypes.length === 0) {
+            newErrors.accountTypes = 'Select at least one account type';
+        }
+
+        if (!formData.nameChanges) {
+            newErrors.nameChanges = 'Name changes is required';
+        }
+
+        if (!formData.description.trim()) {
+            newErrors.description = 'Description is required';
+        }
+
+        if (!formData.priceBin) {
+            newErrors.priceBin = 'BIN price is required';
+        }
+
+        if (!formData.priceCurrentOffer && formData.priceCurrentOffer !== '0') {
+            newErrors.priceCurrentOffer = 'Current offer is required (put 0 if no offer)';
+        }
+
+        if (!formData.oguProfileUrl && !formData.contactDiscord && !formData.contactTelegram) {
+            newErrors.contact = 'At least one contact method is required';
+        }
+
+        if (!formData.ticketNumber.trim()) {
+            newErrors.ticketNumber = 'Ticket number is required';
+        }
+
+        setErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
+    };
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+
+        if (!validateForm()) {
+            return;
+        }
+
+        setIsSubmitting(true);
+
+        try {
+            const response = await fetch('/api/listings/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                setSuccessUsername(formData.username);
+                setShowSuccess(true);
+                // Reset form
+                setFormData({
+                    username: '',
+                    accountTypes: [],
+                    nameChanges: '',
+                    description: '',
+                    priceBin: '',
+                    priceCurrentOffer: '',
+                    capes: [],
+                    oguProfileUrl: '',
+                    contactDiscord: '',
+                    contactTelegram: '',
+                    ticketNumber: ''
+                });
+                setErrors({});
+            } else {
+                setErrors({ submit: data.error || 'Failed to submit listing' });
+            }
+        } catch (error) {
+            setErrors({ submit: 'Network error. Please try again.' });
+        } finally {
+            setIsSubmitting(false);
+        }
+    };
+
+    if (showSuccess) {
+        return (
+            <div className={`container ${styles.pageContainer}`}>
+                <GlassCard className={styles.card}>
+                    <div className={styles.successContainer}>
+                        <div className={styles.successIcon}>✓</div>
+                        <h1 className={styles.successTitle}>Listing Submitted!</h1>
+                        <p className={styles.successMessage}>
+                            Account <strong>{successUsername}</strong> has been sent for approval! We will contact you via your discord ticket once it gets accepted.
+                        </p>
+                        <GlassButton onClick={() => setShowSuccess(false)}>
+                            Submit Another Listing
+                        </GlassButton>
+                    </div>
+                </GlassCard>
+            </div>
+        );
+    }
+
     return (
         <div className={`container ${styles.pageContainer}`}>
             <GlassCard className={styles.card}>
                 <h1 className={styles.title}>List Your Account</h1>
-                <p className={styles.bodyText}>
-                    To list your account on Glass Market, please follow these steps:
-                </p>
+                <p className={styles.subtitle}>Fill out the form below to submit your account for listing approval.</p>
 
-                <div className={styles.steps}>
-                    <div className={styles.step}>
-                        <div className={styles.stepNumber}>1</div>
-                        <div className={styles.stepContent}>
-                            <h2 className={styles.stepTitle}>Join the Discord Server</h2>
-                            <p className={styles.stepText}>
-                                Click the button below to join our Discord community.
-                            </p>
+                <form onSubmit={handleSubmit} className={styles.form}>
+                    {/* Username */}
+                    <div className={styles.formSection}>
+                        <label className={styles.label}>
+                            Account Username <span className={styles.required}>*</span>
+                        </label>
+                        <input
+                            type="text"
+                            className={styles.input}
+                            value={formData.username}
+                            onChange={(e) => setFormData({ ...formData, username: e.target.value })}
+                            placeholder="Enter the account username"
+                        />
+                        {errors.username && <span className={styles.error}>{errors.username}</span>}
+                    </div>
+
+                    {/* Account Types */}
+                    <div className={styles.formSection}>
+                        <label className={styles.label}>
+                            Account Type <span className={styles.required}>*</span>
+                        </label>
+                        <div className={styles.checkboxGrid}>
+                            {ACCOUNT_TYPES.map(type => (
+                                <label key={type} className={styles.checkboxLabel}>
+                                    <input
+                                        type="checkbox"
+                                        checked={formData.accountTypes.includes(type)}
+                                        onChange={() => toggleAccountType(type)}
+                                    />
+                                    <span>{type}</span>
+                                </label>
+                            ))}
+                        </div>
+                        {errors.accountTypes && <span className={styles.error}>{errors.accountTypes}</span>}
+                    </div>
+
+                    {/* Name Changes */}
+                    <div className={styles.formSection}>
+                        <label className={styles.label}>
+                            Number of Name Changes <span className={styles.required}>*</span>
+                        </label>
+                        <input
+                            type="number"
+                            min="0"
+                            max="15"
+                            className={styles.input}
+                            value={formData.nameChanges}
+                            onChange={(e) => setFormData({ ...formData, nameChanges: e.target.value })}
+                            placeholder="0-15"
+                        />
+                        {errors.nameChanges && <span className={styles.error}>{errors.nameChanges}</span>}
+                    </div>
+
+                    {/* Description */}
+                    <div className={styles.formSection}>
+                        <label className={styles.label}>
+                            Description <span className={styles.required}>*</span>
+                        </label>
+                        <textarea
+                            className={styles.textarea}
+                            value={formData.description}
+                            onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                            placeholder="Include OGO, stats, bans, cosmetics, etc."
+                            rows={5}
+                        />
+                        {errors.description && <span className={styles.error}>{errors.description}</span>}
+                    </div>
+
+                    {/* Pricing */}
+                    <div className={styles.formRow}>
+                        <div className={styles.formSection}>
+                            <label className={styles.label}>
+                                BIN (Buy It Now) <span className={styles.required}>*</span>
+                            </label>
+                            <input
+                                type="number"
+                                min="0"
+                                step="0.01"
+                                className={styles.input}
+                                value={formData.priceBin}
+                                onChange={(e) => setFormData({ ...formData, priceBin: e.target.value })}
+                                placeholder="$0.00"
+                            />
+                            {errors.priceBin && <span className={styles.error}>{errors.priceBin}</span>}
+                        </div>
+
+                        <div className={styles.formSection}>
+                            <label className={styles.label}>
+                                Current Offer <span className={styles.required}>*</span>
+                            </label>
+                            <input
+                                type="number"
+                                min="0"
+                                step="0.01"
+                                className={styles.input}
+                                value={formData.priceCurrentOffer}
+                                onChange={(e) => setFormData({ ...formData, priceCurrentOffer: e.target.value })}
+                                placeholder="Put 0 if no current offer"
+                            />
+                            {errors.priceCurrentOffer && <span className={styles.error}>{errors.priceCurrentOffer}</span>}
                         </div>
                     </div>
 
-                    <div className={styles.step}>
-                        <div className={styles.stepNumber}>2</div>
-                        <div className={styles.stepContent}>
-                            <h2 className={styles.stepTitle}>Create a Ticket</h2>
-                            <p className={styles.stepText}>
-                                Once you've joined, create a support ticket to list your account.
-                            </p>
+                    {/* Capes */}
+                    <div className={styles.formSection}>
+                        <label className={styles.label}>Capes (Optional)</label>
+                        <div className={styles.checkboxGrid}>
+                            {CAPES.map(cape => (
+                                <label key={cape} className={styles.checkboxLabel}>
+                                    <input
+                                        type="checkbox"
+                                        checked={formData.capes.includes(cape)}
+                                        onChange={() => toggleCape(cape)}
+                                    />
+                                    <span>{cape}</span>
+                                </label>
+                            ))}
                         </div>
                     </div>
 
-                    <div className={styles.step}>
-                        <div className={styles.stepNumber}>3</div>
-                        <div className={styles.stepContent}>
-                            <h2 className={styles.stepTitle}>Include the Following Information</h2>
-                            <div className={styles.infoBox}>
-                                <ul className={styles.infoList}>
-                                    <li><strong>Contact (OGU, Discord, Telegram)</strong> - this is what users will be given when they want to purchase your account. I will also be confirming your identity if you are a high-reputable seller.</li>
-                                    <li><strong>Username of the account</strong></li>
-                                    <li><strong>Type of account</strong> (High Tier, OG, Semi-OG, Low Tier, Stats)</li>
-                                    <li><strong>Number of name changes</strong></li>
-                                    <li><strong>Current BIN and CO</strong></li>
-                                    <li><strong>Account's capes</strong></li>
-                                    <li><strong>Description of the account</strong> (OGO, stats, bans, cosmetics)</li>
-                                </ul>
+                    {/* Contact Information */}
+                    <div className={styles.formSection}>
+                        <h2 className={styles.sectionTitle}>Contact Information</h2>
+                        <p className={styles.sectionSubtitle}>
+                            Provide at least one contact method. Leave blank if you don't have that social.
+                        </p>
+
+                        <div className={styles.contactFields}>
+                            <div className={styles.formSection}>
+                                <label className={styles.label}>OGUser Profile Link</label>
+                                <input
+                                    type="url"
+                                    className={styles.input}
+                                    value={formData.oguProfileUrl}
+                                    onChange={(e) => setFormData({ ...formData, oguProfileUrl: e.target.value })}
+                                    placeholder="https://ogusers.com/..."
+                                />
+                            </div>
+
+                            <div className={styles.formSection}>
+                                <label className={styles.label}>Discord Username</label>
+                                <input
+                                    type="text"
+                                    className={styles.input}
+                                    value={formData.contactDiscord}
+                                    onChange={(e) => setFormData({ ...formData, contactDiscord: e.target.value })}
+                                    placeholder="username"
+                                />
+                            </div>
+
+                            <div className={styles.formSection}>
+                                <label className={styles.label}>Telegram</label>
+                                <input
+                                    type="text"
+                                    className={styles.input}
+                                    value={formData.contactTelegram}
+                                    onChange={(e) => setFormData({ ...formData, contactTelegram: e.target.value })}
+                                    placeholder="@username"
+                                />
                             </div>
                         </div>
-                    </div>
-                </div>
 
-                <div className={styles.actions}>
-                    <GlassButton className="discordButton" onClick={() => window.open('https://discord.gg/P2WbBEDEFy', '_blank')}>
-                        Join Discord Server
+                        {errors.contact && <span className={styles.error}>{errors.contact}</span>}
+                    </div>
+
+                    {/* Ticket Number */}
+                    <div className={styles.formSection}>
+                        <label className={styles.label}>
+                            Discord Ticket Number <span className={styles.required}>*</span>
+                        </label>
+                        <p className={styles.ticketInfo}>
+                            Join the <a href="https://discord.gg/Hg8qTytv5K" target="_blank" rel="noopener noreferrer" className={styles.link}>Discord</a>, create a ticket, and put the ticket number here.
+                        </p>
+                        <input
+                            type="text"
+                            className={styles.input}
+                            value={formData.ticketNumber}
+                            onChange={(e) => setFormData({ ...formData, ticketNumber: e.target.value })}
+                            placeholder="e.g., #12345"
+                        />
+                        {errors.ticketNumber && <span className={styles.error}>{errors.ticketNumber}</span>}
+                    </div>
+
+                    {/* Submit */}
+                    {errors.submit && (
+                        <div className={styles.submitError}>{errors.submit}</div>
+                    )}
+
+                    <GlassButton
+                        type="submit"
+                        fullWidth
+                        disabled={isSubmitting}
+                    >
+                        {isSubmitting ? 'Submitting...' : 'Submit Listing'}
                     </GlassButton>
-                </div>
+                </form>
             </GlassCard>
         </div>
     );

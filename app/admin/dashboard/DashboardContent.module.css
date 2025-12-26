@@ -70,11 +70,62 @@
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
 }
 
+.cardHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .cardHeader h3 {
     font-size: 1.25rem;
     font-weight: 700;
     color: #0f172a;
     margin: 0;
+}
+
+.tabs {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+.tab {
+    background: none;
+    border: none;
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #64748b;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.tab:hover {
+    color: #3b82f6;
+}
+
+.activeTab {
+    color: #3b82f6;
+    border-bottom-color: #3b82f6;
+}
+
+.tabCount {
+    background: #f1f5f9;
+    color: #64748b;
+    padding: 0.25rem 0.6rem;
+    border-radius: 1rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+.activeTab .tabCount {
+    background: #dbeafe;
+    color: #3b82f6;
 }
 
 .statusBadge {
@@ -83,9 +134,24 @@
     font-size: 0.75rem;
     font-weight: 700;
     text-transform: uppercase;
-    background: #f1f5f9;
-    color: #64748b;
-    border: 1px solid #e2e8f0;
+}
+
+.statusBadge.pending {
+    background: #fef3c7;
+    color: #d97706;
+    border: 1px solid #fde68a;
+}
+
+.statusBadge.approved {
+    background: #d1fae5;
+    color: #059669;
+    border: 1px solid #a7f3d0;
+}
+
+.statusBadge.rejected {
+    background: #fee2e2;
+    color: #dc2626;
+    border: 1px solid #fecaca;
 }
 
 .details {
@@ -250,10 +316,13 @@
     margin-top: auto;
     padding-top: 1.25rem;
     border-top: 1px solid #f1f5f9;
+    flex-wrap: wrap;
 }
 
 .editBtn,
-.deleteBtn {
+.deleteBtn,
+.approveBtn,
+.rejectBtn {
     flex: 1;
     padding: 0.75rem;
     border-radius: 0.75rem;
@@ -262,6 +331,29 @@
     border: none;
     font-size: 0.875rem;
     transition: all 0.2s;
+    min-width: 80px;
+}
+
+.approveBtn {
+    background: #d1fae5;
+    color: #059669;
+    border: 1px solid #a7f3d0;
+}
+
+.approveBtn:hover {
+    background: #a7f3d0;
+    transform: translateY(-1px);
+}
+
+.rejectBtn {
+    background: #fee2e2;
+    color: #dc2626;
+    border: 1px solid #fecaca;
+}
+
+.rejectBtn:hover {
+    background: #fecaca;
+    transform: translateY(-1px);
 }
 
 .editBtn {

@@ -9,6 +9,7 @@ export default function Home() {
   const [listings, setListings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filters, setFilters] = useState<any>({});
+  const [search, setSearch] = useState('');
 
   const fetchListings = useCallback(async () => {
     setLoading(true);
@@ -29,6 +30,10 @@ export default function Home() {
         filters.accountTypes.forEach((t: string) => params.append('accountType', t));
       }
 
+      if (search) {
+        params.set('search', search);
+      }
+
       const res = await fetch(`/api/listings?${params.toString()}`);
       const data = await res.json();
       setListings(data.listings || []);
@@ -37,7 +42,7 @@ export default function Home() {
     } finally {
       setLoading(false);
     }
-  }, [filters]);
+  }, [filters, search]);
 
   useEffect(() => {
     // Debounce basic implementation or rely on strict filters
@@ -52,6 +57,16 @@ export default function Home() {
       <FilterSidebar onFilterChange={setFilters} />
 
       <div className={styles.gridContainer}>
+        <div className={styles.searchSection}>
+          <input
+            type="text"
+            placeholder="Search by username..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className={styles.searchBar}
+          />
+        </div>
+
         <div className={styles.header}>
           <h2>Minecraft Accounts</h2>
           <span className={styles.count}>{listings.length} accounts found</span>

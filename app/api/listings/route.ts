@@ -13,6 +13,7 @@ export async function GET(request: Request) {
     const sort = searchParams.get('sort');
     const capes = searchParams.getAll('capes');
     const accountTypes = searchParams.getAll('accountType');
+    const search = searchParams.get('search');
 
     try {
         const listings = await prisma.listing.findMany({
@@ -36,6 +37,7 @@ export async function GET(request: Request) {
 
         // Manual filtering for username length and complex types
         let filtered = listings.filter(l => {
+            if (search && !l.username.toLowerCase().includes(search.toLowerCase())) return false;
             if (minLen && l.username.length < minLen) return false;
             if (maxLen && l.username.length > maxLen) return false;
 
