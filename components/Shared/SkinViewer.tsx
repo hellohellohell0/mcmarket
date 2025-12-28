@@ -8,9 +8,10 @@ interface SkinViewerProps {
     width?: number | string;
     height?: number | string;
     staticModel?: boolean;
+    model?: 'auto-detect' | 'default' | 'slim';
 }
 
-export default function SkinViewer({ skinUrl, width = 300, height = 400, staticModel = false }: SkinViewerProps) {
+export default function SkinViewer({ skinUrl, width = 300, height = 400, staticModel = false, model = 'auto-detect' }: SkinViewerProps) {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const wrapperRef = useRef<HTMLDivElement>(null);
     const viewerRef = useRef<skinview3d.SkinViewer | null>(null);
@@ -34,6 +35,7 @@ export default function SkinViewer({ skinUrl, width = 300, height = 400, staticM
             width: w,
             height: h,
             skin: skinUrl,
+            model: model === 'auto-detect' ? undefined : model // skinview3d constructor might take model
         });
 
         // NameMC-like settings
@@ -57,7 +59,7 @@ export default function SkinViewer({ skinUrl, width = 300, height = 400, staticM
 
         const fullSkinUrl = skinUrl.replace('/helm/', '/skin/').replace('/100.png', '');
 
-        viewer.loadSkin(fullSkinUrl, { model: 'auto-detect' })
+        viewer.loadSkin(fullSkinUrl, { model: model })
             .then(() => {
                 const player = viewer.playerObject;
                 if (player) {
@@ -90,7 +92,7 @@ export default function SkinViewer({ skinUrl, width = 300, height = 400, staticM
             viewer.dispose();
             resizeObserver.disconnect();
         };
-    }, [skinUrl, staticModel]); // removed width/height from dep array to avoid re-init on resize, logic handled by observer
+    }, [skinUrl, staticModel, model]);
 
     return (
         <div ref={wrapperRef} style={{ width, height, position: 'relative' }}>

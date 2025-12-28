@@ -76,6 +76,7 @@ export default function ListingPage() {
                             width="100%"
                             height={500}
                             staticModel={false}
+                            model={l.username.includes('*') ? 'default' : 'auto-detect'}
                         />
                     </div>
                     {l.capes.length > 0 && (

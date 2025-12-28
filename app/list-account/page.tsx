@@ -177,7 +177,7 @@ export default function ListAccountPage() {
                             className={styles.input}
                             value={formData.username}
                             onChange={(e) => setFormData({ ...formData, username: e.target.value })}
-                            placeholder="Enter the account username"
+                            placeholder="Enter the account username (e.g. Reprising, R*******g"
                         />
                         {errors.username && <span className={styles.error}>{errors.username}</span>}
                     </div>
@@ -191,7 +191,7 @@ export default function ListAccountPage() {
                             className={styles.input}
                             value={formData.currentOwnerName}
                             onChange={(e) => setFormData({ ...formData, currentOwnerName: e.target.value })}
-                            placeholder="Reprising"
+                            placeholder="Enter your alias (e.g. Reprise)"
                         />
                         {/* Optional: Add error handling if validation is strictly required later */}
                     </div>

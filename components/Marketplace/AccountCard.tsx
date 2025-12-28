@@ -21,7 +21,13 @@ export default function AccountCard({ listing }: { listing: ListingWithRelations
         <Link href={`/listings/${listing.id}`} className={styles.card}>
             <div className={styles.imageContainer}>
                 <div style={{ pointerEvents: 'none', display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%', overflow: 'hidden' }}>
-                    <SkinViewer skinUrl={skinUrl} width="100%" height="100%" staticModel={true} />
+                    <SkinViewer
+                        skinUrl={skinUrl}
+                        width="100%"
+                        height="100%"
+                        staticModel={true}
+                        model={hasAsterisk ? 'default' : 'auto-detect'}
+                    />
                 </div>
 
                 {listing.capes.length > 0 && (
