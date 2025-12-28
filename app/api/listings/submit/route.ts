@@ -17,7 +17,7 @@ export async function POST(request: Request) {
             oguProfileUrl,
             contactDiscord,
             contactTelegram,
-            ticketNumber
+
         } = body;
 
         // Validation
@@ -50,9 +50,7 @@ export async function POST(request: Request) {
             return NextResponse.json({ error: 'At least one contact method is required' }, { status: 400 });
         }
 
-        if (!ticketNumber || !ticketNumber.trim()) {
-            return NextResponse.json({ error: 'Ticket number is required' }, { status: 400 });
-        }
+
 
         // Create the listing with PENDING status
         const listing = await prisma.listing.create({
@@ -66,7 +64,7 @@ export async function POST(request: Request) {
                 oguProfileUrl: oguProfileUrl?.trim() || null,
                 contactDiscord: contactDiscord?.trim() || null,
                 contactTelegram: contactTelegram?.trim() || null,
-                ticketNumber: ticketNumber.trim(),
+
                 status: 'PENDING',
                 sellerName: body.currentOwnerName || 'Pending User', // Use provided name or default
                 sellerDiscordId: 'N/A',

@@ -63,7 +63,7 @@ export default function ListAccountPage() {
             newErrors.accountTypes = 'Select at least one account type';
         }
 
-        if (!formData.nameChanges) {
+        if (formData.nameChanges === '') {
             newErrors.nameChanges = 'Name changes is required';
         }
 
