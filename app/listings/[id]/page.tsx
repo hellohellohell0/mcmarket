@@ -32,22 +32,17 @@ export async function generateMetadata(
 
     // Construct description parts
     const details = [];
+    if (listing.priceCurrentOffer !== null && listing.priceCurrentOffer !== undefined) details.push(`CO: $${listing.priceCurrentOffer.toLocaleString()}`);
+    if (listing.priceBin !== null && listing.priceBin !== undefined) details.push(`BIN: $${listing.priceBin.toLocaleString()}`);
     if (listing.capes.length > 0) details.push(`Capes: ${listing.capes.length}`);
     if (listing.nameChanges === 0) details.push('Prename');
     else details.push(`Changes: ${listing.nameChanges >= 15 ? '15+' : listing.nameChanges}`);
     details.push(`Type: ${listing.accountTypes}`);
-    if (listing.priceBin) details.push(`BIN: $${listing.priceBin}`);
 
-    const description = `${details.join(' • ')} - ${listing.description}`;
-
-    // Skin image for thumbnail
-    // Using Visage for better head render, or strictly Minotar as requested? 
-    // User asked for "thumbnail of the skin". 
-    // Visage 'face' or 'head' endpoint is usually good for Discord.
-    // Let's use the bust for a clearer view.
-    const skinUrl = listing.username.includes('*')
-        ? 'https://minotar.net/armor/bust/MHF_Steve/300.png'
-        : `https://minotar.net/armor/bust/${listing.username}/300.png`;
+    // Skin image for thumbnail - Isometric 3D Render
+    // 'summary' card type makes it a small thumbnail beside description
+    // Using Starlight Skins for username-based isometric render
+    const skinUrl = `https://starlightskins.lunareclipse.studio/render/isometric/${listing.username}/full`;
 
     return {
         title: listing.username,
@@ -59,7 +54,7 @@ export async function generateMetadata(
             siteName: 'Refined Listings',
         },
         twitter: {
-            card: 'summary_large_image',
+            card: 'summary',
             title: listing.username,
             description: details.join(' | '),
             images: [skinUrl],
