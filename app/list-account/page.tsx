@@ -123,7 +123,7 @@ export default function ListAccountPage() {
                     capes: [],
                     oguProfileUrl: '',
                     contactDiscord: '',
-                    contactTelegram: '',
+
 
                     currentOwnerName: ''
                 });
