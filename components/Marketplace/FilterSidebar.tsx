@@ -41,7 +41,7 @@ export default function FilterSidebar({ onFilterChange }: FilterProps) {
         'Mojang Office', 'Pan', 'Purple Heart', 'Realms Mapmaker', 'Translator',
         'Vanilla', 'Yearn', 'Zombie Horse'
     ];
-    const accountTypeOptions = ['High Tier', 'OG', 'Semi-OG', 'Low Tier', 'Caped', 'Stats'];
+    const accountTypeOptions = ['High Tier', 'OG', 'Semi-OG', 'Low Tier', 'Minecon', 'Stats'];
 
     const handleCapeToggle = (cape: string) => {
         setCapes(prev =>

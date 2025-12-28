@@ -9,6 +9,7 @@ interface ListingWithCapes extends Listing {
     capes: Cape[];
     currentOwnerName: string;
     isVerifiedOwner: boolean;
+    identityVerified: boolean;
     oguProfileUrl: string | null;
     contactTelegram: string | null;
     contactDiscord: string | null;
@@ -19,7 +20,7 @@ interface DashboardContentProps {
     initialListings: ListingWithCapes[];
 }
 
-const ACCOUNT_TYPES_OPTIONS = ['High Tier', 'OG', 'Semi-OG', 'Low Tier', 'Caped', 'Stats'];
+const ACCOUNT_TYPES_OPTIONS = ['High Tier', 'OG', 'Semi-OG', 'Low Tier', 'Minecon', 'Stats'];
 const CAPES_OPTIONS = [
     '15th Anniversary', 'Cherry Blossom', 'Common', 'Copper', "Follower's", "Founder's",
     'Home', 'MCC 15Tth Year', 'Menace', 'Migrator', 'MineCon 2011', 'MineCon 2012',
@@ -76,6 +77,13 @@ function FormFields({ form, setForm, editingId, handleUpdate, handleCreate, onCa
                 <div className={styles.formGroup}>
                     <label>Verified Owner?</label>
                     <select value={form.isVerifiedOwner ? 'yes' : 'no'} onChange={e => setForm({ ...form, isVerifiedOwner: e.target.value === 'yes' })}>
+                        <option value="no">No</option>
+                        <option value="yes">Yes</option>
+                    </select>
+                </div>
+                <div className={styles.formGroup}>
+                    <label>Identity Verified?</label>
+                    <select value={form.identityVerified ? 'yes' : 'no'} onChange={e => setForm({ ...form, identityVerified: e.target.value === 'yes' })}>
                         <option value="no">No</option>
                         <option value="yes">Yes</option>
                     </select>
@@ -160,6 +168,7 @@ export default function DashboardContent({ initialListings }: DashboardContentPr
         publicContact: 'Discord: @kerr',
         currentOwnerName: 'Verified Owner',
         isVerifiedOwner: false,
+        identityVerified: false,
         oguProfileUrl: '',
         contactTelegram: '',
         contactDiscord: '',
@@ -188,6 +197,7 @@ export default function DashboardContent({ initialListings }: DashboardContentPr
             publicContact: 'Discord: @kerr',
             currentOwnerName: 'Verified Owner',
             isVerifiedOwner: false,
+            identityVerified: false,
             oguProfileUrl: '',
             contactTelegram: '',
             contactDiscord: '',
@@ -327,13 +337,11 @@ export default function DashboardContent({ initialListings }: DashboardContentPr
                         </div>
 
                         <div className={styles.details}>
-                            <p><strong>Owner:</strong> {listing.currentOwnerName} {listing.isVerifiedOwner ? '(Verified)' : ''}</p>
+                            <p><strong>Owner:</strong> {listing.currentOwnerName} {listing.isVerifiedOwner ? '(Verified)' : ''} {listing.identityVerified ? '(Onsite Verified)' : ''}</p>
                             <p><strong>Contact:</strong> T: {listing.contactTelegram || 'N/A'} | D: {listing.contactDiscord || 'N/A'}</p>
                             <p><strong>C/O:</strong> ${listing.priceCurrentOffer?.toLocaleString() || 'N/A'} | <strong>BIN:</strong> ${listing.priceBin?.toLocaleString() || 'N/A'}</p>
                             <p><strong>Type:</strong> {listing.accountTypes}</p>
-                            {listing.ticketNumber && (
-                                <p><strong>Ticket:</strong> {listing.ticketNumber}</p>
-                            )}
+
                             <p><strong>Submitted:</strong> {new Date(listing.createdAt).toLocaleString()}</p>
                             <p className={styles.desc}>{listing.description}</p>
                         </div>

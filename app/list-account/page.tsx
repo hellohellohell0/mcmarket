@@ -5,7 +5,7 @@ import styles from './page.module.css';
 import GlassCard from '@/components/Shared/GlassCard';
 import GlassButton from '@/components/Shared/GlassButton';
 
-const ACCOUNT_TYPES = ['High Tier', 'OG', 'Semi-OG', 'Low Tier', 'Caped', 'Stats'];
+const ACCOUNT_TYPES = ['High Tier', 'OG', 'Semi-OG', 'Low Tier', 'Minecon', 'Stats'];
 const CAPES = [
     '15th Anniversary', 'Cherry Blossom', 'Common', 'Copper', "Follower's", "Founder's",
     'Home', 'MCC 15Tth Year', 'Menace', 'Migrator', 'MineCon 2011', 'MineCon 2012',
@@ -26,7 +26,6 @@ export default function ListAccountPage() {
         oguProfileUrl: '',
         contactDiscord: '',
         contactTelegram: '',
-        ticketNumber: '',
         currentOwnerName: '', // Added field
     });
 
@@ -84,9 +83,7 @@ export default function ListAccountPage() {
             newErrors.contact = 'At least one contact method is required';
         }
 
-        if (!formData.ticketNumber.trim()) {
-            newErrors.ticketNumber = 'Ticket number is required';
-        }
+
 
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
@@ -127,7 +124,7 @@ export default function ListAccountPage() {
                     oguProfileUrl: '',
                     contactDiscord: '',
                     contactTelegram: '',
-                    ticketNumber: '',
+
                     currentOwnerName: ''
                 });
                 setErrors({});
@@ -149,11 +146,28 @@ export default function ListAccountPage() {
                         <div className={styles.successIcon}>✓</div>
                         <h1 className={styles.successTitle}>Listing Submitted!</h1>
                         <p className={styles.successMessage}>
-                            Account <strong>{successUsername}</strong> has been sent for approval! We will contact you via your discord ticket once it gets accepted.
+                            Account <strong>{successUsername}</strong> has been sent for approval! We will contact you once it gets accepted.
                         </p>
                         <GlassButton onClick={() => setShowSuccess(false)}>
                             Submit Another Listing
                         </GlassButton>
+                        <a href="https://discord.gg/Hg8qTytv5K" target="_blank" rel="noopener noreferrer" style={{ display: 'block', marginTop: '1rem', width: '100%' }}>
+                            <button style={{
+                                background: '#5865F2',
+                                color: 'white',
+                                border: 'none',
+                                borderRadius: '12px',
+                                padding: '12px 24px',
+                                fontSize: '1rem',
+                                fontWeight: '600',
+                                cursor: 'pointer',
+                                width: '100%',
+                                transition: 'all 0.2s ease',
+                                boxShadow: '0 4px 15px rgba(88, 101, 242, 0.4)'
+                            }}>
+                                Join the Discord Server
+                            </button>
+                        </a>
                     </div>
                 </GlassCard>
             </div>
@@ -177,7 +191,7 @@ export default function ListAccountPage() {
                             className={styles.input}
                             value={formData.username}
                             onChange={(e) => setFormData({ ...formData, username: e.target.value })}
-                            placeholder="Enter the account username (e.g. Reprising, R*******g"
+                            placeholder="Enter the account username (e.g. Reprising, R****se)"
                         />
                         {errors.username && <span className={styles.error}>{errors.username}</span>}
                     </div>
@@ -350,30 +364,7 @@ export default function ListAccountPage() {
                         {errors.contact && <span className={styles.error}>{errors.contact}</span>}
                     </div>
 
-                    {/* Ticket Number */}
-                    <div className={styles.formSection}>
-                        <label className={styles.label}>
-                            Discord Ticket Number <span className={styles.required}>*</span>
-                        </label>
-                        <p className={styles.ticketInfo}>
-                            Join the <a href="https://discord.gg/Hg8qTytv5K" target="_blank" rel="noopener noreferrer" className={styles.link}>Discord</a>, create a ticket, and put the ticket number here.
-                        </p>
-                        <div className={styles.ticketInputGroup}>
-                            <div className={styles.ticketInputWrapper}>
-                                <input
-                                    type="text"
-                                    className={styles.input}
-                                    value={formData.ticketNumber}
-                                    onChange={(e) => setFormData({ ...formData, ticketNumber: e.target.value })}
-                                    placeholder="e.g., 1233"
-                                />
-                                {errors.ticketNumber && <span className={styles.error}>{errors.ticketNumber}</span>}
-                            </div>
-                            <div className={styles.ticketImagePlaceholder}>
-                                <img src="/assets/images/ticketimage.png" alt="Ticket Image" className={styles.ticketImage} />
-                            </div>
-                        </div>
-                    </div>
+                    {/* Ticket Number Removed */}
 
                     {/* Submit */}
                     {errors.submit && (

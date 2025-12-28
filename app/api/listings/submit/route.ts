@@ -84,7 +84,7 @@ export async function POST(request: Request) {
 
         return NextResponse.json({
             success: true,
-            message: `Account ${username} has been sent for approval! We will contact you via your discord ticket once it gets accepted.`,
+            message: `Account ${username} has been sent for approval! We will contact you once it gets accepted.`,
             listingId: listing.id
         });
 
