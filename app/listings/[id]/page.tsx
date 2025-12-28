@@ -29,6 +29,7 @@ interface Listing {
     status: string;
     currentOwnerName: string;
     isVerifiedOwner: boolean;
+    identityVerified: boolean;
     oguProfileUrl: string | null;
 }
 
@@ -70,7 +71,12 @@ export default function ListingPage() {
             <div className={styles.topSection}>
                 <div className={styles.imageColumn}>
                     <div className={styles.skinContainer}>
-                        <SkinViewer skinUrl={`https://minotar.net/skin/${l.username}`} width="100%" height={500} staticModel={false} />
+                        <SkinViewer
+                            skinUrl={l.username.includes('*') ? 'https://minotar.net/skin/MHF_Steve' : `https://minotar.net/skin/${l.username}`}
+                            width="100%"
+                            height={500}
+                            staticModel={false}
+                        />
                     </div>
                     {l.capes.length > 0 && (
                         <div className={styles.capesRow}>
@@ -140,6 +146,14 @@ export default function ListingPage() {
                                         <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
                                     </svg>
                                     <div className={styles.verifiedTooltip}>This owner has verified ownership of this account</div>
+                                </div>
+                            )}
+                            {l.identityVerified && (
+                                <div className={`${styles.verifiedBadge} ${styles.identityBadge}`} style={{ color: '#ec4899', marginLeft: '0.25rem' }}>
+                                    <svg viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z" />
+                                    </svg>
+                                    <div className={styles.verifiedTooltip}>This user's identity has been verified onsite</div>
                                 </div>
                             )}
                         </div>

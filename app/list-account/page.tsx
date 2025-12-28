@@ -5,7 +5,7 @@ import styles from './page.module.css';
 import GlassCard from '@/components/Shared/GlassCard';
 import GlassButton from '@/components/Shared/GlassButton';
 
-const ACCOUNT_TYPES = ['High Tier', 'OG', 'Semi-OG', 'Low Tier', 'Stats'];
+const ACCOUNT_TYPES = ['High Tier', 'OG', 'Semi-OG', 'Low Tier', 'Caped', 'Stats'];
 const CAPES = [
     '15th Anniversary', 'Cherry Blossom', 'Common', 'Copper', "Follower's", "Founder's",
     'Home', 'MCC 15Tth Year', 'Menace', 'Migrator', 'MineCon 2011', 'MineCon 2012',

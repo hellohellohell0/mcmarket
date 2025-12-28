@@ -334,6 +334,7 @@ export default function DashboardContent({ initialListings }: DashboardContentPr
                             {listing.ticketNumber && (
                                 <p><strong>Ticket:</strong> {listing.ticketNumber}</p>
                             )}
+                            <p><strong>Submitted:</strong> {new Date(listing.createdAt).toLocaleString()}</p>
                             <p className={styles.desc}>{listing.description}</p>
                         </div>
 
