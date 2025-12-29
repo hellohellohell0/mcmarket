@@ -5,19 +5,19 @@
     margin-bottom: 2.5rem;
     gap: 1.5rem;
     flex-wrap: wrap;
-    background: #fff;
+    background: var(--glass-bg);
     padding: 1.5rem;
     border-radius: 1rem;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-    border: 1px solid #e2e8f0;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--glass-border);
 }
 
 .search {
-    background: #f1f5f9;
-    border: 1px solid #e2e8f0;
+    background: var(--glass-bg-hover);
+    border: 1px solid var(--glass-border);
     padding: 0.75rem 1.25rem;
     border-radius: 0.75rem;
-    color: #1e293b;
+    color: var(--foreground);
     flex: 1;
     max-width: 400px;
     font-size: 0.95rem;
@@ -26,8 +26,8 @@
 
 .search:focus {
     outline: none;
-    border-color: #3b82f6;
-    background: #fff;
+    border-color: var(--glass-border-bright);
+    background: var(--glass-bg);
     box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
@@ -54,8 +54,8 @@
 }
 
 .card {
-    background: #fff;
-    border: 1px solid #e2e8f0;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
     border-radius: 1.25rem;
     padding: 1.75rem;
     display: flex;
@@ -79,7 +79,7 @@
 .cardHeader h3 {
     font-size: 1.25rem;
     font-weight: 700;
-    color: #0f172a;
+    color: var(--foreground);
     margin: 0;
 }
 
@@ -96,7 +96,7 @@
     padding: 1rem 1.5rem;
     font-size: 1rem;
     font-weight: 600;
-    color: #64748b;
+    color: var(--foreground-muted);
     cursor: pointer;
     border-bottom: 3px solid transparent;
     transition: all 0.2s;
@@ -115,8 +115,8 @@
 }
 
 .tabCount {
-    background: #f1f5f9;
-    color: #64748b;
+    background: var(--glass-bg-hover);
+    color: var(--foreground-subtle);
     padding: 0.25rem 0.6rem;
     border-radius: 1rem;
     font-size: 0.75rem;
@@ -156,7 +156,7 @@
 
 .details {
     font-size: 0.95rem;
-    color: #475569;
+    color: var(--foreground-muted);
     line-height: 1.6;
 }
 
@@ -165,10 +165,10 @@
 }
 
 .desc {
-    color: #64748b;
+    color: var(--foreground-subtle);
     margin-top: 0.75rem;
     font-style: italic;
-    background: #f8fafc;
+    background: var(--glass-bg-hover);
     padding: 0.75rem;
     border-radius: 0.75rem;
 }
@@ -192,15 +192,15 @@
 }
 
 .createForm {
-    background: #fff;
-    border: 1px solid #e2e8f0;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
     padding: 2.5rem;
     border-radius: 1.5rem;
     display: flex;
     flex-direction: column;
     gap: 2rem;
     margin-bottom: 3rem;
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow-lg);
 }
 
 .formGrid {
@@ -218,17 +218,17 @@
 .formGroup label {
     font-size: 0.875rem;
     font-weight: 600;
-    color: #475569;
+    color: var(--foreground-muted);
 }
 
 .formGroup input,
 .formGroup textarea,
 .formGroup select {
-    background: #f8fafc;
-    border: 1px solid #e2e8f0;
+    background: var(--glass-bg-hover);
+    border: 1px solid var(--glass-border);
     padding: 0.85rem 1rem;
     border-radius: 0.75rem;
-    color: #1e293b;
+    color: var(--foreground);
     width: 100%;
     font-size: 0.95rem;
     transition: all 0.2s;
@@ -238,8 +238,8 @@
 .formGroup textarea:focus,
 .formGroup select:focus {
     outline: none;
-    border-color: #3b82f6;
-    background: #fff;
+    border-color: var(--glass-border-bright);
+    background: var(--glass-bg);
     box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
@@ -251,10 +251,10 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
     gap: 0.75rem;
-    background: #f8fafc;
+    background: var(--glass-bg-hover);
     padding: 1rem;
     border-radius: 1rem;
-    border: 1px solid #e2e8f0;
+    border: 1px solid var(--glass-border);
 }
 
 .checkboxLabel {
@@ -262,7 +262,7 @@
     align-items: center;
     gap: 0.75rem;
     font-size: 0.9rem;
-    color: #1e293b;
+    color: var(--foreground);
     cursor: pointer;
     padding: 0.25rem 0;
 }
