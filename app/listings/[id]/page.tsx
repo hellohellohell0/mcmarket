@@ -26,7 +26,7 @@ export async function generateMetadata(
 
     if (!listing) {
         return {
-            title: 'Refined Listings | Not Found'
+            title: 'Glass Market | Not Found'
         };
     }
 
@@ -59,7 +59,7 @@ export async function generateMetadata(
             title: listing.username,
             description: description,
             images: [skinUrl],
-            siteName: 'Refined Listings',
+            siteName: 'Glass Market',
         },
         twitter: {
             card: 'summary',
