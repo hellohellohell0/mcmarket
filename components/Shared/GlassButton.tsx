@@ -1,7 +1,7 @@
 import styles from './GlassButton.module.css';
 
 interface GlassButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-    variant?: 'primary' | 'secondary' | 'ghost';
+    variant?: 'primary' | 'secondary' | 'ghost' | 'discord';
     fullWidth?: boolean;
 }
 

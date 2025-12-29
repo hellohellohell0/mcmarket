@@ -61,6 +61,7 @@
 
 .primary:hover {
     opacity: 0.9;
+    background: var(--primary);
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
 }
 
@@ -93,19 +94,20 @@
     transform: none !important;
 }
 
-.discordButton {
-    background: #5865F2 !important;
-    color: #ffffff !important;
-    border: none !important;
+.discord {
+    background: #5865F2;
+    color: #ffffff;
+    border: none;
     max-width: 300px;
     margin: 0 auto;
 }
 
-.discordButton:hover {
-    background: #4752C4 !important;
-    box-shadow: 0 8px 20px rgba(88, 101, 242, 0.3) !important;
+.discord:hover {
+    background: #5865F2;
+    opacity: 0.9;
+    box-shadow: 0 8px 20px rgba(88, 101, 242, 0.3);
 }
 
-.discordButton .shine {
+.discord .shine {
     display: none;
 }
