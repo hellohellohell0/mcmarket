@@ -39,24 +39,32 @@ export async function generateMetadata(
     else details.push(`Changes: ${listing.nameChanges >= 15 ? '15+' : listing.nameChanges}`);
     details.push(`Type: ${listing.accountTypes}`);
 
-    // Skin image for thumbnail - Isometric 3D Render
+    // Truncate user description to avoid huge embeds
+    const maxDescLen = 100;
+    const userDesc = listing.description || '';
+    const truncatedDesc = userDesc.length > maxDescLen
+        ? userDesc.substring(0, maxDescLen) + '...'
+        : userDesc;
+
+    const description = `${details.join(' • ')} - ${truncatedDesc}`;
+
+    // Skin image for thumbnail - Headshot/Helm
     // 'summary' card type makes it a small thumbnail beside description
-    // Using Starlight Skins for username-based isometric render
-    const skinUrl = `https://starlightskins.lunareclipse.studio/render/isometric/${listing.username}/full`;
+    const skinUrl = `https://minotar.net/helm/${listing.username}/300.png`;
 
     return {
         title: listing.username,
-        description: listing.description ? `${details.join(' | ')}\n\n${listing.description}` : details.join(' | '),
+        description: description,
         openGraph: {
             title: listing.username,
-            description: listing.description ? `${details.join(' | ')}\n\n${listing.description}` : details.join(' | '),
+            description: description,
             images: [skinUrl],
             siteName: 'Refined Listings',
         },
         twitter: {
             card: 'summary',
             title: listing.username,
-            description: details.join(' | '),
+            description: description,
             images: [skinUrl],
         }
     };
