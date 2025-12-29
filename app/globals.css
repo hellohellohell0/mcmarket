@@ -44,53 +44,56 @@
 }
 
 [data-theme='dark'] {
-  --background: #000000;
-  /* Pure Black */
-  --foreground: #ffffff;
-  /* Pure White */
-  --foreground-muted: #a3a3a3;
-  /* Light Gray */
-  --foreground-subtle: #737373;
-  /* Darker Gray */
+  /* Modern SaaS Dark Theme - READABLE */
+  --background: #09090b;
+  /* Zinc 950 - Very dark gray, NOT pitch black */
+  --foreground: #fafafa;
+  /* Zinc 50 - Almost white */
+  --foreground-muted: #a1a1aa;
+  /* Zinc 400 */
+  --foreground-subtle: #71717a;
+  /* Zinc 500 */
 
   /* Accent overrides */
   --primary: #ffffff;
-  --primary-glow: rgba(255, 255, 255, 0.05);
+  --primary-glow: rgba(255, 255, 255, 0.1);
 
-  /* Glass Dark Mode - CLEAN BLACK */
-  --glass-bg: rgba(0, 0, 0, 0.7);
-  --glass-bg-hover: rgba(10, 10, 10, 0.9);
-  --glass-border: rgba(255, 255, 255, 0.15);
-  /* Stronger border for visibility */
-  --glass-border-bright: rgba(255, 255, 255, 0.3);
+  /* Glass/Card Dark Mode */
+  /* Using a lighter dark gray for cards so they stand out from background */
+  --glass-bg: rgba(24, 24, 27, 0.7);
+  /* Zinc 900 */
+  --glass-bg-hover: rgba(39, 39, 42, 0.9);
+  /* Zinc 800 */
+  --glass-border: rgba(255, 255, 255, 0.1);
+  /* Visible thin border */
+  --glass-border-bright: rgba(255, 255, 255, 0.2);
 
   --glass-edge-top: rgba(255, 255, 255, 0.1);
   --glass-edge-bottom: transparent;
   --glass-overlay: none;
 
   /* Navbar Dark */
-  --nav-bg: rgba(0, 0, 0, 0.8);
+  --nav-bg: rgba(9, 9, 11, 0.8);
+  /* Matches bg but translucent */
   --nav-border: rgba(255, 255, 255, 0.1);
   --nav-link-hover: rgba(255, 255, 255, 0.1);
 
-  /* Blobs Dark - HIDDEN per user request */
+  /* Blobs Dark - HIDDEN per request */
   --blob-1: transparent;
   --blob-2: transparent;
   --blob-3: transparent;
   --blob-opacity: 0;
 
-  /* Shadows - Minimal/None for flat black look */
-  --shadow-sm: none;
-  --shadow-md: 0 0 0 1px rgba(255, 255, 255, 0.1);
-  /* Stroke instead of shadow */
-  --shadow-lg: 0 0 0 1px rgba(255, 255, 255, 0.1);
+  /* Shadows - Essential for depth in dark mode */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
 }
 
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-  /* Removed transition to make it snappier */
 }
 
 body {

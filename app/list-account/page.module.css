@@ -18,14 +18,14 @@
     font-size: 3rem;
     font-weight: 800;
     letter-spacing: -0.05em;
-    color: #000000;
+    color: var(--foreground);
     margin-bottom: 0.5rem;
 }
 
 .subtitle {
     font-size: 1.1rem;
     line-height: 1.6;
-    color: rgba(0, 0, 0, 0.6);
+    color: var(--foreground-muted);
     margin-bottom: 1rem;
 }
 
@@ -50,7 +50,7 @@
 .label {
     font-size: 1rem;
     font-weight: 600;
-    color: #000000;
+    color: var(--foreground);
 }
 
 .required {
@@ -134,13 +134,13 @@
 .sectionTitle {
     font-size: 1.5rem;
     font-weight: 700;
-    color: #000000;
+    color: var(--foreground);
     margin-bottom: 0.5rem;
 }
 
 .sectionSubtitle {
     font-size: 0.95rem;
-    color: rgba(0, 0, 0, 0.6);
+    color: var(--foreground-muted);
     margin-bottom: 1rem;
 }
 
@@ -252,14 +252,14 @@
 .sliderLabel {
     font-size: 1rem;
     font-weight: 600;
-    color: #000000;
+    color: var(--foreground);
 }
 
 .range {
     width: 100%;
     cursor: pointer;
-    accent-color: #000000;
-    background: rgba(0, 0, 0, 0.05);
+    accent-color: var(--foreground);
+    background: var(--glass-border);
     height: 6px;
     border-radius: 999px;
     outline: none;
@@ -272,7 +272,7 @@
     appearance: none;
     width: 20px;
     height: 20px;
-    background: #000000;
+    background: var(--foreground);
     border-radius: 50%;
     cursor: pointer;
     transition: transform 0.1s ease;

@@ -47,11 +47,11 @@
     font-size: 1.5rem;
     font-weight: 800;
     letter-spacing: -0.04em;
-    color: #000000;
+    color: var(--foreground);
 }
 
 .count {
-    color: rgba(0, 0, 0, 0.3);
+    color: var(--foreground-subtle);
     font-size: 0.9rem;
     font-weight: 600;
 }
@@ -78,7 +78,7 @@
 .empty {
     padding: 4rem;
     text-align: center;
-    color: rgba(0, 0, 0, 0.4);
+    color: var(--foreground-muted);
     background: rgba(255, 255, 255, 0.4);
     backdrop-filter: blur(20px);
     border: 1px solid rgba(0, 0, 0, 0.03);

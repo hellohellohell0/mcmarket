@@ -75,13 +75,13 @@
     font-weight: 800;
     letter-spacing: -0.05em;
     line-height: 1.1;
-    color: #000000;
+    color: var(--foreground);
 }
 
 .description {
     font-size: 1rem;
     line-height: 1.6;
-    color: rgba(0, 0, 0, 0.6);
+    color: var(--foreground-muted);
     background: var(--glass-bg);
     backdrop-filter: blur(var(--glass-blur));
     -webkit-backdrop-filter: blur(var(--glass-blur));
@@ -109,7 +109,7 @@
 .metaLabel {
     font-size: 0.75rem;
     text-transform: uppercase;
-    color: rgba(0, 0, 0, 0.3);
+    color: var(--foreground-subtle);
     font-weight: 700;
     letter-spacing: 0.05em;
 }
@@ -117,7 +117,7 @@
 .metaValue {
     font-size: 1rem;
     font-weight: 600;
-    color: #000000;
+    color: var(--foreground);
 }
 
 .ownerSection {
@@ -141,14 +141,14 @@
 
 .label {
     font-size: 0.85rem;
-    color: rgba(0, 0, 0, 0.4);
+    color: var(--foreground-subtle);
     font-weight: 600;
 }
 
 .ownerName {
     font-weight: 800;
     font-size: 1.15rem;
-    color: #000000;
+    color: var(--foreground);
 }
 
 .verifiedBadge {
@@ -197,8 +197,8 @@
     justify-content: center;
     width: 40px;
     height: 40px;
-    background: #ffffff;
-    border: 1px solid rgba(0, 0, 0, 0.05);
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
     border-radius: 10px;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
@@ -207,8 +207,8 @@
 }
 
 .contactButton:hover {
-    background: #f8fafc;
-    border-color: rgba(0, 0, 0, 0.1);
+    background: var(--glass-bg-hover);
+    border-color: var(--glass-border-bright);
     transform: translateY(-2px);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 }
@@ -272,7 +272,7 @@
 .priceLabel {
     font-size: 0.8rem;
     text-transform: uppercase;
-    color: rgba(0, 0, 0, 0.3);
+    color: var(--foreground-subtle);
     font-weight: 700;
     letter-spacing: 0.05em;
 }
@@ -280,14 +280,14 @@
 .priceValue {
     font-size: 2rem;
     font-weight: 900;
-    color: #000000;
+    color: var(--foreground);
     font-feature-settings: "tnum";
     line-height: 1;
 }
 
 .buyButton {
-    background: #000000;
-    color: #ffffff;
+    background: var(--primary);
+    color: var(--background);
     width: 100%;
     padding: 1rem;
     border: none;
@@ -303,7 +303,7 @@
 .buyButton:hover {
     transform: translateY(-2px);
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
-    background: #1a1a1a;
+    opacity: 0.9;
 }
 
 @media (max-width: 768px) {
