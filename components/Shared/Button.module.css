@@ -15,7 +15,7 @@
     background: var(--glass-bg);
     backdrop-filter: blur(var(--glass-blur));
     -webkit-backdrop-filter: blur(var(--glass-blur));
-    color: #000000;
+    color: var(--foreground);
     box-shadow: var(--shadow-sm);
 }
 

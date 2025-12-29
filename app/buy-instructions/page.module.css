@@ -20,12 +20,12 @@
     font-size: 2.5rem;
     font-weight: 800;
     letter-spacing: -0.05em;
-    color: #000000;
+    color: var(--foreground);
 }
 
 .text {
     font-size: 1.1rem;
-    color: rgba(0, 0, 0, 0.6);
+    color: var(--foreground-muted);
     line-height: 1.6;
 }
 
@@ -41,7 +41,7 @@
 
 .smallText {
     font-size: 0.9rem;
-    color: rgba(0, 0, 0, 0.5);
+    color: var(--foreground-subtle);
     font-weight: 500;
     line-height: 1.5;
 }

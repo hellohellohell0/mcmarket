@@ -94,7 +94,7 @@
 }
 
 .checkboxGroup::-webkit-scrollbar-thumb {
-    background: rgba(0, 0, 0, 0.05);
+    background: var(--glass-border);
     border-radius: 999px;
 }
 
@@ -167,9 +167,9 @@
         padding: 1rem;
         background: rgba(255, 255, 255, 0.8);
         backdrop-filter: blur(20px);
-        border: 1px solid rgba(0, 0, 0, 0.05);
+        border: 1px solid var(--glass-border);
         border-radius: 12px;
-        color: #000000;
+        color: var(--foreground);
         font-weight: 700;
         display: flex;
         justify-content: space-between;
@@ -183,7 +183,7 @@
         padding: 1.5rem;
         background: rgba(255, 255, 255, 0.4);
         backdrop-filter: blur(20px);
-        border: 1px solid rgba(0, 0, 0, 0.03);
+        border: 1px solid var(--glass-border);
         border-radius: var(--radius);
     }
 

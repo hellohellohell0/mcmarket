@@ -18,14 +18,14 @@
     font-size: 3.5rem;
     font-weight: 800;
     letter-spacing: -0.05em;
-    color: #000000;
+    color: var(--foreground);
     margin-bottom: 1rem;
 }
 
 .bodyText {
     font-size: 1.2rem;
     line-height: 1.8;
-    color: rgba(0, 0, 0, 0.6);
+    color: var(--foreground-muted);
 }
 
 .actions {
