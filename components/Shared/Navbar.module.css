@@ -24,7 +24,39 @@
     font-size: 1.25rem;
     font-weight: 800;
     color: var(--foreground);
+    color: var(--foreground);
     letter-spacing: -0.04em;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.discordBtn {
+    background: rgba(88, 101, 242, 0.1);
+    color: #5865F2;
+    border: 1px solid rgba(88, 101, 242, 0.2);
+    border-radius: 8px;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.discordBtn:hover {
+    background: rgba(88, 101, 242, 0.2);
+    transform: translateY(-1px);
+}
+
+.discordIcon {
+    width: 16px;
+    height: 16px;
+    display: block;
 }
 
 .links {
