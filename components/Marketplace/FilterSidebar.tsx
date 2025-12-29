@@ -166,6 +166,9 @@ export default function FilterSidebar({ onFilterChange }: FilterProps) {
                                 value={maxNameChanges}
                                 onChange={e => setMaxNameChanges(parseInt(e.target.value))}
                                 className={styles.range}
+                                style={{
+                                    background: `linear-gradient(to right, var(--slider-fill) ${(maxNameChanges / 15) * 100}%, var(--slider-track) ${(maxNameChanges / 15) * 100}%)`
+                                }}
                             />
                             <div className={styles.rangeLabels}>
                                 <span>0</span>

@@ -257,6 +257,9 @@ export default function ListAccountPage() {
                             className={styles.range}
                             value={formData.nameChanges === '' ? 0 : formData.nameChanges}
                             onChange={(e) => setFormData({ ...formData, nameChanges: e.target.value })}
+                            style={{
+                                background: `linear-gradient(to right, var(--slider-fill) ${(parseInt(formData.nameChanges || '0') / 15) * 100}%, var(--slider-track) ${(parseInt(formData.nameChanges || '0') / 15) * 100}%)`
+                            }}
                         />
                         <div className={styles.rangeLabels}>
                             <span>Prename (0)</span>

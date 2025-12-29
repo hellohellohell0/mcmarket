@@ -44,7 +44,7 @@
 
   --separator: rgba(0, 0, 0, 0.1);
   --slider-track: rgba(0, 0, 0, 0.05);
-  --spin-button-filter: none;
+  --slider-fill: #000000;
 }
 
 [data-theme='dark'] {
@@ -95,18 +95,15 @@
 
   /* Specific User Overrides */
   --separator: rgba(255, 255, 255, 0.2);
-  /* Light white */
   --slider-track: rgba(0, 0, 0, 0.5);
-  /* Dark track */
-  --spin-button-filter: invert(1);
-  /* Make arrows dark */
+  --slider-fill: #ffffff;
 }
 
-/* Global Arrow Styling for Dark Mode */
-[data-theme='dark'] input[type="number"]::-webkit-inner-spin-button,
-[data-theme='dark'] input[type="number"]::-webkit-outer-spin-button {
-  filter: var(--spin-button-filter);
-  opacity: 0.5;
+/* Force dark color scheme for inputs in dark mode to fix native UI elements like dates and steppers */
+[data-theme='dark'] input,
+[data-theme='dark'] select,
+[data-theme='dark'] textarea {
+  color-scheme: dark;
 }
 
 * {
