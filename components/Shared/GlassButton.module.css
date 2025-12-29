@@ -13,7 +13,7 @@
     background: var(--glass-bg);
     backdrop-filter: blur(var(--glass-blur));
     -webkit-backdrop-filter: blur(var(--glass-blur));
-    color: #000000;
+    color: var(--foreground);
     font-size: 0.95rem;
     letter-spacing: -0.01em;
     box-shadow: var(--shadow-sm);
@@ -54,19 +54,19 @@
 }
 
 .primary {
-    background: #000000;
-    color: #ffffff;
+    background: var(--primary);
+    color: var(--background);
     border: none;
 }
 
 .primary:hover {
-    background: #1a1a1a;
+    opacity: 0.9;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
 }
 
 .secondary {
-    background: rgba(0, 0, 0, 0.03);
-    border: 1px solid rgba(0, 0, 0, 0.05);
+    background: var(--glass-border);
+    border: 1px solid var(--glass-border);
 }
 
 .secondary:hover {

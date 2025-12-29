@@ -84,7 +84,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    color: #000000;
+    color: var(--foreground);
     letter-spacing: -0.04em;
 }
 
@@ -142,7 +142,7 @@
 .ownerName {
     font-size: 0.85rem;
     font-weight: 800;
-    color: #000000;
+    color: var(--foreground);
 }
 
 .verifiedBadge {
@@ -198,6 +198,6 @@
 .value {
     font-size: 0.95rem;
     font-weight: 800;
-    color: #000000;
+    color: var(--foreground);
     font-feature-settings: "tnum";
 }
