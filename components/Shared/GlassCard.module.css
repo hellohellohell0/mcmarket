@@ -19,7 +19,8 @@
     transform: translateY(-4px);
     box-shadow:
         var(--shadow-lg),
-        inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.5);
+        inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.1);
+    /* kept internal highlight subtle, could use variable but low opacity white is usually safe for "gloss" */
 }
 
 /* Light bending edge effect */
@@ -37,4 +38,5 @@
             rgba(255, 255, 255, 0.2) 80%,
             transparent);
     opacity: 0.5;
+    pointer-events: none;
 }

@@ -4,10 +4,10 @@
     z-index: 100;
     width: 100%;
     height: 70px;
-    background: rgba(255, 255, 255, 0.4);
+    background: var(--nav-bg);
     backdrop-filter: blur(var(--glass-blur));
     -webkit-backdrop-filter: blur(var(--glass-blur));
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    border-bottom: 1px solid var(--nav-border);
     display: flex;
     align-items: center;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03);
@@ -23,7 +23,7 @@
 .logo {
     font-size: 1.25rem;
     font-weight: 800;
-    color: #000000;
+    color: var(--foreground);
     letter-spacing: -0.04em;
 }
 
@@ -36,15 +36,15 @@
 .links a {
     font-size: 0.95rem;
     font-weight: 600;
-    color: rgba(0, 0, 0, 0.6);
+    color: var(--foreground-muted);
     transition: all 0.3s ease;
     padding: 0.5rem 0.75rem;
     border-radius: var(--radius);
 }
 
 .links a:hover {
-    color: #000000;
-    background: rgba(0, 0, 0, 0.03);
+    color: var(--foreground);
+    background: var(--nav-link-hover);
     transform: translateY(-1px);
 }
 
@@ -53,11 +53,11 @@
     border: none;
     cursor: pointer;
     font-size: 0.9rem;
-    color: rgba(0, 0, 0, 0.4);
+    color: var(--foreground-subtle);
     font-weight: 500;
     transition: all 0.2s;
 }
 
 .logoutBtn:hover {
-    color: #000000;
+    color: var(--foreground);
 }
