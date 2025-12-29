@@ -266,7 +266,7 @@
     width: 100%;
     cursor: pointer;
     accent-color: var(--foreground);
-    background: var(--glass-border);
+    background: var(--slider-track);
     height: 6px;
     border-radius: 999px;
     outline: none;

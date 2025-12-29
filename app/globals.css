@@ -41,6 +41,10 @@
   --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
   --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.06);
   --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.08);
+
+  --separator: rgba(0, 0, 0, 0.1);
+  --slider-track: rgba(0, 0, 0, 0.05);
+  --spin-button-filter: none;
 }
 
 [data-theme='dark'] {
@@ -88,6 +92,21 @@
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
   --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+
+  /* Specific User Overrides */
+  --separator: rgba(255, 255, 255, 0.2);
+  /* Light white */
+  --slider-track: rgba(0, 0, 0, 0.5);
+  /* Dark track */
+  --spin-button-filter: invert(1);
+  /* Make arrows dark */
+}
+
+/* Global Arrow Styling for Dark Mode */
+[data-theme='dark'] input[type="number"]::-webkit-inner-spin-button,
+[data-theme='dark'] input[type="number"]::-webkit-outer-spin-button {
+  filter: var(--spin-button-filter);
+  opacity: 0.5;
 }
 
 * {
