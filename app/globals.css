@@ -17,6 +17,7 @@
   --glass-border: rgba(0, 0, 0, 0.06);
   --glass-border-bright: rgba(0, 0, 0, 0.1);
   --glass-blur: 50px;
+  --glass-overlay: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.05) 100%);
 
   /* Specular edges */
   --glass-edge-top: #ffffff;
@@ -43,51 +44,53 @@
 }
 
 [data-theme='dark'] {
-  --background: #050505;
+  --background: #000000;
+  /* Pure Black */
   --foreground: #ffffff;
-  --foreground-muted: rgba(255, 255, 255, 0.6);
-  --foreground-subtle: rgba(255, 255, 255, 0.4);
+  /* Pure White */
+  --foreground-muted: #a3a3a3;
+  /* Light Gray */
+  --foreground-subtle: #737373;
+  /* Darker Gray */
 
   /* Accent overrides */
   --primary: #ffffff;
   --primary-glow: rgba(255, 255, 255, 0.05);
 
-  /* Glass Dark Mode */
-  --glass-bg: rgba(20, 20, 20, 0.6);
-  --glass-bg-hover: rgba(30, 30, 30, 0.8);
-  --glass-border: rgba(255, 255, 255, 0.08);
-  /* White border for contrast */
-  --glass-border-bright: rgba(255, 255, 255, 0.15);
+  /* Glass Dark Mode - CLEAN BLACK */
+  --glass-bg: rgba(0, 0, 0, 0.7);
+  --glass-bg-hover: rgba(10, 10, 10, 0.9);
+  --glass-border: rgba(255, 255, 255, 0.15);
+  /* Stronger border for visibility */
+  --glass-border-bright: rgba(255, 255, 255, 0.3);
 
   --glass-edge-top: rgba(255, 255, 255, 0.1);
   --glass-edge-bottom: transparent;
+  --glass-overlay: none;
 
   /* Navbar Dark */
-  --nav-bg: rgba(10, 10, 10, 0.6);
-  --nav-border: rgba(255, 255, 255, 0.05);
+  --nav-bg: rgba(0, 0, 0, 0.8);
+  --nav-border: rgba(255, 255, 255, 0.1);
   --nav-link-hover: rgba(255, 255, 255, 0.1);
 
-  /* Blobs Dark - Deep, rich colors */
-  --blob-1: #1e1b4b;
-  /* Indigo 950 */
-  --blob-2: #3f1532;
-  /* Pink/Rose 950ish */
-  --blob-3: #2e1065;
-  /* Violet 950 */
-  --blob-opacity: 0.4;
+  /* Blobs Dark - HIDDEN per user request */
+  --blob-1: transparent;
+  --blob-2: transparent;
+  --blob-3: transparent;
+  --blob-opacity: 0;
 
-  /* Shadows - slightly lighter to be visible on dark bg? Or just relying on borders */
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.5);
-  --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.5);
-  --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.7);
+  /* Shadows - Minimal/None for flat black look */
+  --shadow-sm: none;
+  --shadow-md: 0 0 0 1px rgba(255, 255, 255, 0.1);
+  /* Stroke instead of shadow */
+  --shadow-lg: 0 0 0 1px rgba(255, 255, 255, 0.1);
 }
 
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-  /* Smooth transition for theme colors */
-  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+  /* Removed transition to make it snappier */
 }
 
 body {

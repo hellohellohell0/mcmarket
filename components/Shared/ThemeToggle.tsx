@@ -10,14 +10,15 @@ export default function ThemeToggle() {
 
     useEffect(() => {
         setMounted(true);
-        // Check local storage or system preference
+        // Check local storage, otherwise default to LIGHT as requested
         const savedTheme = localStorage.getItem('theme');
         if (savedTheme) {
             setTheme(savedTheme);
             document.documentElement.setAttribute('data-theme', savedTheme);
-        } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-            setTheme('dark');
-            document.documentElement.setAttribute('data-theme', 'dark');
+        } else {
+            // Default to light explicit
+            setTheme('light');
+            document.documentElement.setAttribute('data-theme', 'light');
         }
     }, []);
 
