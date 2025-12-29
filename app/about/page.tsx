@@ -3,10 +3,10 @@ import AboutClient from './AboutClient';
 
 export const metadata: Metadata = {
     title: 'About | Glass Market',
-    description: 'Learn more about Glass Market - the premium Minecraft account marketplace.',
+    description: 'Glass Market is an account marketplace made by Reprising for the purpose of browsing, selling, and buying accounts easily...',
     openGraph: {
         title: 'About | Glass Market',
-        description: 'Learn more about Glass Market - the premium Minecraft account marketplace.',
+        description: 'Glass Market is an account marketplace made by Reprising for the purpose of browsing, selling, and buying accounts easily...',
         type: 'website',
     },
 };

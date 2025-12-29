@@ -3,10 +3,10 @@ import ListAccountClient from './ListAccountClient';
 
 export const metadata: Metadata = {
     title: 'List Your Account | Glass Market',
-    description: 'Sell your Minecraft account on Glass Market. Submit your account details for approval and reach premium buyers.',
+    description: 'Submit a listing request to list your account on Glass Market.',
     openGraph: {
         title: 'List Your Account | Glass Market',
-        description: 'Sell your Minecraft account on Glass Market. Submit your account details for approval and reach premium buyers.',
+        description: 'Submit a listing request to list your account on Glass Market.',
         type: 'website',
     },
 };
