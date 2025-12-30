@@ -325,7 +325,6 @@ export default function ListAccountClient() {
                             className={styles.input}
                             value={formData.currency}
                             onChange={(e) => setFormData({ ...formData, currency: e.target.value })}
-                            style={{ background: 'rgba(255, 255, 255, 0.05)', color: 'white' }}
                         >
                             <option value="USD">USD ($)</option>
                             <option value="EUR">EUR (€)</option>

@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 import { Listing, Cape } from '@prisma/client';
 import styles from './AccountCard.module.css';
@@ -6,7 +8,6 @@ import { useCurrency } from '@/components/Shared/CurrencyContext';
 
 interface ListingWithRelations extends Listing {
     capes: Cape[];
-    currency?: string;
 }
 
 export default function AccountCard({ listing }: { listing: ListingWithRelations }) {

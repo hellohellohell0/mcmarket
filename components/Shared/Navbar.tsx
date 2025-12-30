@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 import styles from './Navbar.module.css';
 import { useCurrency, Currency } from './CurrencyContext';
@@ -23,17 +25,6 @@ export default function Navbar() {
                             value={currency}
                             onChange={(e) => setCurrency(e.target.value as Currency)}
                             className={styles.currencySelect}
-                            style={{
-                                background: 'rgba(255, 255, 255, 0.05)',
-                                border: '1px solid rgba(255, 255, 255, 0.1)',
-                                color: 'white',
-                                padding: '6px 10px',
-                                borderRadius: '8px',
-                                cursor: 'pointer',
-                                outline: 'none',
-                                fontSize: '0.9rem',
-                                fontWeight: '500'
-                            }}
                         >
                             <option value="USD">USD ($)</option>
                             <option value="EUR">EUR (€)</option>
