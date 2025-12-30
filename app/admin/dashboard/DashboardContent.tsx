@@ -14,6 +14,7 @@ interface ListingWithCapes extends Listing {
     contactTelegram: string | null;
     contactDiscord: string | null;
     ticketNumber: string | null;
+    currency: string;
 }
 
 interface DashboardContentProps {
@@ -108,6 +109,15 @@ function FormFields({ form, setForm, editingId, handleUpdate, handleCreate, onCa
                     <label>Name Changes</label>
                     <input type="number" value={form.nameChanges} onChange={e => setForm({ ...form, nameChanges: Number(e.target.value) })} />
                 </div>
+                <div className={styles.formGroup}>
+                    <label>Currency</label>
+                    <select value={form.currency || 'USD'} onChange={e => setForm({ ...form, currency: e.target.value })}>
+                        <option value="USD">USD</option>
+                        <option value="EUR">EUR</option>
+                        <option value="GBP">GBP</option>
+                        <option value="CAD">CAD</option>
+                    </select>
+                </div>
             </div>
 
             <div className={styles.formGroup}>
@@ -172,7 +182,8 @@ export default function DashboardContent({ initialListings }: DashboardContentPr
         oguProfileUrl: '',
         contactTelegram: '',
         contactDiscord: '',
-        capes: [] as string[]
+        capes: [] as string[],
+        currency: 'USD'
     });
 
     const filteredListings = listings.filter(l => {
@@ -201,7 +212,8 @@ export default function DashboardContent({ initialListings }: DashboardContentPr
             oguProfileUrl: '',
             contactTelegram: '',
             contactDiscord: '',
-            capes: []
+            capes: [],
+            currency: 'USD'
         });
     };
 
@@ -253,7 +265,8 @@ export default function DashboardContent({ initialListings }: DashboardContentPr
             priceCurrentOffer: listing.priceCurrentOffer ?? '',
             priceBin: listing.priceBin ?? '',
             accountTypes: listing.accountTypes.split(', ').filter(Boolean),
-            capes: listing.capes.map(c => c.name)
+            capes: listing.capes.map(c => c.name),
+            currency: listing.currency || 'USD'
         });
         setEditingId(listing.id);
         setIsCreating(false);
@@ -339,7 +352,7 @@ export default function DashboardContent({ initialListings }: DashboardContentPr
                         <div className={styles.details}>
                             <p><strong>Owner:</strong> {listing.currentOwnerName} {listing.isVerifiedOwner ? '(Verified)' : ''} {listing.identityVerified ? '(Onsite Verified)' : ''}</p>
                             <p><strong>Contact:</strong> T: {listing.contactTelegram || 'N/A'} | D: {listing.contactDiscord || 'N/A'}</p>
-                            <p><strong>C/O:</strong> ${listing.priceCurrentOffer?.toLocaleString() || 'N/A'} | <strong>BIN:</strong> ${listing.priceBin?.toLocaleString() || 'N/A'}</p>
+                            <p><strong>C/O:</strong> {listing.priceCurrentOffer?.toLocaleString() ?? 'N/A'} {listing.currency || 'USD'} | <strong>BIN:</strong> {listing.priceBin?.toLocaleString() ?? 'N/A'} {listing.currency || 'USD'}</p>
                             <p><strong>Type:</strong> {listing.accountTypes}</p>
 
                             <p><strong>Submitted:</strong> {new Date(listing.createdAt).toLocaleString()}</p>

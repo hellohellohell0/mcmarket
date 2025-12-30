@@ -2,6 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import SkinViewer from '@/components/Shared/SkinViewer';
+import { useCurrency } from '@/components/Shared/CurrencyContext';
 import styles from './page.module.css';
 
 interface Cape {
@@ -28,6 +29,7 @@ interface Listing {
     isVerifiedOwner: boolean;
     identityVerified: boolean;
     oguProfileUrl: string | null;
+    currency?: string;
 }
 
 interface ListingClientProps {
@@ -36,6 +38,7 @@ interface ListingClientProps {
 
 export default function ListingClient({ listing: l }: ListingClientProps) {
     const router = useRouter();
+    const { formatPrice } = useCurrency();
 
     const handleBuyClick = () => {
         router.push(`/listings/${l.id}/buy`);
@@ -99,13 +102,13 @@ export default function ListingClient({ listing: l }: ListingClientProps) {
                             <div className={styles.priceCard}>
                                 <span className={styles.priceLabel}>Current Offer</span>
                                 <span className={styles.priceValue}>
-                                    {l.priceCurrentOffer !== null ? `$${l.priceCurrentOffer.toLocaleString()}` : '—'}
+                                    {l.priceCurrentOffer !== null ? formatPrice(l.priceCurrentOffer, l.currency || 'USD') : '—'}
                                 </span>
                             </div>
                             <div className={styles.priceCard}>
                                 <span className={styles.priceLabel}>Buy It Now</span>
                                 <span className={styles.priceValue}>
-                                    {l.priceBin !== null ? `$${l.priceBin.toLocaleString()}` : '—'}
+                                    {l.priceBin !== null ? formatPrice(l.priceBin, l.currency || 'USD') : '—'}
                                 </span>
                             </div>
                         </div>

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useCurrency } from '@/components/Shared/CurrencyContext';
 import styles from './page.module.css';
 
 interface Listing {
@@ -12,11 +13,13 @@ interface Listing {
     oguProfileUrl: string | null;
     contactTelegram: string | null;
     contactDiscord: string | null;
+    currency?: string;
 }
 
 export default function BuyClient({ id }: { id: string }) {
     const [listing, setListing] = useState<Listing | null>(null);
     const [loading, setLoading] = useState(true);
+    const { formatPrice } = useCurrency();
 
     useEffect(() => {
         async function fetchListing() {
@@ -50,13 +53,13 @@ export default function BuyClient({ id }: { id: string }) {
                     <div className={styles.priceItem}>
                         <span className={styles.priceLabel}>Current Offer</span>
                         <span className={styles.priceValue}>
-                            {listing.priceCurrentOffer !== null ? `$${listing.priceCurrentOffer.toLocaleString()}` : 'N/A'}
+                            {listing.priceCurrentOffer !== null ? formatPrice(listing.priceCurrentOffer, listing.currency || 'USD') : 'N/A'}
                         </span>
                     </div>
                     <div className={styles.priceItem}>
                         <span className={styles.priceLabel}>Buy It Now</span>
                         <span className={styles.priceValue}>
-                            {listing.priceBin !== null ? `$${listing.priceBin.toLocaleString()}` : 'N/A'}
+                            {listing.priceBin !== null ? formatPrice(listing.priceBin, listing.currency || 'USD') : 'N/A'}
                         </span>
                     </div>
                 </div>

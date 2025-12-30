@@ -2,12 +2,16 @@ import Link from 'next/link';
 import { Listing, Cape } from '@prisma/client';
 import styles from './AccountCard.module.css';
 import SkinViewer from '@/components/Shared/SkinViewer';
+import { useCurrency } from '@/components/Shared/CurrencyContext';
 
 interface ListingWithRelations extends Listing {
     capes: Cape[];
+    currency?: string;
 }
 
 export default function AccountCard({ listing }: { listing: ListingWithRelations }) {
+    const { formatPrice } = useCurrency();
+
     const getCapeImage = (name: string) => {
         return `/assets/capes/${name}.png`;
     };
@@ -61,14 +65,14 @@ export default function AccountCard({ listing }: { listing: ListingWithRelations
                             <span className={styles.label}>C/O</span>
                             <span className={styles.value}>
                                 {listing.priceCurrentOffer && listing.priceCurrentOffer > 0
-                                    ? `$${listing.priceCurrentOffer.toLocaleString()}`
+                                    ? formatPrice(listing.priceCurrentOffer, listing.currency || 'USD')
                                     : '-'}
                             </span>
                         </div>
                         {listing.priceBin !== null && (
                             <div className={styles.priceItem}>
                                 <span className={styles.label}>BIN</span>
-                                <span className={styles.value}>${listing.priceBin.toLocaleString()}</span>
+                                <span className={styles.value}>{formatPrice(listing.priceBin, listing.currency || 'USD')}</span>
                             </div>
                         )}
                     </div>

@@ -3,6 +3,7 @@ import "./globals.css";
 import Navbar from "@/components/Shared/Navbar";
 import GlassBackground from "@/components/Shared/GlassBackground";
 import ThemeToggle from "@/components/Shared/ThemeToggle";
+import { Providers } from "@/components/Shared/Providers";
 
 export const metadata: Metadata = {
   title: "Glass Market",
@@ -23,8 +24,10 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <GlassBackground />
-        <Navbar />
-        <main>{children}</main>
+        <Providers>
+          <Navbar />
+          <main>{children}</main>
+        </Providers>
         <ThemeToggle />
       </body>
     </html>

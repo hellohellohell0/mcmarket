@@ -27,6 +27,7 @@ export default function ListAccountClient() {
         contactDiscord: '',
         contactTelegram: '',
         currentOwnerName: '',
+        currency: 'USD',
     });
 
     const [errors, setErrors] = useState<Record<string, string>>({});
@@ -122,7 +123,8 @@ export default function ListAccountClient() {
                     oguProfileUrl: '',
                     contactDiscord: '',
                     contactTelegram: '',
-                    currentOwnerName: ''
+                    currentOwnerName: '',
+                    currency: 'USD'
                 });
                 setErrors({});
             } else {
@@ -312,6 +314,27 @@ export default function ListAccountClient() {
                             />
                             {errors.priceCurrentOffer && <span className={styles.error}>{errors.priceCurrentOffer}</span>}
                         </div>
+                    </div>
+
+                    {/* Currency Selection */}
+                    <div className={styles.formSection}>
+                        <label className={styles.label}>
+                            Currency <span className={styles.required}>*</span>
+                        </label>
+                        <select
+                            className={styles.input}
+                            value={formData.currency}
+                            onChange={(e) => setFormData({ ...formData, currency: e.target.value })}
+                            style={{ background: 'rgba(255, 255, 255, 0.05)', color: 'white' }}
+                        >
+                            <option value="USD">USD ($)</option>
+                            <option value="EUR">EUR (€)</option>
+                            <option value="GBP">GBP (£)</option>
+                            <option value="CAD">CAD ($)</option>
+                        </select>
+                        <p className={styles.sectionSubtitle} style={{ marginTop: '0.5rem', fontSize: '0.85rem' }}>
+                            Select the currency for your BIN and C/O values.
+                        </p>
                     </div>
 
                     {/* Capes */}
