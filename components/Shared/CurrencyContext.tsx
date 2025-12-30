@@ -67,7 +67,14 @@ export function CurrencyProvider({ children }: { children: React.ReactNode }) {
     const formatPrice = (price: number | null | undefined, fromCurrency: string) => {
         const { value, symbol } = convertPrice(price, fromCurrency);
         if (value === null) return 'N/A';
-        return `${symbol}${value.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
+
+        const roundedValue = Number(value.toFixed(2));
+        const isWhole = roundedValue % 1 === 0;
+
+        return `${symbol}${roundedValue.toLocaleString(undefined, {
+            minimumFractionDigits: isWhole ? 0 : 2,
+            maximumFractionDigits: isWhole ? 0 : 2
+        })}`;
     };
 
     // return mounted ? ... : null or just render children with default to avoid mismatch?
