@@ -1,15 +1,13 @@
 import { Metadata } from 'next';
 import BuyClient from './BuyClient';
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient(); // In a real app, import from lib/prisma
+import prisma from '@/lib/prisma';
 
 type Props = {
-    params: { id: string }
+    params: Promise<{ id: string }>;
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-    const id = params.id;
+    const { id } = await params;
     const listing = await prisma.listing.findUnique({
         where: { id },
     });
@@ -36,6 +34,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
 }
 
-export default function BuyPage({ params }: Props) {
-    return <BuyClient params={params} />;
+export default async function BuyPage({ params }: Props) {
+    const { id } = await params;
+    return <BuyClient id={id} />;
 }

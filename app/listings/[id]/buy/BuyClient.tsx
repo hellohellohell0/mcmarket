@@ -14,8 +14,7 @@ interface Listing {
     contactDiscord: string | null;
 }
 
-export default function BuyClient({ params }: { params: { id: string } }) {
-    const { id } = params;
+export default function BuyClient({ id }: { id: string }) {
     const [listing, setListing] = useState<Listing | null>(null);
     const [loading, setLoading] = useState(true);
 
