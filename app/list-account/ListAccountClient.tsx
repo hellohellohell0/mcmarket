@@ -294,7 +294,7 @@ export default function ListAccountClient() {
                                 className={styles.input}
                                 value={formData.priceBin}
                                 onChange={(e) => setFormData({ ...formData, priceBin: e.target.value })}
-                                placeholder="$0"
+                                placeholder="Put 0 if you don't have a set BIN"
                             />
                             {errors.priceBin && <span className={styles.error}>{errors.priceBin}</span>}
                         </div>
