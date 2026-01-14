@@ -73,7 +73,7 @@ export default function AccountCard({ listing }: { listing: ListingWithRelations
                         {listing.priceBin !== null && (
                             <div className={styles.priceItem}>
                                 <span className={styles.label}>BIN</span>
-                                <span className={styles.value}>{listing.priceBin === 0 ? 'Taking Offers' : formatPrice(listing.priceBin, listing.currency || 'USD')}</span>
+                                <span className={styles.value}>{listing.priceBin === 0 ? 'Not Set' : formatPrice(listing.priceBin, listing.currency || 'USD')}</span>
                             </div>
                         )}
                     </div>

@@ -108,7 +108,7 @@ export default function ListingClient({ listing: l }: ListingClientProps) {
                             <div className={styles.priceCard}>
                                 <span className={styles.priceLabel}>Buy It Now</span>
                                 <span className={styles.priceValue}>
-                                    {l.priceBin === 0 ? 'Taking Offers' : (l.priceBin !== null ? formatPrice(l.priceBin, l.currency || 'USD') : '—')}
+                                    {l.priceBin === 0 ? 'Not Set' : (l.priceBin !== null ? formatPrice(l.priceBin, l.currency || 'USD') : '—')}
                                 </span>
                             </div>
                         </div>
