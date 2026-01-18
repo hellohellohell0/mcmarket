@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Listing, Cape } from '@prisma/client';
-import { createListing, updateListing, deleteListing, adminLogout, approveListing, rejectListing } from '../actions';
+import { createListing, updateListing, deleteListing, adminLogout, approveListing, rejectListing, deleteRecentRequests } from '../actions';
 import styles from './DashboardContent.module.css';
 
 interface ListingWithCapes extends Listing {
@@ -259,6 +259,22 @@ export default function DashboardContent({ initialListings }: DashboardContentPr
         setListings(prev => prev.map(l => l.id === id ? { ...l, status: 'REJECTED' as any } : l));
     };
 
+    const handleBulkDelete = async () => {
+        const countStr = prompt("How many recent requests do you want to delete?");
+        if (!countStr) return;
+        const count = parseInt(countStr);
+        if (isNaN(count) || count <= 0) {
+            alert("Invalid number");
+            return;
+        }
+
+        if (!confirm(`Are you sure you want to delete the last ${count} pending requests?`)) return;
+
+        const deletedIds = await deleteRecentRequests(count);
+        setListings(prev => prev.filter(l => !deletedIds.includes(l.id)));
+        alert(`Deleted ${deletedIds.length} listings`);
+    };
+
     const startEdit = (listing: ListingWithCapes) => {
         setForm({
             ...listing,
@@ -314,6 +330,11 @@ export default function DashboardContent({ initialListings }: DashboardContentPr
                 >
                     Requests <span className={styles.tabCount}>{getTabCount('requests')}</span>
                 </button>
+                {activeTab === 'requests' && (
+                    <button className={styles.deleteBtn} onClick={handleBulkDelete} style={{ marginLeft: '10px', fontSize: '0.9rem', padding: '5px 10px' }}>
+                        Delete Recent
+                    </button>
+                )}
                 <button
                     className={`${styles.tab} ${activeTab === 'public' ? styles.activeTab : ''}`}
                     onClick={() => setActiveTab('public')}

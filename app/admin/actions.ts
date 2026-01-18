@@ -121,3 +121,27 @@ export async function rejectListing(id: string) {
         data: { status: 'REJECTED' }
     });
 }
+
+export async function deleteRecentRequests(count: number) {
+    const isAdmin = await checkAdminSession();
+    if (!isAdmin) throw new Error('Unauthorized');
+
+    const listings = await prisma.listing.findMany({
+        where: { status: 'PENDING' },
+        orderBy: { createdAt: 'desc' },
+        take: count,
+        select: { id: true }
+    });
+
+    const ids = listings.map(l => l.id);
+
+    if (ids.length > 0) {
+        await prisma.listing.deleteMany({
+            where: {
+                id: { in: ids }
+            }
+        });
+    }
+
+    return ids; // Return deleted IDs to update client side state
+}

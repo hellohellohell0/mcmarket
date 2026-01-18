@@ -50,6 +50,39 @@ export async function POST(request: Request) {
             return NextResponse.json({ error: 'At least one contact method is required' }, { status: 400 });
         }
 
+        // Rate Limiting
+        const { headers } = await import('next/headers');
+        const headersList = await headers();
+        const ip = headersList.get('x-forwarded-for') || headersList.get('x-real-ip') || 'unknown';
+
+        // Check for recent requests from this IP in the last 10 seconds
+        const tenSecondsAgo = new Date(Date.now() - 10000);
+        const recentRequest = await prisma.requestLog.findFirst({
+            where: {
+                ip,
+                createdAt: {
+                    gte: tenSecondsAgo
+                }
+            }
+        });
+
+        if (recentRequest) {
+            // Silent Rate Limit: Return success but do NOT create the listing
+            console.log(`Rate limited IP: ${ip}`);
+            return NextResponse.json({
+                success: true,
+                message: `Account ${username} has been sent for approval! We will contact you once it gets accepted.`,
+                listingId: 'rate-limited'
+            });
+        }
+
+        // Log this request
+        await prisma.requestLog.create({
+            data: {
+                ip
+            }
+        });
+
 
 
         // Create the listing with PENDING status

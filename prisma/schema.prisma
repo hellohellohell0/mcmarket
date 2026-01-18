@@ -60,3 +60,12 @@ model Cape {
   listingId String
   listing   Listing @relation(fields: [listingId], references: [id], onDelete: Cascade)
 }
+
+model RequestLog {
+  id        String   @id @default(uuid())
+  ip        String
+  endpoint  String   @default("submission")
+  createdAt DateTime @default(now())
+  
+  @@index([ip, createdAt])
+}
