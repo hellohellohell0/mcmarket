@@ -331,7 +331,7 @@ export default function DashboardContent({ initialListings }: DashboardContentPr
                     Requests <span className={styles.tabCount}>{getTabCount('requests')}</span>
                 </button>
                 {activeTab === 'requests' && (
-                    <button className={styles.deleteBtn} onClick={handleBulkDelete} style={{ marginLeft: '10px', fontSize: '0.9rem', padding: '5px 10px' }}>
+                    <button className={styles.deleteRecentBtn} onClick={handleBulkDelete}>
                         Delete Recent
                     </button>
                 )}
