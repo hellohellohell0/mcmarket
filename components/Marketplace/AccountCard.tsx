@@ -66,14 +66,14 @@ export default function AccountCard({ listing }: { listing: ListingWithRelations
                             <span className={styles.label}>C/O</span>
                             <span className={styles.value}>
                                 {listing.priceCurrentOffer && listing.priceCurrentOffer > 0
-                                    ? formatPrice(listing.priceCurrentOffer, listing.currency || 'USD')
+                                    ? formatPrice(listing.priceCurrentOffer, 'USD')
                                     : '-'}
                             </span>
                         </div>
                         {listing.priceBin !== null && (
                             <div className={styles.priceItem}>
                                 <span className={styles.label}>BIN</span>
-                                <span className={styles.value}>{listing.priceBin === 0 ? 'Not Set' : formatPrice(listing.priceBin, listing.currency || 'USD')}</span>
+                                <span className={styles.value}>{listing.priceBin === 0 ? 'Not Set' : formatPrice(listing.priceBin, 'USD')}</span>
                             </div>
                         )}
                     </div>
