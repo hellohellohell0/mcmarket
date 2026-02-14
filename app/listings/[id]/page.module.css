@@ -320,4 +320,8 @@
     .title {
         font-size: 2rem;
     }
+
+    .skinContainer {
+        height: 350px;
+    }
 }

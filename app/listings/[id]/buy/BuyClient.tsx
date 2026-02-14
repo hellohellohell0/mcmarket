@@ -46,7 +46,7 @@ export default function BuyClient({ id }: { id: string }) {
             </div>
 
             <div className={styles.content}>
-                <h1 className={styles.title}>Purchase Instructions</h1>
+                <h1 className={styles.title}>{listing.username}</h1>
 
                 <div className={styles.priceSummary}>
                     <div className={styles.priceItem}>
