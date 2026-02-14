@@ -22,6 +22,19 @@ export default function Navbar() {
                     </a>
                 </div>
 
+                <div className={styles.currencyWrapper}>
+                    <select
+                        value={currency}
+                        onChange={(e) => setCurrency(e.target.value as Currency)}
+                        className={styles.currencySelect}
+                    >
+                        <option value="USD">USD ($)</option>
+                        <option value="EUR">EUR (€)</option>
+                        <option value="CAD">CAD ($)</option>
+                        <option value="GBP">GBP (£)</option>
+                    </select>
+                </div>
+
                 <button className={styles.hamburger} onClick={() => setIsOpen(!isOpen)} aria-label="Toggle menu">
                     <span className={`${styles.bar} ${isOpen ? styles.open : ''}`}></span>
                     <span className={`${styles.bar} ${isOpen ? styles.open : ''}`}></span>
@@ -29,18 +42,6 @@ export default function Navbar() {
                 </button>
 
                 <div className={`${styles.links} ${isOpen ? styles.open : ''}`}>
-                    <div className={styles.currencyWrapper}>
-                        <select
-                            value={currency}
-                            onChange={(e) => setCurrency(e.target.value as Currency)}
-                            className={styles.currencySelect}
-                        >
-                            <option value="USD">USD ($)</option>
-                            <option value="EUR">EUR (€)</option>
-                            <option value="CAD">CAD ($)</option>
-                            <option value="GBP">GBP (£)</option>
-                        </select>
-                    </div>
                     <Link href="/about" onClick={() => setIsOpen(false)}>About</Link>
                     <Link href="/list-account" onClick={() => setIsOpen(false)}>List Account</Link>
                     <Link href="/" onClick={() => setIsOpen(false)}>Browse</Link>
