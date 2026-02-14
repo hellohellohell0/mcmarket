@@ -58,11 +58,11 @@ export default function ListAccountClient() {
         const newErrors: Record<string, string> = {};
 
         if (!formData.username.trim()) {
-            newErrors.username = 'Username is required';
+            newErrors.username = 'Username is required (put * if hidden)';
         }
 
         if (formData.accountTypes.length === 0) {
-            newErrors.accountTypes = 'Select at least one account type';
+            newErrors.accountTypes = 'Select at least one account type.';
         }
 
         if (formData.nameChanges === '') {
@@ -70,27 +70,27 @@ export default function ListAccountClient() {
         }
 
         if (!formData.description.trim()) {
-            newErrors.description = 'Description is required';
+            newErrors.description = 'A description is required.';
         }
 
         if (!formData.priceBin) {
-            newErrors.priceBin = 'BIN price is required';
+            newErrors.priceBin = 'A BIN price is required (put 0 if N/A)';
         }
 
         if (!formData.priceCurrentOffer && formData.priceCurrentOffer !== '0') {
-            newErrors.priceCurrentOffer = 'Current offer is required (put 0 if no offer)';
+            newErrors.priceCurrentOffer = 'A current offer is required (put 0 if N/A)';
         }
 
         if (!formData.oguProfileUrl && !formData.contactDiscord && !formData.contactTelegram) {
-            newErrors.contact = 'At least one contact method is required';
+            newErrors.contact = 'At least one contact method is required.';
         }
 
         if (!formData.isOwner) {
-            newErrors.isOwner = 'You must confirm you are the owner of this account';
+            newErrors.isOwner = 'You must confirm you are the owner of this account.';
         }
 
         if (!formData.agreesToFee) {
-            newErrors.agreesToFee = 'You must agree to the 4% proxy fee';
+            newErrors.agreesToFee = 'You must agree to the 4% proxy fee.';
         }
 
         setErrors(newErrors);
@@ -155,7 +155,7 @@ export default function ListAccountClient() {
                         <div className={styles.successIcon}>✓</div>
                         <h1 className={styles.successTitle}>Listing Submitted!</h1>
                         <p className={styles.successMessage}>
-                            Account <strong>{successUsername}</strong> has been sent for approval! We will contact you once it gets accepted.
+                            <strong>{successUsername}</strong> has been sent for approval! We will contact you once it gets accepted.
                         </p>
                         <div style={{ display: 'flex', justifyContent: 'center', marginTop: '1.5rem' }}>
                             <a href="https://discord.gg/Hg8qTytv5K" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>

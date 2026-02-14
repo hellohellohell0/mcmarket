@@ -70,7 +70,7 @@ export async function POST(request: Request) {
             console.log(`Rate limited IP: ${ip}`);
             return NextResponse.json({
                 success: true,
-                message: `Account ${username} has been sent for approval! We will contact you once it gets accepted.`,
+                message: `${username} has been sent for approval! We will contact you once it gets accepted.`,
                 listingId: 'rate-limited'
             });
         }
@@ -112,7 +112,7 @@ export async function POST(request: Request) {
 
         return NextResponse.json({
             success: true,
-            message: `Account ${username} has been sent for approval! We will contact you once it gets accepted.`,
+            message: `${username} has been sent for approval! We will contact you once it gets accepted.`,
             listingId: listing.id
         });
 
