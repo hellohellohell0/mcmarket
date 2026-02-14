@@ -167,8 +167,9 @@
     .mobileToggle {
         width: 100%;
         padding: 1rem;
-        background: rgba(255, 255, 255, 0.8);
+        background: var(--glass-bg);
         backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
         border: 1px solid var(--glass-border);
         border-radius: 12px;
         color: var(--foreground);
@@ -177,22 +178,40 @@
         justify-content: space-between;
         align-items: center;
         cursor: pointer;
+        transition: all 0.2s;
+    }
+
+    .mobileToggle:hover {
+        background: var(--glass-bg-hover);
+        border-color: var(--glass-border-bright);
     }
 
     .filtersContent {
-        display: none;
-        margin-top: 1rem;
-        padding: 1.5rem;
-        background: rgba(255, 255, 255, 0.4);
+        max-height: 0;
+        opacity: 0;
+        overflow: hidden;
+        margin-top: 0;
+        padding: 0 1.5rem;
+        background: var(--glass-bg);
         backdrop-filter: blur(20px);
-        border: 1px solid var(--glass-border);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0);
+        /* Invisible border when closed */
         border-radius: var(--radius);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        display: flex;
+        /* Always flex, just hidden by height */
+        flex-direction: column;
+        gap: 2rem;
     }
 
     .filtersContent.open {
-        display: flex;
-        flex-direction: column;
-        gap: 2rem;
+        max-height: 1200px;
+        /* Large enough to fit content */
+        opacity: 1;
+        margin-top: 1rem;
+        padding: 1.5rem;
+        border-color: var(--glass-border);
     }
 }
 
