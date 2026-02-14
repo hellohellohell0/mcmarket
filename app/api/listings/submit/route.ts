@@ -16,8 +16,7 @@ export async function POST(request: Request) {
             capes,
             oguProfileUrl,
             contactDiscord,
-            contactTelegram,
-            currency // Add currency
+            contactTelegram
         } = body;
 
         // Validation
@@ -94,7 +93,6 @@ export async function POST(request: Request) {
                 description: description.trim(),
                 priceBin: Number(priceBin),
                 priceCurrentOffer: Number(priceCurrentOffer) === 0 ? null : Number(priceCurrentOffer),
-                currency: currency || 'USD', // Default to USD
                 oguProfileUrl: oguProfileUrl?.trim() || null,
                 contactDiscord: contactDiscord?.trim() || null,
                 contactTelegram: contactTelegram?.trim() || null,
