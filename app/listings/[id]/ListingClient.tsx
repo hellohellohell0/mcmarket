@@ -135,8 +135,8 @@ export default function ListingClient({ listing: l }: ListingClientProps) {
                                     </svg>
                                     <div className={styles.verifiedTooltip}>This user's identity has been verified onsite</div>
                                 </div>
-
-                    </div>
+                            )}
+                        </div>
                     </div>
                 </div>
             </div>
