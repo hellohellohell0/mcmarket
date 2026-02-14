@@ -57,6 +57,14 @@
     border-radius: var(--radius);
     border: 1px solid var(--glass-border);
     box-shadow: var(--shadow-sm);
+    transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.priceSummary:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--glass-border-bright);
+    background: var(--glass-bg-hover);
 }
 
 .priceItem {
@@ -144,18 +152,21 @@
     justify-content: center;
     text-align: center;
     gap: 0.75rem;
-    transition: all 0.2s ease;
+    transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 .optionCell:hover {
     background: rgba(255, 255, 255, 0.05);
     border-color: rgba(255, 255, 255, 0.15);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
 }
 
 .orSeparator {
     font-weight: 800;
     color: var(--foreground-subtle);
     font-size: 0.9rem;
+    align-self: center;
 }
 
 .contactHandle {
