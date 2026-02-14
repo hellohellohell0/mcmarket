@@ -24,9 +24,7 @@ export async function GET(request: Request, { params }: { params: Promise<{ id: 
                 publicContact: true,
                 // contactTelegram: false, // Excluded
                 // contactDiscord: false, // Excluded
-                currentOwnerName: true,
-                isVerifiedOwner: true,
-                identityVerified: true,
+
                 oguProfileUrl: true,
                 status: true,
                 createdAt: true,

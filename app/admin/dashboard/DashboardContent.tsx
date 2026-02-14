@@ -7,9 +7,7 @@ import styles from './DashboardContent.module.css';
 
 interface ListingWithCapes extends Listing {
     capes: Cape[];
-    currentOwnerName: string;
-    isVerifiedOwner: boolean;
-    identityVerified: boolean;
+
     oguProfileUrl: string | null;
     contactTelegram: string | null;
     contactDiscord: string | null;
@@ -66,28 +64,7 @@ function FormFields({ form, setForm, editingId, handleUpdate, handleCreate, onCa
                     <label>Username</label>
                     <input value={form.username} onChange={e => setForm({ ...form, username: e.target.value })} />
                 </div>
-                <div className={styles.formGroup}>
-                    <label>Current Owner</label>
-                    <input value={form.currentOwnerName} onChange={e => setForm({ ...form, currentOwnerName: e.target.value })} />
-                </div>
-                <div className={styles.formGroup}>
-                    <label>OGU Link</label>
-                    <input value={form.oguProfileUrl || ''} onChange={e => setForm({ ...form, oguProfileUrl: e.target.value })} />
-                </div>
-                <div className={styles.formGroup}>
-                    <label>Verified Owner?</label>
-                    <select value={form.isVerifiedOwner ? 'yes' : 'no'} onChange={e => setForm({ ...form, isVerifiedOwner: e.target.value === 'yes' })}>
-                        <option value="no">No</option>
-                        <option value="yes">Yes</option>
-                    </select>
-                </div>
-                <div className={styles.formGroup}>
-                    <label>Identity Verified?</label>
-                    <select value={form.identityVerified ? 'yes' : 'no'} onChange={e => setForm({ ...form, identityVerified: e.target.value === 'yes' })}>
-                        <option value="no">No</option>
-                        <option value="yes">Yes</option>
-                    </select>
-                </div>
+
                 <div className={styles.formGroup}>
                     <label>Telegram (Username)</label>
                     <input value={form.contactTelegram || ''} onChange={e => setForm({ ...form, contactTelegram: e.target.value })} placeholder="@username" />
@@ -167,9 +144,7 @@ export default function DashboardContent({ initialListings }: DashboardContentPr
         sellerName: 'Kerr',
         sellerDiscordId: 'N/A',
         publicContact: 'Discord: @kerr',
-        currentOwnerName: 'Verified Owner',
-        isVerifiedOwner: false,
-        identityVerified: false,
+
         oguProfileUrl: '',
         contactTelegram: '',
         contactDiscord: '',
@@ -196,9 +171,7 @@ export default function DashboardContent({ initialListings }: DashboardContentPr
             sellerName: 'Kerr',
             sellerDiscordId: 'N/A',
             publicContact: 'Discord: @kerr',
-            currentOwnerName: 'Verified Owner',
-            isVerifiedOwner: false,
-            identityVerified: false,
+
             oguProfileUrl: '',
             contactTelegram: '',
             contactDiscord: '',
@@ -359,7 +332,7 @@ export default function DashboardContent({ initialListings }: DashboardContentPr
                         </div>
 
                         <div className={styles.details}>
-                            <p><strong>Owner:</strong> {listing.currentOwnerName} {listing.isVerifiedOwner ? '(Verified)' : ''} {listing.identityVerified ? '(Onsite Verified)' : ''}</p>
+                            <p><strong>Contact:</strong> T: {listing.contactTelegram || 'N/A'} | D: {listing.contactDiscord || 'N/A'}</p>
                             <p><strong>Contact:</strong> T: {listing.contactTelegram || 'N/A'} | D: {listing.contactDiscord || 'N/A'}</p>
                             <p><strong>C/O:</strong> {listing.priceCurrentOffer?.toLocaleString() ?? 'N/A'} USD | <strong>BIN:</strong> {listing.priceBin?.toLocaleString() ?? 'N/A'} USD</p>
                             <p><strong>Type:</strong> {listing.accountTypes}</p>

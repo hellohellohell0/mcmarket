@@ -43,10 +43,8 @@ model Listing {
   contactDiscord    String?
   
   // Presence & Ownership
-  currentOwnerName  String        @default("Verified Owner")
-  isVerifiedOwner   Boolean       @default(false)
-  identityVerified  Boolean       @default(false)
   oguProfileUrl     String?
+
 
   // System
   status            ListingStatus @default(APPROVED)

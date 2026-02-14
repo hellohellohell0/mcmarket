@@ -25,8 +25,10 @@ export default function ListAccountClient() {
         capes: [] as string[],
         oguProfileUrl: '',
         contactDiscord: '',
+
         contactTelegram: '',
-        currentOwnerName: '',
+        isOwner: false,
+        agreesToFee: false
     });
 
     const [errors, setErrors] = useState<Record<string, string>>({});
@@ -83,6 +85,14 @@ export default function ListAccountClient() {
             newErrors.contact = 'At least one contact method is required';
         }
 
+        if (!formData.isOwner) {
+            newErrors.isOwner = 'You must confirm you are the owner of this account';
+        }
+
+        if (!formData.agreesToFee) {
+            newErrors.agreesToFee = 'You must agree to the 4% proxy fee';
+        }
+
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
     };
@@ -122,7 +132,9 @@ export default function ListAccountClient() {
                     oguProfileUrl: '',
                     contactDiscord: '',
                     contactTelegram: '',
-                    currentOwnerName: '',
+
+                    isOwner: false,
+                    agreesToFee: false
                 });
                 setErrors({});
             } else {
@@ -206,18 +218,7 @@ export default function ListAccountClient() {
                         {errors.username && <span className={styles.error}>{errors.username}</span>}
                     </div>
 
-                    <div className={styles.formSection}>
-                        <label className={styles.label}>
-                            Current Owner (You) <span className={styles.required}>*</span>
-                        </label>
-                        <input
-                            type="text"
-                            className={styles.input}
-                            value={formData.currentOwnerName}
-                            onChange={(e) => setFormData({ ...formData, currentOwnerName: e.target.value })}
-                            placeholder="Enter your alias (e.g. Reprise)"
-                        />
-                    </div>
+
 
                     {/* Account Types */}
                     <div className={styles.formSection}>
@@ -376,6 +377,31 @@ export default function ListAccountClient() {
                         </div>
 
                         {errors.contact && <span className={styles.error}>{errors.contact}</span>}
+                    </div>
+
+                    {/* Agreement Checkboxes */}
+                    <div className={styles.formSection}>
+                        <label className={styles.checkboxLabel} style={{ fontWeight: 'normal', fontSize: '1rem', padding: '1rem' }}>
+                            <input
+                                type="checkbox"
+                                checked={formData.isOwner}
+                                onChange={(e) => setFormData({ ...formData, isOwner: e.target.checked })}
+                                style={{ width: '1.25rem', height: '1.25rem' }}
+                            />
+                            <span>I am the owner of this account. <span className={styles.required}>*</span></span>
+                        </label>
+                        {errors.isOwner && <span className={styles.error}>{errors.isOwner}</span>}
+
+                        <label className={styles.checkboxLabel} style={{ fontWeight: 'normal', fontSize: '1rem', padding: '1rem', marginTop: '0.5rem' }}>
+                            <input
+                                type="checkbox"
+                                checked={formData.agreesToFee}
+                                onChange={(e) => setFormData({ ...formData, agreesToFee: e.target.checked })}
+                                style={{ width: '1.25rem', height: '1.25rem' }}
+                            />
+                            <span>I agree with the 4% proxy fee that will be taken if Glass Market finds a buyer. <span className={styles.required}>*</span></span>
+                        </label>
+                        {errors.agreesToFee && <span className={styles.error}>{errors.agreesToFee}</span>}
                     </div>
 
                     {/* Submit */}

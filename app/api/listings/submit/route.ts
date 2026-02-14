@@ -98,11 +98,9 @@ export async function POST(request: Request) {
                 contactTelegram: contactTelegram?.trim() || null,
 
                 status: 'PENDING',
-                sellerName: body.currentOwnerName || 'Pending User', // Use provided name or default
+                sellerName: 'Pending User',
                 sellerDiscordId: 'N/A',
                 publicContact: contactDiscord ? `Discord: ${contactDiscord}` : contactTelegram ? `Telegram: ${contactTelegram}` : 'See OGU',
-                currentOwnerName: body.currentOwnerName || 'Verified Owner', // Use provided name or default
-                isVerifiedOwner: false,
                 capes: {
                     create: (capes || []).map((name: string) => ({ name }))
                 }
