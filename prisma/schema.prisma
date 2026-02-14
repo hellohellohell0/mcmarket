@@ -28,7 +28,7 @@ model Listing {
   nameChanges       Int           @default(0) // 0-15 (15 means 15+)
   
   // Pricing
-  currency          String        @default("USD")
+
   priceCurrentOffer Float?
   priceBin          Float?
   

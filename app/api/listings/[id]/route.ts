@@ -10,8 +10,27 @@ export async function GET(request: Request, { params }: { params: Promise<{ id: 
     try {
         const listing = await prisma.listing.findUnique({
             where: { id },
-            include: {
-                capes: true
+            select: {
+                id: true,
+                username: true,
+                description: true,
+                accountTypes: true,
+                nameChanges: true,
+                priceCurrentOffer: true,
+                priceBin: true,
+                capes: true,
+                sellerName: true,
+                // sellerDiscordId: false, // Excluded
+                publicContact: true,
+                // contactTelegram: false, // Excluded
+                // contactDiscord: false, // Excluded
+                currentOwnerName: true,
+                isVerifiedOwner: true,
+                identityVerified: true,
+                oguProfileUrl: true,
+                status: true,
+                createdAt: true,
+                ticketNumber: true
             }
         });
 

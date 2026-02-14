@@ -13,7 +13,6 @@ interface Listing {
     oguProfileUrl: string | null;
     contactTelegram: string | null;
     contactDiscord: string | null;
-    currency?: string;
 }
 
 export default function BuyClient({ id }: { id: string }) {
@@ -53,13 +52,13 @@ export default function BuyClient({ id }: { id: string }) {
                     <div className={styles.priceItem}>
                         <span className={styles.priceLabel}>Current Offer</span>
                         <span className={styles.priceValue}>
-                            {listing.priceCurrentOffer !== null ? formatPrice(listing.priceCurrentOffer, listing.currency || 'USD') : 'N/A'}
+                            {listing.priceCurrentOffer !== null ? formatPrice(listing.priceCurrentOffer, 'USD') : 'N/A'}
                         </span>
                     </div>
                     <div className={styles.priceItem}>
                         <span className={styles.priceLabel}>Buy It Now</span>
                         <span className={styles.priceValue}>
-                            {listing.priceBin !== null ? formatPrice(listing.priceBin, listing.currency || 'USD') : 'N/A'}
+                            {listing.priceBin !== null ? formatPrice(listing.priceBin, 'USD') : 'N/A'}
                         </span>
                     </div>
                 </div>
@@ -71,38 +70,24 @@ export default function BuyClient({ id }: { id: string }) {
                 <div className={styles.optionsList}>
                     <div className={styles.optionItem}>
                         <div className={styles.optionText}>
-                            <h3>Option 1</h3>
-                            <p>Contact the seller directly</p>
-                            <div className={styles.middlemanWarning}>(Make sure to use a middleman!)</div>
-                        </div>
-                        <div className={styles.contactButtons}>
-                            {listing.oguProfileUrl && (
-                                <a href={listing.oguProfileUrl} target="_blank" rel="noopener noreferrer" className={styles.contactButton} title="OGU Profile">
-                                    <img src="/assets/icons/contact/ogu.png" alt="OGU" className={styles.contactIcon} />
-                                </a>
-                            )}
-                            {listing.contactDiscord && (
-                                <div className={styles.contactButton}>
-                                    <img src="/assets/icons/contact/discord.svg" alt="Discord" className={styles.contactIcon} />
-                                    <div className={styles.discordTooltip}>{listing.contactDiscord}</div>
-                                </div>
-                            )}
-                            {listing.contactTelegram && (
-                                <a href={`https://t.me/${listing.contactTelegram.replace('@', '')}`} target="_blank" rel="noopener noreferrer" className={styles.contactButton} title="Telegram">
-                                    <img src="/assets/icons/contact/telegram.svg" alt="Telegram" className={styles.contactIcon} />
-                                </a>
-                            )}
+                            <h3>Option 1: DISCORD</h3>
+                            <div className={styles.card}>
+                                <p>Create a ticket in the <a href="https://discord.gg/Hg8qTytv5K" target="_blank" rel="noopener noreferrer" className={styles.link}>discord server</a> and state your offer.</p>
+                            </div>
+                            <div className={styles.separator}>OR</div>
+                            <div className={styles.card}>
+                                <p>Message me on discord with your offer</p>
+                                <div className={styles.contactHandle}>@reprisingogu</div>
+                            </div>
                         </div>
                     </div>
 
                     <div className={styles.optionItem}>
                         <div className={styles.optionText}>
-                            <h3>Option 2</h3>
-                            <p>Make a ticket in the discord server and we will connect you to the seller.</p>
+                            <h3>Option 2: TELEGRAM</h3>
+                            <p>Message me on telegram with your offer:</p>
+                            <a href="https://t.me/reprisingogu" target="_blank" rel="noopener noreferrer" className={styles.link}>t.me/reprisingogu</a>
                         </div>
-                        <a href="https://discord.gg/Hg8qTytv5K" target="_blank" rel="noopener noreferrer" className={`${styles.button} ${styles.discordButton}`}>
-                            Join Discord
-                        </a>
                     </div>
                 </div>
             </div>

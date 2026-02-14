@@ -29,7 +29,6 @@ interface Listing {
     isVerifiedOwner: boolean;
     identityVerified: boolean;
     oguProfileUrl: string | null;
-    currency?: string;
 }
 
 interface ListingClientProps {
@@ -102,13 +101,13 @@ export default function ListingClient({ listing: l }: ListingClientProps) {
                             <div className={styles.priceCard}>
                                 <span className={styles.priceLabel}>Current Offer</span>
                                 <span className={styles.priceValue}>
-                                    {l.priceCurrentOffer !== null ? formatPrice(l.priceCurrentOffer, l.currency || 'USD') : '—'}
+                                    {l.priceCurrentOffer !== null ? formatPrice(l.priceCurrentOffer, 'USD') : '—'}
                                 </span>
                             </div>
                             <div className={styles.priceCard}>
                                 <span className={styles.priceLabel}>Buy It Now</span>
                                 <span className={styles.priceValue}>
-                                    {l.priceBin === 0 ? 'Not Set' : (l.priceBin !== null ? formatPrice(l.priceBin, l.currency || 'USD') : '—')}
+                                    {l.priceBin === 0 ? 'Not Set' : (l.priceBin !== null ? formatPrice(l.priceBin, 'USD') : '—')}
                                 </span>
                             </div>
                         </div>
@@ -136,29 +135,11 @@ export default function ListingClient({ listing: l }: ListingClientProps) {
                                     </svg>
                                     <div className={styles.verifiedTooltip}>This user's identity has been verified onsite</div>
                                 </div>
-                            )}
-                        </div>
-                        <div className={styles.contactButtons}>
-                            {l.oguProfileUrl && (
-                                <a href={l.oguProfileUrl} target="_blank" rel="noopener noreferrer" className={styles.contactButton}>
-                                    <img src="/assets/icons/contact/ogu.png" alt="OGU" className={styles.contactIcon} />
-                                </a>
-                            )}
-                            {l.contactDiscord && (
-                                <div className={styles.contactButton} onClick={() => navigator.clipboard.writeText(l.contactDiscord!)}>
-                                    <img src="/assets/icons/contact/discord.svg" alt="Discord" className={styles.contactIcon} />
-                                    <div className={styles.discordTooltip}>{l.contactDiscord}</div>
-                                </div>
-                            )}
-                            {l.contactTelegram && (
-                                <a href={`https://t.me/${l.contactTelegram.replace('@', '')}`} target="_blank" rel="noopener noreferrer" className={styles.contactButton}>
-                                    <img src="/assets/icons/contact/telegram.svg" alt="Telegram" className={styles.contactIcon} />
-                                </a>
-                            )}
-                        </div>
+
+                    </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     );
 }
