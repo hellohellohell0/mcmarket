@@ -64,6 +64,10 @@ function FormFields({ form, setForm, editingId, handleUpdate, handleCreate, onCa
                     <label>Username</label>
                     <input value={form.username} onChange={e => setForm({ ...form, username: e.target.value })} />
                 </div>
+                <div className={styles.formGroup}>
+                    <label>OGU Profile Link</label>
+                    <input value={form.oguProfileUrl || ''} onChange={e => setForm({ ...form, oguProfileUrl: e.target.value })} placeholder="https://oguser.com/..." />
+                </div>
 
                 <div className={styles.formGroup}>
                     <label>Telegram (Username)</label>
@@ -333,6 +337,7 @@ export default function DashboardContent({ initialListings }: DashboardContentPr
 
                         <div className={styles.details}>
                             <p><strong>Contact:</strong> T: {listing.contactTelegram || 'N/A'} | D: {listing.contactDiscord || 'N/A'}</p>
+                            {listing.oguProfileUrl && <p><strong>OGU:</strong> <a href={listing.oguProfileUrl} target="_blank" rel="noopener noreferrer" style={{ color: '#4f46e5', textDecoration: 'underline' }}>View Profile</a></p>}
                             <p><strong>Contact:</strong> T: {listing.contactTelegram || 'N/A'} | D: {listing.contactDiscord || 'N/A'}</p>
                             <p><strong>C/O:</strong> {listing.priceCurrentOffer?.toLocaleString() ?? 'N/A'} USD | <strong>BIN:</strong> {listing.priceBin?.toLocaleString() ?? 'N/A'} USD</p>
                             <p><strong>Type:</strong> {listing.accountTypes}</p>

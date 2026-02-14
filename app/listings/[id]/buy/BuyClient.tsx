@@ -71,13 +71,15 @@ export default function BuyClient({ id }: { id: string }) {
                     <div className={styles.optionItem}>
                         <div className={styles.optionText}>
                             <h3>Option 1: DISCORD</h3>
-                            <div className={styles.card}>
-                                <p>Create a ticket in the <a href="https://discord.gg/Hg8qTytv5K" target="_blank" rel="noopener noreferrer" className={styles.link}>discord server</a> and state your offer.</p>
-                            </div>
-                            <div className={styles.separator}>OR</div>
-                            <div className={styles.card}>
-                                <p>Message me on discord with your offer</p>
-                                <div className={styles.contactHandle}>@reprisingogu</div>
+                            <div className={styles.splitOptionContainer}>
+                                <div className={styles.optionCell}>
+                                    <p>Create a ticket in the <a href="https://discord.gg/Hg8qTytv5K" target="_blank" rel="noopener noreferrer" className={styles.link}>discord server</a> and state your offer.</p>
+                                </div>
+                                <div className={styles.orSeparator}>OR</div>
+                                <div className={styles.optionCell}>
+                                    <p>Message me on discord with your offer</p>
+                                    <div className={styles.contactHandle}>@reprisingogu</div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -85,8 +87,12 @@ export default function BuyClient({ id }: { id: string }) {
                     <div className={styles.optionItem}>
                         <div className={styles.optionText}>
                             <h3>Option 2: TELEGRAM</h3>
-                            <p>Message me on telegram with your offer:</p>
-                            <a href="https://t.me/reprisingogu" target="_blank" rel="noopener noreferrer" className={styles.link}>t.me/reprisingogu</a>
+                            <div className={styles.optionCell} style={{ marginTop: '1rem' }}>
+                                <p>Message me on telegram with your offer</p>
+                                <a href="https://t.me/reprisingogu" target="_blank" rel="noopener noreferrer" className={styles.contactHandle} style={{ textDecoration: 'none', display: 'block' }}>
+                                    @reprisingogu
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
