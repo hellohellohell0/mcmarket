@@ -179,20 +179,23 @@ a {
 }
 
 /* Custom Scrollbar */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--foreground-subtle) transparent;
+}
+
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.02);
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
   background: var(--foreground-subtle);
-  border-radius: 999px;
-  border: 2px solid transparent;
-  background-clip: content-box;
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {

@@ -82,7 +82,7 @@ export default function FilterSidebar({ onFilterChange }: FilterProps) {
 
     return (
         <aside className={styles.sidebar}>
-            <button className={styles.mobileToggle} onClick={() => setIsOpen(!isOpen)}>
+            <button className={`${styles.mobileToggle} ${isOpen ? styles.open : ''}`} onClick={() => setIsOpen(!isOpen)}>
                 <span>Filters</span>
                 <span>{isOpen ? '▲' : '▼'}</span>
             </button>

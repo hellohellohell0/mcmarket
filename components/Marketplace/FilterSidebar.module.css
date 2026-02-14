@@ -193,11 +193,20 @@
         align-items: center;
         cursor: pointer;
         transition: all 0.2s;
+        position: relative;
+        z-index: 10;
     }
 
     .mobileToggle:hover {
         background: var(--glass-bg-hover);
         border-color: var(--glass-border-bright);
+    }
+
+    .mobileToggle.open {
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+        border-bottom-color: transparent;
+        background: var(--glass-bg-hover);
     }
 
     .filtersContent {
@@ -210,22 +219,22 @@
         backdrop-filter: blur(20px);
         -webkit-backdrop-filter: blur(20px);
         border: 1px solid rgba(255, 255, 255, 0);
-        /* Invisible border when closed */
-        border-radius: var(--radius);
+        border-radius: 12px;
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         display: flex;
-        /* Always flex, just hidden by height */
         flex-direction: column;
         gap: 2rem;
     }
 
     .filtersContent.open {
         max-height: 1200px;
-        /* Large enough to fit content */
         opacity: 1;
-        margin-top: 1rem;
+        margin-top: -1px;
+        /* Slight overlap to merge borders */
         padding: 1.5rem;
         border-color: var(--glass-border);
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
     }
 }
 
