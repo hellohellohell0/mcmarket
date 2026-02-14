@@ -94,22 +94,99 @@
     color: var(--foreground);
 }
 
-.currencySelect {
+/* Currency Widget */
+.currencyTrigger {
     background: var(--glass-bg);
     border: 1px solid var(--glass-border);
     color: var(--foreground);
-    padding: 6px 10px;
-    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    border-radius: 12px;
     cursor: pointer;
-    outline: none;
     font-size: 0.9rem;
-    font-weight: 500;
+    font-weight: 600;
     transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-width: 120px;
+    justify-content: space-between;
 }
 
-.currencySelect:hover {
+.currencyTrigger:hover {
     background: var(--glass-bg-hover);
     border-color: var(--glass-border-bright);
+    transform: translateY(-1px);
+}
+
+.arrow {
+    font-size: 0.7rem;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0.5;
+}
+
+.arrow.flipped {
+    transform: rotate(180deg);
+}
+
+.currencyWrapper {
+    margin-left: auto;
+    margin-right: 2.5rem;
+    /* Spacing from links/hamburger */
+    position: relative;
+    z-index: 102;
+}
+
+.currencyDropdown {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    right: 0;
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    box-shadow: var(--shadow-lg);
+    width: 140px;
+    padding: 0.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+    opacity: 0;
+    transform: translateY(-10px) scale(0.95);
+    pointer-events: none;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: top right;
+}
+
+.currencyDropdown.open {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: all;
+}
+
+.currencyItem {
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    padding: 0.6rem 0.8rem;
+    color: var(--foreground-muted);
+    font-size: 0.9rem;
+    font-weight: 500;
+    border-radius: 8px;
+    transition: all 0.2s;
+    width: 100%;
+}
+
+.currencyItem:hover {
+    background: var(--glass-bg-hover);
+    color: var(--foreground);
+}
+
+.currencyItem.active {
+    background: var(--nav-link-hover);
+    color: var(--foreground);
+    font-weight: 600;
 }
 
 .hamburger {
@@ -122,13 +199,6 @@
     padding: 0.5rem;
     z-index: 101;
     margin-left: 1rem;
-}
-
-.currencyWrapper {
-    margin-left: auto;
-    /* Pushes to the right on desktop and mobile */
-    display: flex;
-    align-items: center;
 }
 
 .bar {
@@ -156,28 +226,28 @@
         display: flex;
     }
 
-    /* Reset margin for links on mobile since they are absolute */
+    .currencyWrapper {
+        margin-right: 0;
+        /* Reset spacing on mobile */
+    }
+
     .links {
         position: absolute;
         top: 80px;
         right: 1.5rem;
-        /* Aligns roughly with container padding */
         width: 220px;
-        background: var(--glass-bg);
-        backdrop-filter: blur(30px);
-        -webkit-backdrop-filter: blur(30px);
+        /* Opaque background per request */
+        background: var(--background);
         border: 1px solid var(--glass-border);
         border-radius: 16px;
         box-shadow: var(--shadow-lg);
 
         display: flex;
-        /* Always flex for transition */
         flex-direction: column;
         align-items: stretch;
-        padding: 0.75rem;
-        gap: 0.5rem;
+        padding: 0.5rem;
+        gap: 0.25rem;
 
-        /* Animation State: Closed */
         opacity: 0;
         transform: scale(0.95);
         pointer-events: none;
@@ -192,28 +262,20 @@
         pointer-events: all;
     }
 
-    .currencyWrapper {
-        /* On mobile, it stays in the header naturally due to margin-left: auto */
-        margin-right: 0;
-    }
-
-    .currencySelect {
-        padding: 6px 8px;
-        font-size: 0.85rem;
-    }
-
     .links a {
         width: 100%;
         text-align: left;
         padding: 0.75rem 1rem;
         font-size: 0.95rem;
-        border-radius: 10px;
+        border-radius: 8px;
+        /* Slightly tighter radius for list items */
         color: var(--foreground);
         font-weight: 600;
+        /* Match desktop visual weight */
         transition: background 0.2s;
     }
 
     .links a:hover {
-        background: var(--glass-bg-hover);
+        background: var(--nav-link-hover);
     }
 }

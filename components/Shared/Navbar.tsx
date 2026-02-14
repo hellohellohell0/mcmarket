@@ -8,6 +8,14 @@ import { useCurrency, Currency } from './CurrencyContext';
 export default function Navbar() {
     const { currency, setCurrency } = useCurrency();
     const [isOpen, setIsOpen] = useState(false);
+    const [isCurrencyOpen, setIsCurrencyOpen] = useState(false);
+
+    const currencies: { [key: string]: string } = {
+        USD: '$',
+        EUR: '€',
+        CAD: '$',
+        GBP: '£'
+    };
 
     return (
         <nav className={styles.nav}>
@@ -23,16 +31,28 @@ export default function Navbar() {
                 </div>
 
                 <div className={styles.currencyWrapper}>
-                    <select
-                        value={currency}
-                        onChange={(e) => setCurrency(e.target.value as Currency)}
-                        className={styles.currencySelect}
+                    <button
+                        className={styles.currencyTrigger}
+                        onClick={() => setIsCurrencyOpen(!isCurrencyOpen)}
                     >
-                        <option value="USD">USD ($)</option>
-                        <option value="EUR">EUR (€)</option>
-                        <option value="CAD">CAD ($)</option>
-                        <option value="GBP">GBP (£)</option>
-                    </select>
+                        {currency} ({currencies[currency]})
+                        <span className={`${styles.arrow} ${isCurrencyOpen ? styles.flipped : ''}`}>▼</span>
+                    </button>
+
+                    <div className={`${styles.currencyDropdown} ${isCurrencyOpen ? styles.open : ''}`}>
+                        {Object.keys(currencies).map((c) => (
+                            <button
+                                key={c}
+                                className={`${styles.currencyItem} ${currency === c ? styles.active : ''}`}
+                                onClick={() => {
+                                    setCurrency(c as Currency);
+                                    setIsCurrencyOpen(false);
+                                }}
+                            >
+                                {c} ({currencies[c]})
+                            </button>
+                        ))}
+                    </div>
                 </div>
 
                 <button className={styles.hamburger} onClick={() => setIsOpen(!isOpen)} aria-label="Toggle menu">
