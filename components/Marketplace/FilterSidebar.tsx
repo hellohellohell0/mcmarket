@@ -90,19 +90,19 @@ export default function FilterSidebar({ onFilterChange }: FilterProps) {
             <div className={`${styles.filtersContent} ${isOpen ? styles.open : ''}`}>
                 <div className={styles.section}>
                     <SectionHeading title="Sort By" section="sort" isCollapsed={collapsed.sort} />
-                    {!collapsed.sort && (
+                    <div className={`${styles.sectionContent} ${collapsed.sort ? styles.collapsed : ''}`}>
                         <select value={sort} onChange={(e) => setSort(e.target.value)} className={styles.select}>
                             <option value="price_asc">Price: Low to High</option>
                             <option value="price_desc">Price: High to Low</option>
                             <option value="date_new">Date: Recent</option>
                             <option value="date_old">Date: Oldest</option>
                         </select>
-                    )}
+                    </div>
                 </div>
 
                 <div className={styles.section}>
                     <SectionHeading title="Price Range" section="price" isCollapsed={collapsed.price} />
-                    {!collapsed.price && (
+                    <div className={`${styles.sectionContent} ${collapsed.price ? styles.collapsed : ''}`}>
                         <div className={styles.row}>
                             <input
                                 type="number"
@@ -120,23 +120,23 @@ export default function FilterSidebar({ onFilterChange }: FilterProps) {
                                 className={styles.input}
                             />
                         </div>
-                    )}
+                    </div>
                 </div>
 
                 <div className={styles.section}>
                     <SectionHeading title="Price Type" section="priceType" isCollapsed={collapsed.priceType} />
-                    {!collapsed.priceType && (
+                    <div className={`${styles.sectionContent} ${collapsed.priceType ? styles.collapsed : ''}`}>
                         <select value={countType} onChange={e => setCountType(e.target.value)} className={styles.select}>
                             <option value="both">Both</option>
                             <option value="offers">Current Offers</option>
                             <option value="bins">BINs Only</option>
                         </select>
-                    )}
+                    </div>
                 </div>
 
                 <div className={styles.section}>
                     <SectionHeading title="Account Type" section="accountType" isCollapsed={collapsed.accountType} />
-                    {!collapsed.accountType && (
+                    <div className={`${styles.sectionContent} ${collapsed.accountType ? styles.collapsed : ''}`}>
                         <div className={styles.checkboxGroup}>
                             {accountTypeOptions.map(type => (
                                 <label key={type} className={styles.checkboxLabel}>
@@ -149,12 +149,12 @@ export default function FilterSidebar({ onFilterChange }: FilterProps) {
                                 </label>
                             ))}
                         </div>
-                    )}
+                    </div>
                 </div>
 
                 <div className={styles.section}>
                     <SectionHeading title="Name Changes" section="nameChanges" isCollapsed={collapsed.nameChanges} />
-                    {!collapsed.nameChanges && (
+                    <div className={`${styles.sectionContent} ${collapsed.nameChanges ? styles.collapsed : ''}`}>
                         <div className={styles.sliderContainer}>
                             <label className={styles.sliderLabel}>
                                 Max: {maxNameChanges === 0 ? 'Prename' : maxNameChanges >= 15 ? '15+' : maxNameChanges}
@@ -175,12 +175,12 @@ export default function FilterSidebar({ onFilterChange }: FilterProps) {
                                 <span>15+</span>
                             </div>
                         </div>
-                    )}
+                    </div>
                 </div>
 
                 <div className={styles.section}>
                     <SectionHeading title="Username Length" section="length" isCollapsed={collapsed.length} />
-                    {!collapsed.length && (
+                    <div className={`${styles.sectionContent} ${collapsed.length ? styles.collapsed : ''}`}>
                         <div className={styles.row}>
                             <input
                                 type="number"
@@ -198,12 +198,12 @@ export default function FilterSidebar({ onFilterChange }: FilterProps) {
                                 className={styles.input}
                             />
                         </div>
-                    )}
+                    </div>
                 </div>
 
                 <div className={styles.section}>
                     <SectionHeading title="Capes" section="capes" isCollapsed={collapsed.capes} />
-                    {!collapsed.capes && (
+                    <div className={`${styles.sectionContent} ${collapsed.capes ? styles.collapsed : ''}`}>
                         <div className={styles.checkboxGroup}>
                             {availableCapes.map(cape => (
                                 <label key={cape} className={styles.checkboxLabel}>
@@ -216,7 +216,7 @@ export default function FilterSidebar({ onFilterChange }: FilterProps) {
                                 </label>
                             ))}
                         </div>
-                    )}
+                    </div>
                 </div>
             </div>
         </aside>

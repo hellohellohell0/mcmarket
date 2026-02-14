@@ -157,11 +157,25 @@
     color: var(--foreground-subtle);
 }
 
+.sectionContent {
+    max-height: 500px;
+    opacity: 1;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sectionContent.collapsed {
+    max-height: 0;
+    opacity: 0;
+    margin: 0;
+    pointer-events: none;
+}
+
 @media (max-width: 768px) {
     .sidebar {
         width: 100%;
         padding-right: 0;
-        margin-bottom: 2rem;
+        margin-bottom: 0;
     }
 
     .mobileToggle {
