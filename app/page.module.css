@@ -93,5 +93,6 @@
 @media (max-width: 768px) {
     .pageContainer {
         flex-direction: column;
+        gap: 0.5rem;
     }
 }
