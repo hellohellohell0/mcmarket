@@ -73,11 +73,11 @@ export default function BuyClient({ id }: { id: string }) {
                             <h3>Option 1: DISCORD</h3>
                             <div className={styles.splitOptionContainer}>
                                 <div className={styles.optionCell}>
-                                    <p>Create a ticket in the <a href="https://discord.gg/Hg8qTytv5K" target="_blank" rel="noopener noreferrer" className={styles.link}>discord server</a> and state your offer.</p>
+                                    <p>Create a ticket in the <a href="https://discord.gg/Hg8qTytv5K" target="_blank" rel="noopener noreferrer" className={styles.link}>Discord Server</a> and state your offer.</p>
                                 </div>
                                 <div className={styles.orSeparator}>OR</div>
                                 <div className={styles.optionCell}>
-                                    <p>Message me on discord with your offer</p>
+                                    <p>Message me on Discord and state your offer.</p>
                                     <div className={styles.contactHandle}>@reprisingogu</div>
                                 </div>
                             </div>
@@ -88,7 +88,7 @@ export default function BuyClient({ id }: { id: string }) {
                         <div className={styles.optionText}>
                             <h3>Option 2: TELEGRAM</h3>
                             <div className={styles.optionCell} style={{ marginTop: '1rem' }}>
-                                <p>Message me on telegram with your offer</p>
+                                <p>Message me on Telegram and state your offer.</p>
                                 <a href="https://t.me/reprisingogu" target="_blank" rel="noopener noreferrer" className={styles.contactHandle} style={{ textDecoration: 'none', display: 'block' }}>
                                     @reprisingogu
                                 </a>
