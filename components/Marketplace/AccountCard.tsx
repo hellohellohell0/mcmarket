@@ -10,7 +10,7 @@ interface ListingWithRelations extends Listing {
     capes: Cape[];
 }
 
-export default function AccountCard({ listing }: { listing: ListingWithRelations }) {
+export default function AccountCard({ listing, loadVisuals = true }: { listing: ListingWithRelations, loadVisuals?: boolean }) {
     const { formatPrice } = useCurrency();
 
     const getCapeImage = (name: string) => {
@@ -25,28 +25,36 @@ export default function AccountCard({ listing }: { listing: ListingWithRelations
     return (
         <Link href={`/listings/${listing.id}`} className={styles.card}>
             <div className={styles.imageContainer}>
-                <div style={{ pointerEvents: 'none', display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%', overflow: 'hidden' }}>
-                    <SkinViewer
-                        skinUrl={skinUrl}
-                        width="100%"
-                        height="100%"
-                        staticModel={true}
-                        model={hasAsterisk ? 'default' : 'auto-detect'}
-                    />
-                </div>
-
-                {listing.capes.length > 0 && (
-                    <div className={styles.capesOverlay}>
-                        {listing.capes.map(cape => (
-                            <img
-                                key={cape.id}
-                                src={getCapeImage(cape.name)}
-                                alt={cape.name}
-                                className={styles.capeIcon}
-                                title={cape.name}
-                                onError={(e) => { (e.target as HTMLImageElement).src = '/assets/capes/placeholder.png' }}
+                {loadVisuals ? (
+                    <>
+                        <div style={{ pointerEvents: 'none', display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%', overflow: 'hidden' }}>
+                            <SkinViewer
+                                skinUrl={skinUrl}
+                                width="100%"
+                                height="100%"
+                                staticModel={true}
+                                model={hasAsterisk ? 'default' : 'auto-detect'}
                             />
-                        ))}
+                        </div>
+
+                        {listing.capes.length > 0 && (
+                            <div className={styles.capesOverlay}>
+                                {listing.capes.map(cape => (
+                                    <img
+                                        key={cape.id}
+                                        src={getCapeImage(cape.name)}
+                                        alt={cape.name}
+                                        className={styles.capeIcon}
+                                        title={cape.name}
+                                        onError={(e) => { (e.target as HTMLImageElement).src = '/assets/capes/placeholder.png' }}
+                                    />
+                                ))}
+                            </div>
+                        )}
+                    </>
+                ) : (
+                    <div className={styles.skeletonImage}>
+                        <div className={styles.spinner} />
                     </div>
                 )}
             </div>
@@ -77,7 +85,6 @@ export default function AccountCard({ listing }: { listing: ListingWithRelations
                             </div>
                         )}
                     </div>
-
                 </div>
             </div>
         </Link>

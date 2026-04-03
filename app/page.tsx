@@ -10,6 +10,9 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [filters, setFilters] = useState<any>({});
   const [search, setSearch] = useState('');
+  
+  const [visibleLimit, setVisibleLimit] = useState(12);
+  const [visualsLoadedCount, setVisualsLoadedCount] = useState(0);
 
   const fetchListings = useCallback(async () => {
     setLoading(true);
@@ -37,6 +40,8 @@ export default function Home() {
       const res = await fetch(`/api/listings?${params.toString()}`);
       const data = await res.json();
       setListings(data.listings || []);
+      setVisibleLimit(12);
+      setVisualsLoadedCount(0);
     } catch (error) {
       console.error(error);
     } finally {
@@ -51,6 +56,25 @@ export default function Home() {
     }, 300);
     return () => clearTimeout(timer);
   }, [fetchListings]);
+
+  // Staggered Visual Loading Queue
+  useEffect(() => {
+    if (loading || listings.length === 0) return;
+    
+    // Only load visuals up to what is currently visible on the page
+    const targetCount = Math.min(listings.length, visibleLimit);
+    if (visualsLoadedCount >= targetCount) return;
+
+    const timer = setTimeout(() => {
+      setVisualsLoadedCount(prev => prev + 1);
+    }, 100); // 100ms staggering delay between each 3D viewer initialization
+
+    return () => clearTimeout(timer);
+  }, [visualsLoadedCount, visibleLimit, listings.length, loading]);
+
+  const loadMore = () => {
+    setVisibleLimit(prev => Math.min(prev + 12, listings.length));
+  };
 
   return (
     <div className={`container ${styles.pageContainer}`}>
@@ -75,11 +99,21 @@ export default function Home() {
         {loading ? (
           <div className={styles.loading}>Loading accounts...</div>
         ) : listings.length > 0 ? (
-          <div className={styles.grid}>
-            {listings.map((l: any) => (
-              <AccountCard key={l.id} listing={l} />
-            ))}
-          </div>
+          <>
+            <div className={styles.grid}>
+              {listings.slice(0, visibleLimit).map((l: any, index: number) => (
+                <AccountCard key={l.id} listing={l} loadVisuals={index < visualsLoadedCount} />
+              ))}
+            </div>
+            
+            {visibleLimit < listings.length && (
+              <div className={styles.loadMoreWrapper}>
+                <button onClick={loadMore} className={styles.loadMoreBtn}>
+                  Load More Accounts
+                </button>
+              </div>
+            )}
+          </>
         ) : (
           <div className={styles.empty}>No accounts found matching your filters.</div>
         )}
