@@ -1,0 +1,151 @@
+.pageContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 6rem;
+    padding-bottom: 8rem;
+    gap: 3rem;
+}
+
+.pageTitle {
+    font-size: 3.5rem;
+    font-weight: 800;
+    letter-spacing: -0.05em;
+    color: var(--foreground);
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.gridContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.capeCard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2.5rem;
+    gap: 1.5rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.capeCard:hover {
+    transform: translateY(-5px);
+}
+
+.imageWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 180px;
+    width: 100%;
+}
+
+.capeImage {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.2));
+    transition: filter 0.3s ease;
+}
+
+.outOfStockImage {
+    filter: grayscale(100%) opacity(0.5) drop-shadow(0 5px 10px rgba(0, 0, 0, 0.1));
+}
+
+.capeName {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--foreground);
+    text-align: center;
+}
+
+.priceText {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--accent);
+}
+
+.outOfStockText {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--foreground-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.purchaseSection {
+    max-width: 800px;
+    width: 100%;
+    padding: 3rem;
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.purchaseTitle {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--foreground);
+    margin-bottom: 1.5rem;
+}
+
+.purchaseText {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: var(--foreground-muted);
+    margin-bottom: 2rem;
+}
+
+.link {
+    color: var(--accent);
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    text-underline-offset: 4px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.link:hover {
+    text-decoration-color: var(--accent);
+}
+
+.purchaseActions {
+    display: flex;
+    justify-content: center;
+}
+
+@media (max-width: 640px) {
+    .pageContainer {
+        padding-top: 4rem;
+        gap: 2rem;
+    }
+
+    .pageTitle {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .gridContainer {
+        grid-template-columns: 1fr;
+    }
+
+    .capeCard {
+        padding: 1.5rem;
+    }
+
+    .purchaseSection {
+        padding: 2rem;
+    }
+
+    .purchaseTitle {
+        font-size: 1.8rem;
+    }
+
+    .purchaseText {
+        font-size: 1.1rem;
+    }
+}

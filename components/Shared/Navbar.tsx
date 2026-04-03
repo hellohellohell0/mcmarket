@@ -62,7 +62,7 @@ export default function Navbar() {
                 </button>
 
                 <div className={`${styles.links} ${isOpen ? styles.open : ''}`}>
-                    <Link href="/about" onClick={() => setIsOpen(false)}>About</Link>
+                    <Link href="/capes" onClick={() => setIsOpen(false)}>Capes</Link>
                     <Link href="/list-account" onClick={() => setIsOpen(false)}>List Account</Link>
                     <Link href="/" onClick={() => setIsOpen(false)}>Browse</Link>
                     <Link href="/admin/login" onClick={() => setIsOpen(false)}>Admin</Link>
