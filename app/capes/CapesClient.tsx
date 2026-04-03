@@ -3,7 +3,6 @@
 import React from 'react';
 import styles from './capes.module.css';
 import GlassCard from '@/components/Shared/GlassCard';
-import GlassButton from '@/components/Shared/GlassButton';
 import { useCurrency } from '@/components/Shared/CurrencyContext';
 
 interface Cape {
@@ -60,6 +59,13 @@ export default function CapesClient() {
         <div className={`container ${styles.pageContainer}`}>
             <h1 className={styles.pageTitle}>Capes Collection</h1>
 
+            <GlassCard className={styles.purchaseSection}>
+                <h3 className={styles.purchaseTitle}>To Purchase:</h3>
+                <p className={styles.purchaseText}>
+                    Create a ticket in the <a href="https://discord.gg/Hg8qTytv5K" target="_blank" rel="noopener noreferrer" className={styles.link}>Discord Server</a> or message me on <a href="https://t.me/reprisingogu" target="_blank" rel="noopener noreferrer" className={styles.link}>Telegram</a>.
+                </p>
+            </GlassCard>
+
             <div className={styles.gridContainer}>
                 {capes.map((cape) => (
                     <GlassCard key={cape.id} className={styles.capeCard}>
@@ -80,18 +86,6 @@ export default function CapesClient() {
                     </GlassCard>
                 ))}
             </div>
-
-            <GlassCard className={styles.purchaseSection}>
-                <h3 className={styles.purchaseTitle}>To Purchase:</h3>
-                <p className={styles.purchaseText}>
-                    Create a ticket in the <a href="https://discord.gg/Hg8qTytv5K" target="_blank" rel="noopener noreferrer" className={styles.link}>Discord Server</a> and state your purchase or message me on <a href="https://t.me/reprisingogu" target="_blank" rel="noopener noreferrer" className={styles.link}>Telegram</a>.
-                </p>
-                <div className={styles.purchaseActions}>
-                    <GlassButton variant="discord" onClick={() => window.open('https://discord.gg/Hg8qTytv5K', '_blank')}>
-                        Join Discord Server
-                    </GlassButton>
-                </div>
-            </GlassCard>
         </div>
     );
 }

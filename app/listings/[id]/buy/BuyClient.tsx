@@ -78,7 +78,7 @@ export default function BuyClient({ id }: { id: string }) {
                                 <div className={styles.orSeparator}>OR</div>
                                 <div className={styles.optionCell}>
                                     <p>Message me on Discord and state your offer.</p>
-                                    <div className={styles.contactHandle}>@reprisingogu</div>
+                                    <div className={styles.contactHandle}>@sayo.oo</div>
                                 </div>
                             </div>
                         </div>

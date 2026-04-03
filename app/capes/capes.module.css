@@ -84,7 +84,6 @@
     width: 100%;
     padding: 3rem;
     text-align: center;
-    margin-top: 2rem;
 }
 
 .purchaseTitle {
@@ -98,7 +97,7 @@
     font-size: 1.2rem;
     line-height: 1.6;
     color: var(--foreground-muted);
-    margin-bottom: 2rem;
+    margin-bottom: 0;
 }
 
 .link {
@@ -114,10 +113,7 @@
     text-decoration-color: var(--accent);
 }
 
-.purchaseActions {
-    display: flex;
-    justify-content: center;
-}
+
 
 @media (max-width: 640px) {
     .pageContainer {
