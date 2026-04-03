@@ -20,36 +20,36 @@ const capes: Cape[] = [
         id: 'copper',
         name: 'Copper',
         image: '/assets/capes/Copper.png',
-        price: 50,
+        price: 0.10,
         outOfStock: false,
     },
     {
         id: 'home',
         name: 'Home',
         image: '/assets/capes/Home.png',
-        price: 150,
+        price: 0.10,
         outOfStock: false,
     },
     {
         id: 'menace',
         name: 'Menace',
         image: '/assets/capes/Menace.png',
-        price: 300,
+        price: 0.30,
         outOfStock: false,
     },
     {
         id: 'purple_heart',
         name: 'Purple Heart',
         image: '/assets/capes/Purple Heart.png',
-        price: 250,
+        price: 2.90,
         outOfStock: false,
     },
     {
         id: 'minecraft_experience',
         name: 'Minecraft Experience',
         image: '/assets/capes/Minecraft Experience.png',
-        price: 400,
-        outOfStock: false,
+        price: 20,
+        outOfStock: true,
     }
 ];
 
@@ -59,19 +59,19 @@ export default function CapesClient() {
     return (
         <div className={`container ${styles.pageContainer}`}>
             <h1 className={styles.pageTitle}>Capes Collection</h1>
-            
+
             <div className={styles.gridContainer}>
                 {capes.map((cape) => (
                     <GlassCard key={cape.id} className={styles.capeCard}>
                         <div className={styles.imageWrapper}>
-                            <img 
-                                src={cape.image} 
-                                alt={cape.name} 
+                            <img
+                                src={cape.image}
+                                alt={cape.name}
                                 className={`${styles.capeImage} ${cape.outOfStock ? styles.outOfStockImage : ''}`}
                             />
                         </div>
                         <h2 className={styles.capeName}>{cape.name}</h2>
-                        
+
                         {cape.outOfStock ? (
                             <div className={styles.outOfStockText}>Out of Stock</div>
                         ) : (
@@ -84,7 +84,7 @@ export default function CapesClient() {
             <GlassCard className={styles.purchaseSection}>
                 <h3 className={styles.purchaseTitle}>To Purchase:</h3>
                 <p className={styles.purchaseText}>
-                    Create a ticket in the <a href="https://discord.gg/Hg8qTytv5K" target="_blank" rel="noopener noreferrer" className={styles.link}>Discord Server</a> and state your purchase or message me on <a href="https://t.me/" target="_blank" rel="noopener noreferrer" className={styles.link}>Telegram</a>.
+                    Create a ticket in the <a href="https://discord.gg/Hg8qTytv5K" target="_blank" rel="noopener noreferrer" className={styles.link}>Discord Server</a> and state your purchase or message me on <a href="https://t.me/reprisingogu" target="_blank" rel="noopener noreferrer" className={styles.link}>Telegram</a>.
                 </p>
                 <div className={styles.purchaseActions}>
                     <GlassButton variant="discord" onClick={() => window.open('https://discord.gg/Hg8qTytv5K', '_blank')}>
