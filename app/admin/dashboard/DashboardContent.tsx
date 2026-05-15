@@ -89,7 +89,16 @@ function FormFields({ form, setForm, editingId, handleUpdate, handleCreate, onCa
                     <label>Name Changes</label>
                     <input type="number" value={form.nameChanges} onChange={e => setForm({ ...form, nameChanges: Number(e.target.value) })} />
                 </div>
-
+                <div className={styles.formGroup}>
+                    <label>Pin Order (Lower numbers show first)</label>
+                    <input type="number" value={form.pinOrder} onChange={e => setForm({ ...form, pinOrder: Number(e.target.value) })} />
+                </div>
+                <div className={styles.formGroup} style={{ display: 'flex', alignItems: 'center', height: '100%', padding: '1rem 0' }}>
+                    <label className={styles.checkboxLabel} style={{ cursor: 'pointer', display: 'flex', gap: '0.5rem', fontWeight: 600 }}>
+                        <input type="checkbox" checked={form.isPinned} onChange={e => setForm({ ...form, isPinned: e.target.checked })} />
+                        Is Pinned Post
+                    </label>
+                </div>
             </div>
 
             <div className={styles.formGroup}>
@@ -152,7 +161,9 @@ export default function DashboardContent({ initialListings }: DashboardContentPr
         oguProfileUrl: '',
         contactTelegram: '',
         contactDiscord: '',
-        capes: [] as string[]
+        capes: [] as string[],
+        isPinned: false,
+        pinOrder: 0
     });
 
     const filteredListings = listings.filter(l => {
@@ -179,7 +190,9 @@ export default function DashboardContent({ initialListings }: DashboardContentPr
             oguProfileUrl: '',
             contactTelegram: '',
             contactDiscord: '',
-            capes: []
+            capes: [],
+            isPinned: false,
+            pinOrder: 0
         });
     };
 
@@ -188,7 +201,8 @@ export default function DashboardContent({ initialListings }: DashboardContentPr
             ...form,
             priceCurrentOffer: form.priceCurrentOffer === '' ? null : Number(form.priceCurrentOffer),
             priceBin: form.priceBin === '' ? null : Number(form.priceBin),
-            accountTypes: form.accountTypes.join(', ')
+            accountTypes: form.accountTypes.join(', '),
+            pinOrder: Number(form.pinOrder)
         };
         const newListing = await createListing(data);
         setListings([newListing as any, ...listings]);
@@ -201,7 +215,8 @@ export default function DashboardContent({ initialListings }: DashboardContentPr
             ...form,
             priceCurrentOffer: form.priceCurrentOffer === '' ? null : Number(form.priceCurrentOffer),
             priceBin: form.priceBin === '' ? null : Number(form.priceBin),
-            accountTypes: form.accountTypes.join(', ')
+            accountTypes: form.accountTypes.join(', '),
+            pinOrder: Number(form.pinOrder)
         };
         await updateListing(id, data);
         setListings(prev => prev.map(l => l.id === id ? { ...l, ...data, capes: form.capes.map((c: string) => ({ name: c })) } : l));
@@ -247,7 +262,9 @@ export default function DashboardContent({ initialListings }: DashboardContentPr
             priceCurrentOffer: listing.priceCurrentOffer ?? '',
             priceBin: listing.priceBin ?? '',
             accountTypes: listing.accountTypes.split(', ').filter(Boolean),
-            capes: listing.capes.map(c => c.name)
+            capes: listing.capes.map(c => c.name),
+            isPinned: listing.isPinned ?? false,
+            pinOrder: listing.pinOrder ?? 0
         });
         setEditingId(listing.id);
         setIsCreating(false);
@@ -329,7 +346,14 @@ export default function DashboardContent({ initialListings }: DashboardContentPr
                 {filteredListings.map(listing => (
                     <div key={listing.id} className={styles.card}>
                         <div className={styles.cardHeader}>
-                            <h3>{listing.username}</h3>
+                            <h3 style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                {listing.username}
+                                {listing.isPinned && (
+                                    <span style={{ fontSize: '10px', background: 'var(--accent)', color: 'white', padding: '2px 6px', borderRadius: '4px' }}>
+                                        PINNED (Order: {listing.pinOrder})
+                                    </span>
+                                )}
+                            </h3>
                             <span className={`${styles.statusBadge} ${styles[listing.status.toLowerCase()]}`}>
                                 {listing.status}
                             </span>

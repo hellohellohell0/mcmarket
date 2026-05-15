@@ -10,6 +10,8 @@
     "postinstall": "prisma generate"
   },
   "dependencies": {
+    "@neondatabase/serverless": "^1.1.0",
+    "@prisma/adapter-neon": "^7.8.0",
     "@prisma/client": "^6.19.1",
     "clsx": "^2.1.1",
     "clsx-merge": "^1.0.2",
@@ -17,12 +19,14 @@
     "next": "16.1.0",
     "react": "19.2.3",
     "react-dom": "19.2.3",
-    "skinview3d": "^3.4.1"
+    "skinview3d": "^3.4.1",
+    "ws": "^8.20.1"
   },
   "devDependencies": {
     "@types/node": "^20",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
+    "@types/ws": "^8.18.1",
     "dotenv": "^16.4.5",
     "eslint": "^9",
     "eslint-config-next": "16.1.0",

@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -10,46 +7,30 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// User model removed. Admin is handled via hardcoded credentials.
-
-enum ListingStatus {
-  PENDING
-  APPROVED
-  REJECTED
-}
-
 model Listing {
   id                String        @id @default(uuid())
-  
-  // Account Details
   username          String
   description       String
-  accountTypes      String        @default("OG") // Stored as comma-separated string or JSON. Simple string for now: "OG,High Tier"
-  nameChanges       Int           @default(0) // 0-15 (15 means 15+)
-  
-  // Pricing
-
   priceCurrentOffer Float?
   priceBin          Float?
-  
-  // Visuals
-  capes             Cape[]
-  
-  // Seller Info (Guest)
-  sellerName        String        @default("Legacy User")
-  sellerDiscordId   String        @default("N/A") // For admin notifications
-  publicContact     String        @default("Contact Admin") // Displayed to buyers (Discord, Telegram, etc.)
-  contactTelegram   String?
-  contactDiscord    String?
-  
-  // Presence & Ownership
-  oguProfileUrl     String?
-
-
-  // System
-  status            ListingStatus @default(APPROVED)
-  ticketNumber      String?
   createdAt         DateTime      @default(now())
+  accountTypes      String        @default("OG")
+  nameChanges       Int           @default(0)
+  publicContact     String        @default("Contact Admin")
+  sellerDiscordId   String        @default("N/A")
+  sellerName        String        @default("Legacy User")
+  status            ListingStatus @default(APPROVED)
+  currentOwnerName  String        @default("Verified Owner")
+  isVerifiedOwner   Boolean       @default(false)
+  oguProfileUrl     String?
+  contactDiscord    String?
+  contactTelegram   String?
+  ticketNumber      String?
+  identityVerified  Boolean       @default(false)
+  currency          String        @default("USD")
+  isPinned          Boolean       @default(false)
+  pinOrder          Int           @default(0)
+  capes             Cape[]
 }
 
 model Cape {
@@ -64,6 +45,12 @@ model RequestLog {
   ip        String
   endpoint  String   @default("submission")
   createdAt DateTime @default(now())
-  
+
   @@index([ip, createdAt])
+}
+
+enum ListingStatus {
+  PENDING
+  APPROVED
+  REJECTED
 }

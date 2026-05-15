@@ -30,10 +30,14 @@ export async function GET(request: Request) {
             include: {
                 capes: true
             },
-            orderBy: sort === 'price_asc' ? { priceBin: 'asc' } :
+            orderBy: [
+                { isPinned: 'desc' },
+                { pinOrder: 'asc' },
+                sort === 'price_asc' ? { priceBin: 'asc' } :
                 sort === 'price_desc' ? { priceBin: 'desc' } :
-                    sort === 'date_old' ? { createdAt: 'asc' } :
-                        { createdAt: 'desc' }
+                sort === 'date_old' ? { createdAt: 'asc' } :
+                { createdAt: 'desc' }
+            ]
         });
 
         // Manual filtering for username length and complex types
