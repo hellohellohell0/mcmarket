@@ -19,8 +19,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         };
     }
 
-    const title = `Buy ${listing.username} | Glass Market`;
-    const description = `Purchase instructions for ${listing.username}. Current Offer: ${listing.priceCurrentOffer ? '$' + listing.priceCurrentOffer : 'N/A'}. BIN: ${listing.priceBin ? '$' + listing.priceBin : 'N/A'}.`;
+    const displayName = listing.hideIgn ? "Hidden IGN" : listing.username;
+    const title = `Buy ${displayName} | Glass Market`;
+    const description = `Purchase instructions for ${displayName}. Current Offer: ${listing.priceCurrentOffer ? '$' + listing.priceCurrentOffer : 'N/A'}. BIN: ${listing.priceBin ? '$' + listing.priceBin : 'N/A'}.`;
 
     return {
         title,

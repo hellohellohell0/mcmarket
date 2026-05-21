@@ -14,6 +14,14 @@ async function getListing(id: string) {
             capes: true
         }
     });
+
+    if (listing && listing.hideIgn) {
+        return {
+            ...listing,
+            username: "Hidden IGN"
+        };
+    }
+
     return listing;
 }
 
@@ -50,7 +58,10 @@ export async function generateMetadata(
 
     // Skin image for thumbnail - Headshot/Helm
     // 'summary' card type makes it a small thumbnail beside description
-    const skinUrl = `https://minotar.net/helm/${listing.username}/300.png`;
+    const isHidden = listing.username === "Hidden IGN" || listing.username.includes('*');
+    const skinUrl = isHidden 
+        ? `https://minotar.net/helm/MHF_Steve/300.png` 
+        : `https://minotar.net/helm/${listing.username}/300.png`;
 
     return {
         title: listing.username,
