@@ -36,8 +36,8 @@ export default function FilterSidebar({ onFilterChange }: FilterProps) {
 
     const availableCapes = [
         '15th Anniversary', 'Cherry Blossom', 'Common', 'Copper', "Follower's", "Founder's",
-        'Home', 'MCC 15Tth Year', 'Menace', 'Migrator', 'MineCon 2011', 'MineCon 2012',
-        'MineCon 2013', 'MineCon 2015', 'MineCon 2016', 'Minecraft Experience',
+        'Home', 'MCC 15th Year', 'Menace', 'Migrator', 'Minecon 2011', 'Minecon 2012',
+        'Minecon 2013', 'Minecon 2015', 'Minecon 2016', 'Minecraft Experience',
         'Mojang Office', 'Pan', 'Purple Heart', 'Realms Mapmaker', 'Translator',
         'Vanilla', 'Yearn', 'Zombie Horse'
     ];

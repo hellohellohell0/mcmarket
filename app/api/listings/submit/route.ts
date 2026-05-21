@@ -16,7 +16,8 @@ export async function POST(request: Request) {
             capes,
             oguProfileUrl,
             contactDiscord,
-            contactTelegram
+            contactTelegram,
+            hideIgn
         } = body;
 
         // Validation
@@ -96,6 +97,7 @@ export async function POST(request: Request) {
                 oguProfileUrl: oguProfileUrl?.trim() || null,
                 contactDiscord: contactDiscord?.trim() || null,
                 contactTelegram: contactTelegram?.trim() || null,
+                hideIgn: hideIgn || false,
 
                 status: 'PENDING',
                 sellerName: 'Pending User',

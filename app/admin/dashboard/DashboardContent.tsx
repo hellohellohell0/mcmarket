@@ -12,6 +12,7 @@ interface ListingWithCapes extends Listing {
     contactTelegram: string | null;
     contactDiscord: string | null;
     ticketNumber: string | null;
+    hideIgn: boolean;
 }
 
 interface DashboardContentProps {
@@ -21,8 +22,8 @@ interface DashboardContentProps {
 const ACCOUNT_TYPES_OPTIONS = ['High Tier', 'OG', 'Semi-OG', 'Low Tier', 'Minecon', 'Stats', 'Caped', 'Other'];
 const CAPES_OPTIONS = [
     '15th Anniversary', 'Cherry Blossom', 'Common', 'Copper', "Follower's", "Founder's",
-    'Home', 'MCC 15Tth Year', 'Menace', 'Migrator', 'MineCon 2011', 'MineCon 2012',
-    'MineCon 2013', 'MineCon 2015', 'MineCon 2016', 'Minecraft Experience',
+    'Home', 'MCC 15th Year', 'Menace', 'Migrator', 'Minecon 2011', 'Minecon 2012',
+    'Minecon 2013', 'Minecon 2015', 'Minecon 2016', 'Minecraft Experience',
     'Mojang Office', 'Pan', 'Purple Heart', 'Realms Mapmaker', 'Translator',
     'Vanilla', 'Yearn', 'Zombie Horse'
 ];
@@ -99,6 +100,12 @@ function FormFields({ form, setForm, editingId, handleUpdate, handleCreate, onCa
                         Is Pinned Post
                     </label>
                 </div>
+                <div className={styles.formGroup} style={{ display: 'flex', alignItems: 'center', height: '100%', padding: '1rem 0' }}>
+                    <label className={styles.checkboxLabel} style={{ cursor: 'pointer', display: 'flex', gap: '0.5rem', fontWeight: 600 }}>
+                        <input type="checkbox" checked={form.hideIgn} onChange={e => setForm({ ...form, hideIgn: e.target.checked })} />
+                        Hide IGN
+                    </label>
+                </div>
             </div>
 
             <div className={styles.formGroup}>
@@ -163,7 +170,8 @@ export default function DashboardContent({ initialListings }: DashboardContentPr
         contactDiscord: '',
         capes: [] as string[],
         isPinned: false,
-        pinOrder: 0
+        pinOrder: 0,
+        hideIgn: false
     });
 
     const filteredListings = listings.filter(l => {
@@ -192,7 +200,8 @@ export default function DashboardContent({ initialListings }: DashboardContentPr
             contactDiscord: '',
             capes: [],
             isPinned: false,
-            pinOrder: 0
+            pinOrder: 0,
+            hideIgn: false
         });
     };
 
@@ -202,7 +211,8 @@ export default function DashboardContent({ initialListings }: DashboardContentPr
             priceCurrentOffer: form.priceCurrentOffer === '' ? null : Number(form.priceCurrentOffer),
             priceBin: form.priceBin === '' ? null : Number(form.priceBin),
             accountTypes: form.accountTypes.join(', '),
-            pinOrder: Number(form.pinOrder)
+            pinOrder: Number(form.pinOrder),
+            hideIgn: form.hideIgn
         };
         const newListing = await createListing(data);
         setListings([newListing as any, ...listings]);
@@ -216,7 +226,8 @@ export default function DashboardContent({ initialListings }: DashboardContentPr
             priceCurrentOffer: form.priceCurrentOffer === '' ? null : Number(form.priceCurrentOffer),
             priceBin: form.priceBin === '' ? null : Number(form.priceBin),
             accountTypes: form.accountTypes.join(', '),
-            pinOrder: Number(form.pinOrder)
+            pinOrder: Number(form.pinOrder),
+            hideIgn: form.hideIgn
         };
         await updateListing(id, data);
         setListings(prev => prev.map(l => l.id === id ? { ...l, ...data, capes: form.capes.map((c: string) => ({ name: c })) } : l));
@@ -264,7 +275,8 @@ export default function DashboardContent({ initialListings }: DashboardContentPr
             accountTypes: listing.accountTypes.split(', ').filter(Boolean),
             capes: listing.capes.map(c => c.name),
             isPinned: listing.isPinned ?? false,
-            pinOrder: listing.pinOrder ?? 0
+            pinOrder: listing.pinOrder ?? 0,
+            hideIgn: listing.hideIgn ?? false
         });
         setEditingId(listing.id);
         setIsCreating(false);
@@ -348,6 +360,11 @@ export default function DashboardContent({ initialListings }: DashboardContentPr
                         <div className={styles.cardHeader}>
                             <h3 style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                                 {listing.username}
+                                {listing.hideIgn && (
+                                    <span style={{ fontSize: '10px', background: '#666', color: 'white', padding: '2px 6px', borderRadius: '4px' }}>
+                                        HIDDEN IGN
+                                    </span>
+                                )}
                                 {listing.isPinned && (
                                     <span style={{ fontSize: '10px', background: 'var(--accent)', color: 'white', padding: '2px 6px', borderRadius: '4px' }}>
                                         PINNED (Order: {listing.pinOrder})

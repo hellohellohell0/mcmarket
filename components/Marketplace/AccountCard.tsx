@@ -17,7 +17,8 @@ export default function AccountCard({ listing, loadVisuals = true }: { listing: 
         return `/assets/capes/${name}.png`;
     };
 
-    const hasAsterisk = listing.username.includes('*');
+    const isHidden = listing.username === "Hidden IGN";
+    const hasAsterisk = listing.username.includes('*') || isHidden;
     const skinUrl = hasAsterisk
         ? 'https://minotar.net/skin/MHF_Steve'
         : `https://minotar.net/skin/${listing.username}`;
@@ -61,7 +62,18 @@ export default function AccountCard({ listing, loadVisuals = true }: { listing: 
 
             <div className={styles.content}>
                 <div className={styles.titleRow}>
-                    <h3 className={styles.username}>{listing.username}</h3>
+                    <h3 className={styles.username}>
+                        {listing.username === "Hidden IGN" ? (
+                            <span 
+                                title="This IGN is hidden." 
+                                style={{ filter: 'blur(4px)', userSelect: 'none', cursor: 'help' }}
+                            >
+                                Hidden IGN
+                            </span>
+                        ) : (
+                            listing.username
+                        )}
+                    </h3>
                     <span className={styles.nameChangesSubtle}>
                         {listing.nameChanges === 0 ? 'Prename' : `${listing.nameChanges >= 15 ? '15+' : listing.nameChanges} name changes`}
                     </span>

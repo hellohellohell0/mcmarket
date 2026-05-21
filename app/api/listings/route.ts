@@ -42,9 +42,11 @@ export async function GET(request: Request) {
 
         // Manual filtering for username length and complex types
         let filtered = listings.filter(l => {
-            if (search && !l.username.toLowerCase().includes(search.toLowerCase())) return false;
-            if (minLen && l.username.length < minLen) return false;
-            if (maxLen && l.username.length > maxLen) return false;
+            // If search is provided, we should check against the username if it's not hidden
+            if (search && (l.hideIgn || !l.username.toLowerCase().includes(search.toLowerCase()))) return false;
+            // Similarly, length filters shouldn't match hidden IGNs to prevent deduction
+            if (minLen && (l.hideIgn || l.username.length < minLen)) return false;
+            if (maxLen && (l.hideIgn || l.username.length > maxLen)) return false;
 
             if (accountTypes.length > 0) {
                 const types = l.accountTypes.split(', ');
@@ -59,7 +61,12 @@ export async function GET(request: Request) {
             return true;
         });
 
-        return NextResponse.json({ listings: filtered });
+        const safeListings = filtered.map(l => ({
+            ...l,
+            username: l.hideIgn ? "Hidden IGN" : l.username
+        }));
+
+        return NextResponse.json({ listings: safeListings });
     } catch (error) {
         console.error('API Error:', error);
         return NextResponse.json({ error: 'Internal server error' }, { status: 500 });

@@ -8,8 +8,8 @@ import GlassButton from '@/components/Shared/GlassButton';
 const ACCOUNT_TYPES = ['High Tier', 'OG', 'Semi-OG', 'Low Tier', 'Minecon', 'Stats', 'Caped', 'Other'];
 const CAPES = [
     '15th Anniversary', 'Cherry Blossom', 'Common', 'Copper', "Follower's", "Founder's",
-    'Home', 'MCC 15Tth Year', 'Menace', 'Migrator', 'MineCon 2011', 'MineCon 2012',
-    'MineCon 2013', 'MineCon 2015', 'MineCon 2016', 'Minecraft Experience',
+    'Home', 'MCC 15th Year', 'Menace', 'Migrator', 'Minecon 2011', 'Minecon 2012',
+    'Minecon 2013', 'Minecon 2015', 'Minecon 2016', 'Minecraft Experience',
     'Mojang Office', 'Pan', 'Purple Heart', 'Realms Mapmaker', 'Translator',
     'Vanilla', 'Yearn', 'Zombie Horse'
 ];
@@ -28,7 +28,8 @@ export default function ListAccountClient() {
 
         contactTelegram: '',
         isOwner: false,
-        agreesToFee: false
+        agreesToFee: false,
+        hideIgn: false
     });
 
     const [errors, setErrors] = useState<Record<string, string>>({});
@@ -134,7 +135,8 @@ export default function ListAccountClient() {
                     contactTelegram: '',
 
                     isOwner: false,
-                    agreesToFee: false
+                    agreesToFee: false,
+                    hideIgn: false
                 });
                 setErrors({});
             } else {
@@ -215,6 +217,14 @@ export default function ListAccountClient() {
                             onChange={(e) => setFormData({ ...formData, username: e.target.value })}
                             placeholder="Enter the account username (e.g. Reprising, R****se)"
                         />
+                        <label className={styles.checkboxLabel} style={{ fontWeight: 'normal', fontSize: '0.9rem', marginTop: '0.5rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            <input
+                                type="checkbox"
+                                checked={formData.hideIgn}
+                                onChange={(e) => setFormData({ ...formData, hideIgn: e.target.checked })}
+                            />
+                            <span>Hide IGN</span>
+                        </label>
                         {errors.username && <span className={styles.error}>{errors.username}</span>}
                     </div>
 

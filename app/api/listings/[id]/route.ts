@@ -13,6 +13,7 @@ export async function GET(request: Request, { params }: { params: Promise<{ id: 
             select: {
                 id: true,
                 username: true,
+                hideIgn: true,
                 description: true,
                 accountTypes: true,
                 nameChanges: true,
@@ -34,7 +35,12 @@ export async function GET(request: Request, { params }: { params: Promise<{ id: 
 
         if (!listing) return NextResponse.json({ error: 'Not found' }, { status: 404 });
 
-        return NextResponse.json({ listing });
+        const safeListing = {
+            ...listing,
+            username: listing.hideIgn ? "Hidden IGN" : listing.username
+        };
+
+        return NextResponse.json({ listing: safeListing });
     } catch (error) {
         console.error(error);
         return NextResponse.json({ error: 'Internal server error' }, { status: 500 });

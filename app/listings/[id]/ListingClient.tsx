@@ -43,17 +43,20 @@ export default function ListingClient({ listing: l }: ListingClientProps) {
 
     const getCapeImage = (name: string) => `/assets/capes/${name}.png`;
 
+    const isHidden = l.username === "Hidden IGN";
+    const hasAsterisk = l.username.includes('*') || isHidden;
+
     return (
         <div className={`container ${styles.container}`}>
             <div className={styles.topSection}>
                 <div className={styles.imageColumn}>
                     <div className={styles.skinContainer}>
                         <SkinViewer
-                            skinUrl={l.username.includes('*') ? 'https://minotar.net/skin/MHF_Steve' : `https://minotar.net/skin/${l.username}`}
+                            skinUrl={hasAsterisk ? 'https://minotar.net/skin/MHF_Steve' : `https://minotar.net/skin/${l.username}`}
                             width="100%"
                             height={500}
                             staticModel={false}
-                            model={l.username.includes('*') ? 'default' : 'auto-detect'}
+                            model={hasAsterisk ? 'default' : 'auto-detect'}
                         />
                     </div>
                     {l.capes.length > 0 && (
@@ -74,7 +77,18 @@ export default function ListingClient({ listing: l }: ListingClientProps) {
 
                 <div className={styles.infoColumn}>
                     <div className={styles.header}>
-                        <h1 className={styles.title}>{l.username}</h1>
+                        <h1 className={styles.title}>
+                            {isHidden ? (
+                                <span 
+                                    title="This IGN is hidden." 
+                                    style={{ filter: 'blur(4px)', userSelect: 'none', cursor: 'help' }}
+                                >
+                                    Hidden IGN
+                                </span>
+                            ) : (
+                                l.username
+                            )}
+                        </h1>
                     </div>
 
                     <div className={styles.description}>

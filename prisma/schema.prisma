@@ -30,6 +30,7 @@ model Listing {
   currency          String        @default("USD")
   isPinned          Boolean       @default(false)
   pinOrder          Int           @default(0)
+  hideIgn           Boolean       @default(false)
   capes             Cape[]
 }
 

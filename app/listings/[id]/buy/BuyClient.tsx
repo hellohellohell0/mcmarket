@@ -42,11 +42,22 @@ export default function BuyClient({ id }: { id: string }) {
     return (
         <div className={styles.container}>
             <div className={styles.backLink}>
-                <Link href={`/listings/${id}`}>← Back to {listing.username}</Link>
+                <Link href={`/listings/${id}`}>← Back to {listing.username === "Hidden IGN" ? "Listing" : listing.username}</Link>
             </div>
 
             <div className={styles.content}>
-                <h1 className={styles.title}>{listing.username}</h1>
+                <h1 className={styles.title}>
+                    {listing.username === "Hidden IGN" ? (
+                        <span 
+                            title="This IGN is hidden." 
+                            style={{ filter: 'blur(4px)', userSelect: 'none', cursor: 'help' }}
+                        >
+                            Hidden IGN
+                        </span>
+                    ) : (
+                        listing.username
+                    )}
+                </h1>
 
                 <div className={styles.priceSummary}>
                     <div className={styles.priceItem}>
