@@ -5,6 +5,7 @@ import { Listing, Cape } from '@prisma/client';
 import styles from './AccountCard.module.css';
 import SkinViewer from '@/components/Shared/SkinViewer';
 import { useCurrency } from '@/components/Shared/CurrencyContext';
+import HiddenIgn from '@/components/Shared/HiddenIgn';
 
 interface ListingWithRelations extends Listing {
     capes: Cape[];
@@ -64,12 +65,7 @@ export default function AccountCard({ listing, loadVisuals = true }: { listing: 
                 <div className={styles.titleRow}>
                     <h3 className={styles.username}>
                         {listing.username === "Hidden IGN" ? (
-                            <span 
-                                title="This IGN is hidden." 
-                                style={{ filter: 'blur(4px)', userSelect: 'none', cursor: 'help' }}
-                            >
-                                Hidden IGN
-                            </span>
+                            <HiddenIgn />
                         ) : (
                             listing.username
                         )}

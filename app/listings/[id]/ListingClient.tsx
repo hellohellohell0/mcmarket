@@ -3,6 +3,7 @@
 import { useRouter } from 'next/navigation';
 import SkinViewer from '@/components/Shared/SkinViewer';
 import { useCurrency } from '@/components/Shared/CurrencyContext';
+import HiddenIgn from '@/components/Shared/HiddenIgn';
 import styles from './page.module.css';
 
 interface Cape {
@@ -79,12 +80,7 @@ export default function ListingClient({ listing: l }: ListingClientProps) {
                     <div className={styles.header}>
                         <h1 className={styles.title}>
                             {isHidden ? (
-                                <span 
-                                    title="This IGN is hidden." 
-                                    style={{ filter: 'blur(4px)', userSelect: 'none', cursor: 'help' }}
-                                >
-                                    Hidden IGN
-                                </span>
+                                <HiddenIgn />
                             ) : (
                                 l.username
                             )}

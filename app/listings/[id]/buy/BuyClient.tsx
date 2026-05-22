@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useCurrency } from '@/components/Shared/CurrencyContext';
+import HiddenIgn from '@/components/Shared/HiddenIgn';
 import styles from './page.module.css';
 
 interface Listing {
@@ -48,12 +49,7 @@ export default function BuyClient({ id }: { id: string }) {
             <div className={styles.content}>
                 <h1 className={styles.title}>
                     {listing.username === "Hidden IGN" ? (
-                        <span 
-                            title="This IGN is hidden." 
-                            style={{ filter: 'blur(4px)', userSelect: 'none', cursor: 'help' }}
-                        >
-                            Hidden IGN
-                        </span>
+                        <HiddenIgn />
                     ) : (
                         listing.username
                     )}
